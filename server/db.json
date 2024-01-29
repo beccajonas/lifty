@@ -1,0 +1,411 @@
+{
+	"ski_resorts": [
+		{
+			"id": 1,
+			"resort": "Alta",
+			"resort_address": "10300 Little Cottonwood Rd, Alta, UT 84092"
+		},
+		{
+			"id": 2,
+			"resort": "Beaver Mountain",
+			"resort_address": "40000 East, US-89, Garden City, UT 84028"
+		},
+		{
+			"id": 3,
+			"resort": "Brian Head",
+			"resort_address": "329 UT-143, Brian Head, UT 84719"
+		},
+		{
+			"id": 4,
+			"resort": "Brighton",
+			"resort_address": "8302 S Brighton Loop Rd, Brighton, UT 84121"
+		},
+		{
+			"id": 5,
+			"resort": "Cherry Peak",
+			"resort_address": "3200 E 11000 N, Richmond, UT 84333"
+		},
+		{
+			"id": 6,
+			"resort": "Deer Valley",
+			"resort_address": "2250 Deer Valley Dr S, Park City, UT 84060"
+		},
+		{
+			"id": 7,
+			"resort": "Eagle Point",
+			"resort_address": "150 S W VILLAGE CIR, BEAVER, UT 84713"
+		},
+		{
+			"id": 8,
+			"resort": "Nordic Valley",
+			"resort_address": "3567 Nordic Valley Way, Eden, UT 84310"
+		},
+		{
+			"id": 9,
+			"resort": "Park City",
+			"resort_address": "1355 Lowell Ave, Park City, UT 84060"
+		},
+		{
+			"id": 10,
+			"resort": "Powder Mountain",
+			"resort_address": "6965 E Powder Mountain Rd, Eden, UT 84310"
+		},
+		{
+			"id": 11,
+			"resort": "Snowbasin",
+			"resort_address": "925 E. Snowbasin Road Huntsville, Utah 84317"
+		},
+		{
+			"id": 12,
+			"resort": "Snowbird",
+			"resort_address": "9385 Snowbird Center Trail, Snowbird, UT 84092"
+		},
+		{
+			"id": 13,
+			"resort": "Solitude",
+			"resort_address": "12000 Big Cottonwood Canyon Rd, Solitude, UT 84121"
+		},
+		{
+			"id": 14,
+			"resort": "Sundance",
+			"resort_address": "8841 Alpine Loop Scenic Byway, Sundance, UT 84604"
+		},
+		{
+			"id": 15,
+			"resort": "Woodward",
+			"resort_address": "3863 Kilby Rd, Park City, UT 84098"
+		}
+	],
+	"locations": [
+		{
+			"id": 1,
+			"lot": "3900 S. Wasatch Blvd.",
+			"address": "3880 S. Wasatch Blvd., East Millcreek, Utah"
+		},
+		{
+			"id": 2,
+			"lot": "5600 W. Max Station",
+			"address": "5551 W. 3500 S., West Valley, Utah"
+		},
+		{
+			"id": 3,
+			"lot": "6200 S. Wasatch Blvd.",
+			"address": "6520 S. Wasatch Blvd., Holladay, Utah"
+		},
+		{
+			"id": 4,
+			"lot": "6600 S. Union Park Ave.",
+			"address": "950 E. 6600 S., Murray, Utah"
+		},
+		{
+			"id": 5,
+			"lot": "9400 S. Highland Dr.",
+			"address": "2065 E. 9510 S., Sandy, Utah"
+		},
+		{
+			"id": 6,
+			"lot": "Antelope Drive",
+			"address": "2280 N. Hobbs Creek Drive, Layton, Utah"
+		},
+		{
+			"id": 7,
+			"lot": "Benson Grist Mill",
+			"address": "6750 N. Stansbury Parkway, Stansbury Park, Utah"
+		},
+		{
+			"id": 8,
+			"lot": "Big Cottonwood Canyon",
+			"address": "3863 E. Big Cottonwood Cyn Road, Cottonwood Heights, Utah"
+		},
+		{
+			"id": 9,
+			"lot": "Draper Peaks",
+			"address": "12156 S. State St., Draper, Utah"
+		},
+		{
+			"id": 10,
+			"lot": "Fruit Heights",
+			"address": "300 N. Country Way, Fruit Heights, Utah"
+		},
+		{
+			"id": 11,
+			"lot": "Hill AFB S. Gate",
+			"address": "385 W. 3000 N., Layton, Utah"
+		},
+		{
+			"id": 12,
+			"lot": "Jeremy Ranch",
+			"address": "3361 Rasmussen Road, Park City, Utah"
+		},
+		{
+			"id": 13,
+			"lot": "Kaysville",
+			"address": "160 N. 600 W., Kaysville, Utah"
+		},
+		{
+			"id": 14,
+			"lot": "Kimball Jct. Transit Center",
+			"address": "6506 Landmark Drive, Park City, Utah"
+		},
+		{
+			"id": 15,
+			"lot": "Layton Hills Mall",
+			"address": "425 W. Ring Road, Layton, Utah"
+		},
+		{
+			"id": 16,
+			"lot": "Monarch Meadows Park",
+			"address": "13700 S. Monarch Meadows Parkway, Riverton, Utah"
+		},
+		{
+			"id": 17,
+			"lot": "Newgate Mall",
+			"address": "3615 Wall Ave., Ogden, Utah"
+		},
+		{
+			"id": 18,
+			"lot": "North Lehi",
+			"address": "2020 N. State St., Orem, Utah"
+		},
+		{
+			"id": 19,
+			"lot": "North Tooele",
+			"address": "2450 N. State Route 36, Tooele, Utah"
+		},
+		{
+			"id": 20,
+			"lot": "Oak Hills",
+			"address": "530 N. Eastside Drive, Layton, Utah"
+		},
+		{
+			"id": 21,
+			"lot": "Riverdale",
+			"address": "5234 S. Freeway Park Drive, Riverdale, Utah"
+		},
+		{
+			"id": 22,
+			"lot": "Rose Park",
+			"address": "974 N. 900 W., Salt Lake City, Utah"
+		},
+		{
+			"id": 23,
+			"lot": "South Payson",
+			"address": "781 S. 1270 W., Payson, Utah"
+		},
+		{
+			"id": 24,
+			"lot": "South Weber",
+			"address": "7750 S. Frontage Rd., South Weber, Utah"
+		},
+		{
+			"id": 25,
+			"lot": "Central Pointe Station",
+			"address": "211 W. 2100 S., Salt Lake City, Utah"
+		},
+		{
+			"id": 26,
+			"lot": "Crescent View Station",
+			"address": "361 E. 11400 S., Sandy, Utah"
+		},
+		{
+			"id": 27,
+			"lot": "Daybreak Parkway",
+			"address": "11405 S. Grandville Ave., South Jordan, Utah"
+		},
+		{
+			"id": 28,
+			"lot": "Decker Lake Station",
+			"address": "3070 S. Decker Lake Drive, West Valley, Utah"
+		},
+		{
+			"id": 29,
+			"lot": "Fashion Place West Station",
+			"address": "222 W. Winchester St., Murray, Utah"
+		},
+		{
+			"id": 30,
+			"lot": "Kimballs Lane Station",
+			"address": "11796 S. 700 E., Draper, Utah"
+		},
+		{
+			"id": 31,
+			"lot": "Layton Station",
+			"address": "150 S. Main St., Layton, Utah"
+		},
+		{
+			"id": 32,
+			"lot": "Millcreek Station",
+			"address": "210 W. 3300 S., Salt Lake City, Utah"
+		},
+		{
+			"id": 33,
+			"lot": "River Trail Station",
+			"address": "2340 S. 1070 W., West Valley, Utah"
+		},
+		{
+			"id": 34,
+			"lot": "Riverdale Park and Ride",
+			"address": "5212 Freeway Park Drive, Riverdale, Utah"
+		},
+		{
+			"id": 35,
+			"lot": "Salt Lake Central Station",
+			"address": "325 S. 600 W., Salt Lake City, Utah"
+		},
+		{
+			"id": 36,
+			"lot": "Vineyard Station",
+			"address": "130 E. Market St., Vineyard, Utah"
+		},
+		{
+			"id": 37,
+			"lot": "West Valley Central Station",
+			"address": "2750 W. Lehman Ave., West Valley, Utah"
+		},
+		{
+			"id": 38,
+			"lot": "2700 W. Sugar Factory Road Station",
+			"address": "8351 S. 2700 W., West Jordan, Utah"
+		},
+		{
+			"id": 39,
+			"lot": "4800 W. Old Bingham Hwy. Station",
+			"address": "4773 W. Old Bingham Hwy., West Jordan, Utah"
+		},
+		{
+			"id": 40,
+			"lot": "5600 W. Old Bingham Hwy. Station",
+			"address": "5651 W. Old Bingham Hwy., West Jordan, Utah"
+		},
+		{
+			"id": 41,
+			"lot": "American Fork Station",
+			"address": "782 W. 200 S., American Fork, Utah"
+		},
+		{
+			"id": 42,
+			"lot": "Ballpark Station",
+			"address": "1300 S. 180 W., Salt Lake City, Utah"
+		},
+		{
+			"id": 43,
+			"lot": "Bingham Junction Station",
+			"address": "7387 S. Bingham Junction Blvd., Midvale, Utah"
+		},
+		{
+			"id": 44,
+			"lot": "Clearfield Station",
+			"address": "1250 S. State St., Clearfield, Utah"
+		},
+		{
+			"id": 45,
+			"lot": "Draper Station",
+			"address": "12997 S. FrontRunner Blvd., Draper, Utah"
+		},
+		{
+			"id": 46,
+			"lot": "Draper Towne Center",
+			"address": "1131 E. Pioneer Road, Draper, Utah"
+		},
+		{
+			"id": 47,
+			"lot": "Farmington Station",
+			"address": "450 N. 800 W., Farmington, Utah"
+		},
+		{
+			"id": 48,
+			"lot": "Historic Gardner Station",
+			"address": "1127 W. 7800 S., West Jordan, Utah"
+		},
+		{
+			"id": 49,
+			"lot": "Historic Sandy Station",
+			"address": "165 E. 9000 S., Sandy, Utah"
+		},
+		{
+			"id": 50,
+			"lot": "Jordan Valley Station",
+			"address": "3400 W. 8600 S., West Jordan, Utah"
+		},
+		{
+			"id": 51,
+			"lot": "Lehi Station",
+			"address": "3101 N. Ashton Blvd., Lehi, Utah"
+		},
+		{
+			"id": 52,
+			"lot": "Meadowbrook Station",
+			"address": "188 W. 3900 S., Salt Lake City, Utah"
+		},
+		{
+			"id": 53,
+			"lot": "Midvale Center Station",
+			"address": "95 W. 7720 S., Midvale, Utah"
+		},
+		{
+			"id": 54,
+			"lot": "Midvale Fort Union Station",
+			"address": "7250 S. 180 W., Midvale, Utah"
+		},
+		{
+			"id": 55,
+			"lot": "Millcreek Station",
+			"address": "210 W. 3300 S., South Salt Lake, Utah"
+		},
+		{
+			"id": 56,
+			"lot": "Murray Central Station",
+			"address": "140 W. Vine St., Murray, Utah"
+		},
+		{
+			"id": 57,
+			"lot": "Murray North Station",
+			"address": "71 W. Fireclay Ave., Murray, Utah"
+		},
+		{
+			"id": 58,
+			"lot": "Ogden Central Station",
+			"address": "2393 Wall Ave., Ogden, Utah"
+		},
+		{
+			"id": 59,
+			"lot": "Orem Central Station",
+			"address": "1350 W. 900 S., Orem, Utah"
+		},
+		{
+			"id": 60,
+			"lot": "Provo Central Station",
+			"address": "701 S. Freedom Blvd., Provo, Utah"
+		},
+		{
+			"id": 61,
+			"lot": "Roy Station",
+			"address": "4155 S. Sandridge Drive, Roy, Utah"
+		},
+		{
+			"id": 62,
+			"lot": "Sandy Civic Station",
+			"address": "115 E. Sego Lily Drive, Sandy, Utah"
+		},
+		{
+			"id": 63,
+			"lot": "South Jordan Parkway Station",
+			"address": "10605 S. Grandville Ave., South Jordan, Utah"
+		},
+		{
+			"id": 64,
+			"lot": "South Jordan Station",
+			"address": "10351 S. Jordan Gateway, South Jordan, Utah"
+		},
+		{
+			"id": 65,
+			"lot": "West Jordan City Center Station",
+			"address": "8021 S. Redwood Road, West Jordan, Utah"
+		},
+		{
+			"id": 66,
+			"lot": "Woods Cross Station",
+			"address": "750 S. 800 W., Woods Cross, Utah"
+		}
+	]
+}
