@@ -61,31 +61,43 @@ def get_rides_by_id(id):
 
 @app.post("/users/<int:id>/rides-as-driver")
 def post_new_ride(id):
-    data = request.json
-    ride = Ride(
-        driver_id=data.get("driver_id"),
-        passenger_id=data.get("passenger_id"), 
-        lot_id=data.get("lot_id"),
-        resort_id=data.get("resort_id")
-        )
-    db.session.add(ride)
-    db.session.commit()
-
-    return ride.to_dict(rules=['-driver', '-driver.id', '-passenger.rides_as_driver']), 201
-
-
-@app.patch("/rides/<int:id>")
-def patch_accept_ride(id):
-    ride = db.session.get(Ride, id)
     try:
         data = request.json
-        for key in data:
-            setattr(ride, key, data[key])
+        ride = Ride(
+            driver_id=data.get("driver_id"),
+            lot_id=data.get("lot_id"),
+            resort_id=data.get("resort_id"),
+            capacity=data.get("capacity")
+            )
         db.session.add(ride)
         db.session.commit()
-    except Exception as e:
-        return {"error": str(e)}, 422
-    return ride.to_dict(rules=['-driver', '-passenger'])
 
+        return ride.to_dict(), 201
+    
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.post('/rides/<int:id>/add_passengers')
+def add_passengers_to_ride(id):
+    try:
+        data = request.json
+        ride = db.session.get(Ride, id)
+        if not ride:
+            return {"error": "ride not found"}
+        if len(ride.passengers) >= ride.capacity:
+            return jsonify({"error": "Ride is already at full capacity"}), 400
+        
+        passenger = User.query.get(data['id'])
+        if not passenger:
+            return jsonify({"error": "Passenger not found"}), 404
+
+        ride.passengers.append(passenger)
+        db.session.commit()
+
+        return ride.to_dict(), 200
+
+    except Exception as e:
+        return {"error": str(e)}
+    
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

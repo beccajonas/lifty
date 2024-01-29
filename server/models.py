@@ -16,6 +16,12 @@ metadata = MetaData(
 )
 db = SQLAlchemy(metadata=metadata)
 
+passenger_ride_association = db.Table(
+    'passenger_ride_association',
+    db.Column('passenger_id', db.Integer, db.ForeignKey('user_table.id')),
+    db.Column('ride_id', db.Integer, db.ForeignKey('ride_table.id')),
+)
+
 class User(db.Model, SerializerMixin):
     __tablename__ = 'user_table'
     
@@ -34,28 +40,27 @@ class User(db.Model, SerializerMixin):
     # total_distance_traveled = db.Column(db.Float)
     # total_emissions_saved = db.Column(db.Float)
 
-    rides_as_driver = db.relationship('Ride', back_populates='driver', foreign_keys='Ride.driver_id')
-    rides_as_passenger = db.relationship('Ride', back_populates='passenger', foreign_keys='Ride.passenger_id')
-
-
 class Ride(db.Model, SerializerMixin):
     __tablename__ = 'ride_table'
 
-    serialize_rules =['-driver.rides_as_driver', '-driver.rides_as_passenger', '-driver.rides_as_passenger.passenger']
+    serialize_rules =['-driver.rides_as_driver', '-driver.rides_as_passenger']
 
     id = db.Column(db.Integer, primary_key=True)
+    capacity = db.Column(db.Integer)
+    passengers = db.relationship('User', secondary=passenger_ride_association)
 
     driver_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
-    passenger_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
     lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'))
     resort_id = db.Column(db.Integer, db.ForeignKey('resort_table.id'))
     # date_time = db.Column(db.DateTime)
     # emissions_saved_data = db.Column(db.Float)
     # distance_traveled = db.Column(db.Float)
 
-    driver = db.relationship('User', back_populates='rides_as_driver', foreign_keys=[driver_id])
-    passenger = db.relationship('User', back_populates='rides_as_passenger', foreign_keys=[passenger_id])
-    # passenger = db.relationships('Passenger', back_populates='')
+    @validates('passengers')
+    def validate_passengers(self, key, passenger):
+        if len(self.passengers) >= self.capacity:
+            raise ValueError("Ride is already at full capacity")
+        return passenger
 
 
 class Lot(db.Model, SerializerMixin):
