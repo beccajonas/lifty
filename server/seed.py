@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Passenger, Ride, Lot, Resort
+from models import db, User, Ride, Lot, Resort
 import json
 from flask_bcrypt import Bcrypt
 
@@ -11,7 +11,6 @@ if __name__ == "__main__":
             data = json.load(f)
         print("clearing data...")
         User.query.delete()
-        Passenger.query.delete()
         Ride.query.delete()
         Lot.query.delete()
         Resort.query.delete()
@@ -26,9 +25,6 @@ if __name__ == "__main__":
 
         for user_data in data['users']:
             db.session.add(User(**user_data))
-        
-        for passenger_data in data['passengers']:
-            db.session.add(Passenger(**passenger_data))
         
         for ride_data in data['rides']:
             db.session.add(Ride(**ride_data))

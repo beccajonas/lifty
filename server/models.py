@@ -19,7 +19,12 @@ db = SQLAlchemy(metadata=metadata)
 class User(db.Model, SerializerMixin):
     __tablename__ = 'user_table'
     
-    serialize_rules = ['-rides_as_driver.driver', '-rides_as_driver.driver_id', '-rides_as_passenger.passenger', '-rides_as_passenger.passenger_id']
+    serialize_rules = ['-rides_as_driver.driver', 
+                       '-rides_as_driver.driver_id', 
+                       '-rides_as_driver.passenger',
+                       '-rides_as_passenger.passenger', 
+                       '-rides_as_passenger.passenger_id',
+                       '-rides_as_passenger.driver']
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
@@ -29,32 +34,27 @@ class User(db.Model, SerializerMixin):
     # total_distance_traveled = db.Column(db.Float)
     # total_emissions_saved = db.Column(db.Float)
 
-    rides_as_driver = db.relationship('Ride', back_populates='driver')
-    rides_as_passenger = db.relationship('Passenger', back_populates='passenger')
+    rides_as_driver = db.relationship('Ride', back_populates='driver', foreign_keys='Ride.driver_id')
+    rides_as_passenger = db.relationship('Ride', back_populates='passenger', foreign_keys='Ride.passenger_id')
 
-
-class Passenger(db.Model, SerializerMixin):
-    __tablename__ = 'passenger_table'
-    id = db.Column(db.Integer, primary_key=True)
-    passenger_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
-    ride_id = db.Column(db.Integer, db.ForeignKey('ride_table.id'))
-
-    passenger = db.relationship('User', back_populates='rides_as_passenger')
 
 class Ride(db.Model, SerializerMixin):
     __tablename__ = 'ride_table'
 
+    serialize_rules =['-driver.rides_as_driver', '-driver.rides_as_passenger', '-driver.rides_as_passenger.passenger']
+
     id = db.Column(db.Integer, primary_key=True)
 
     driver_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
-    passenger_id = db.Column(db.Integer, db.ForeignKey('passenger_table.passenger_id'))
+    passenger_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
     lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'))
     resort_id = db.Column(db.Integer, db.ForeignKey('resort_table.id'))
     # date_time = db.Column(db.DateTime)
     # emissions_saved_data = db.Column(db.Float)
     # distance_traveled = db.Column(db.Float)
 
-    driver = db.relationship('User', back_populates='rides_as_driver')
+    driver = db.relationship('User', back_populates='rides_as_driver', foreign_keys=[driver_id])
+    passenger = db.relationship('User', back_populates='rides_as_passenger', foreign_keys=[passenger_id])
     # passenger = db.relationships('Passenger', back_populates='')
 
 
