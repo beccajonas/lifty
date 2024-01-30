@@ -12,7 +12,7 @@ import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
 import NavBar from './components/NavBar';
 import MyStatsPage from './pages/MyStatsPage';
-import Home from './pages/Home';
+import Rides from './pages/Rides';
 import About from './pages/About';
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
 			<Routes>
 				<Route
 					path='/'
-					element={<Home />}
+					element={<Rides />}
 				/>
 				<Route
 					path='/about'

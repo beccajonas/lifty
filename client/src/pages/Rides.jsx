@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import RideFeedList from '../components/RideFeedList';
 
-function Home() {
+function Rides() {
 	const [rides, setRides] = useState([]);
 
 	useEffect(() => {
@@ -12,10 +12,10 @@ function Home() {
 
 	return (
 		<div>
-			<h1>Home Here</h1>
+			<h1>Rides Here</h1>
 			<RideFeedList rides={rides} />
 		</div>
 	);
 }
 
-export default Home;
+export default Rides;
