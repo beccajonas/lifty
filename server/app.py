@@ -23,18 +23,18 @@ db.init_app(app)
 def index():
     return "lifty backend"
 
-@app.get("/users")
+@app.get("/api/users")
 def get_all_users():
     users = User.query.all()
     return [u.to_dict() for u in users]
 
-@app.get("/users/<int:id>")
+@app.get("/api/users/<int:id>")
 def get_user_by_id(id):
     user = db.session.get(User, id)
     return user.to_dict()
 
 # Get rides for user 
-@app.get("/users/<int:user_id>/rides")
+@app.get("/api/users/<int:user_id>/rides")
 def get_rides_by_user(user_id):
     user = db.session.get(User, user_id)
     if not user:
@@ -46,20 +46,20 @@ def get_rides_by_user(user_id):
     
     return [r.to_dict() for r in rides_as_driver], 200
 
-@app.get("/rides")
+@app.get("/api/rides")
 def get_rides():
     rides = Ride.query.all()
-    return [r.to_dict(rules=['-driver', '-passenger']) for r in rides]
+    return [r.to_dict(rules=['-driver']) for r in rides]
 
-@app.get("/rides/<int:id>")
+@app.get("/api/rides/<int:id>")
 def get_rides_by_id(id):
     ride = db.session.get(Ride, id)
     if not ride:
         return {"error": "ride not found"}
-    return ride.to_dict(rules=['-driver', '-passenger']) 
+    return ride.to_dict(rules=['-passenger']) 
 
 # Add new ride (POST)
-@app.post("/users/<int:id>/new_ride")
+@app.post("/api/users/<int:id>/new_ride")
 def post_new_ride(id):
     try:
         data = request.json
@@ -78,7 +78,7 @@ def post_new_ride(id):
         return {"error": str(e)}
 
 # Add passenger to ride (POST)
-@app.post('/rides/<int:id>/add_passengers')
+@app.post('/api/rides/<int:id>/add_passengers')
 def add_passengers_to_ride(id):
     try:
         data = request.json
@@ -101,7 +101,7 @@ def add_passengers_to_ride(id):
         return {"error": str(e)}
     
 # Remove passenger from ride (DELETE)
-@app.delete('/rides/<int:ride_id>/remove_passenger/<int:passenger_id>')
+@app.delete('/api/rides/<int:ride_id>/remove_passenger/<int:passenger_id>')
 def remove_passenger_from_ride(ride_id, passenger_id):
     try:
         ride = Ride.query.get(ride_id)
@@ -122,7 +122,7 @@ def remove_passenger_from_ride(ride_id, passenger_id):
         return {"error": str(e)}
         
 # Delete ride (DELETE)
-@app.delete("/users/<int:driver_id>/rides/<int:ride_id>")
+@app.delete("/api/users/<int:driver_id>/rides/<int:ride_id>")
 def delete_ride(driver_id, ride_id):
     try:
         ride = Ride.query.get(ride_id)
@@ -132,12 +132,10 @@ def delete_ride(driver_id, ride_id):
         driver = User.query.get(driver_id)
         if not driver:
             return {"error": "Driver not found"}, 404
-
-        # Check if the specified driver is the actual driver of the ride
+        
         if ride.driver_id != driver_id:
             return {"error": "User is not the driver of the ride"}, 403
 
-        # Delete the ride
         db.session.delete(ride)
         db.session.commit()
 
