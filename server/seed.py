@@ -21,9 +21,13 @@ if __name__ == "__main__":
 
         # for resorts in data['resorts']:
         #     db.session.add(Resort(**resorts))
-
-        for users in data['users']:
-            db.session.add(User(**users))
-
+        user_list = []
+        for user in data['users']:
+            u = User(
+                email=user.get("email"),
+                password_hash=bcrypt.generate_password_hash(user.get('password_hash'))
+            )
+            user_list.append(u)
+        db.session.add_all(user_list)
         db.session.commit()
         print("seeding complete!")

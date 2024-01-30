@@ -23,6 +23,66 @@ db.init_app(app)
 def index():
     return "lifty backend"
 
+# Check session
+@app.get("/api/check_session")
+def check_session():
+    user = db.session.get(User, session.get('user_id'))
+    print(f'check session: {user}')
+    if user:
+        return user.to_dict(rules=['-password']), 200
+    else:
+        return {"message": "No user logged in"}, 401
+    
+# Login
+@app.post("/api/login")
+def login():
+    try:
+        data = request.json
+        user = User.query.filter_by(email=data.get("email")).first()
+
+        if user and bcrypt.check_password_hash(user.password_hash, data.get('password')):
+            session["user_id"] = user.id
+            print("success")
+            return user.to_dict(rules=['-password_hash']), 200
+        else:
+            if not user:
+                return {"error": "User not found"}, 404
+            else:
+                return {"error": "Incorrect password"}, 401
+
+    except Exception as e:
+        return {"error": str(e)}
+
+# Logout
+@app.delete('/api/logout')
+def logout():
+    session.pop('user_id', None) 
+    return { "message": "Logged out"}, 200
+
+# Login
+@app.post("/api/signup")
+def signup():
+    try:
+        data = request.json
+        print(data)
+        existing_user = User.query.filter_by(email=data.get("email")).first()
+
+        if existing_user:
+            return {"error": "Email already exists"}, 400
+    
+        new_user = User(
+            email=data.get("email"),
+            password_hash=bcrypt.generate_password_hash(data.get("password"))
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return new_user.to_dict(rules=['-password_hash']), 200
+
+    except Exception as e:
+        return {"error": str(e)}, 500
+
 @app.get("/api/users")
 def get_all_users():
     users = User.query.all()

@@ -31,9 +31,9 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
+    password_hash = db.Column(db.String, nullable=False)
     # first_name = db.Column(db.String)
     # last_name = db.Column(db.String)
-    # password = db.Column(db.String, nullable=False)
     # total_distance_traveled = db.Column(db.Float)
     # total_emissions_saved = db.Column(db.Float)
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
