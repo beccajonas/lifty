@@ -1,10 +1,18 @@
 import { useState } from 'react';
-import './App.css';
+import CollectiveImpactPage from './pages/CollectiveImpactPage';
+import LoginPage from './pages/LoginPage';
+import MyStatsPage from './pages/MyStatsPage';
+import UserProfilePage from './pages/UserProfilePage';
+import { Outlet } from 'react-router-dom';
+import NavBar from './components/NavBar';
 
 function App() {
 	return (
 		<div>
-			<h1>Hello, world</h1>
+			<header>
+				<NavBar />
+			</header>
+			<Outlet />
 		</div>
 	);
 }
