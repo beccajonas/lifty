@@ -16,11 +16,11 @@ if __name__ == "__main__":
         db.session.query(Resort).delete()
         db.session.query(passenger_ride_association).delete()
 
-        for lots in data['lots']:
-            db.session.add(Lot(**lots))
+        # for lots in data['lots']:
+        #     db.session.add(Lot(**lots))
 
-        for resorts in data['resorts']:
-            db.session.add(Resort(**resorts))
+        # for resorts in data['resorts']:
+        #     db.session.add(Resort(**resorts))
 
         for users in data['users']:
             db.session.add(User(**users))

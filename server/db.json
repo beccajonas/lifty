@@ -455,28 +455,5 @@
 			"id": 4,
 			"email": "d@d.com"
 		}
-	],
-	"rides": [
-		{
-			"id": 1,
-			"capacity": 1,
-			"lot_id": 1,
-			"passengers": [],
-			"resort_id": 1
-		},
-		{
-			"id": 2,
-			"capacity": 3,
-			"passengers": [2, 3, 4],
-			"lot_id": 2,
-			"resort_id": 2
-		},
-		{
-			"id": 3,
-			"capacity": 1,
-			"passengers": [5],
-			"lot_id": 3,
-			"resort_id": 3
-		}
 	]
 }

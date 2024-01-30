@@ -33,19 +33,18 @@ def get_user_by_id(id):
     user = db.session.get(User, id)
     return user.to_dict()
 
-@app.get("/users/<int:id>/rides-as-driver")
-def get_rides_as_driver_for_user(id):
-    user = db.session.get(User, id)
+# Get rides for user 
+@app.get("/users/<int:user_id>/rides")
+def get_rides_by_user(user_id):
+    user = db.session.get(User, user_id)
     if not user:
-        return {"error": "user not found"}
-    return [r.to_dict(rules=['-driver', '-passenger']) for r in user.rides_as_driver]
-
-@app.get("/users/<int:id>/rides-as-passenger")
-def get_rides_as_passenger_for_user(id):
-    user = db.session.get(User, id)
-    if not user:
-        return {"error": "user not found"}
-    return [r.to_dict(rules=['-passenger', '-driver']) for r in user.rides_as_passenger]
+        return {"error": "user not found"}, 404
+    
+    rides_as_driver = Ride.query.filter_by(driver_id=user_id).all()
+    if not rides_as_driver:
+        return {"error": "ride not found"}
+    
+    return [r.to_dict() for r in rides_as_driver], 200
 
 @app.get("/rides")
 def get_rides():
@@ -59,7 +58,8 @@ def get_rides_by_id(id):
         return {"error": "ride not found"}
     return ride.to_dict(rules=['-driver', '-passenger']) 
 
-@app.post("/users/<int:id>/rides-as-driver")
+# Add new ride (POST)
+@app.post("/users/<int:id>/new_ride")
 def post_new_ride(id):
     try:
         data = request.json
@@ -77,6 +77,7 @@ def post_new_ride(id):
     except Exception as e:
         return {"error": str(e)}
 
+# Add passenger to ride (POST)
 @app.post('/rides/<int:id>/add_passengers')
 def add_passengers_to_ride(id):
     try:
@@ -98,6 +99,53 @@ def add_passengers_to_ride(id):
 
     except Exception as e:
         return {"error": str(e)}
+    
+# Remove passenger from ride (DELETE)
+@app.delete('/rides/<int:ride_id>/remove_passenger/<int:passenger_id>')
+def remove_passenger_from_ride(ride_id, passenger_id):
+    try:
+        ride = Ride.query.get(ride_id)
+        if not ride:
+            return {"error": "Ride not found"}, 404
+        
+        passenger = User.query.get(passenger_id)
+        if not passenger:
+            return {"error": "Passenger not found"}, 404
+        
+        if passenger in ride.passengers:
+            ride.passengers.remove(passenger)
+            db.session.commit()
+            return ride.to_dict(), 200
+        else: 
+            return {"error": "Passenger is not in the ride"}, 400
+    except Exception as e:
+        return {"error": str(e)}
+        
+# Delete ride (DELETE)
+@app.delete("/users/<int:driver_id>/rides/<int:ride_id>")
+def delete_ride(driver_id, ride_id):
+    try:
+        ride = Ride.query.get(ride_id)
+        if not ride:
+            return {"error": "Ride not found"}, 404
+        
+        driver = User.query.get(driver_id)
+        if not driver:
+            return {"error": "Driver not found"}, 404
+
+        # Check if the specified driver is the actual driver of the ride
+        if ride.driver_id != driver_id:
+            return {"error": "User is not the driver of the ride"}, 403
+
+        # Delete the ride
+        db.session.delete(ride)
+        db.session.commit()
+
+        return {"message": "Ride deleted successfully"}, 200
+
+    except Exception as e:
+        return {"error": str(e)}
+    
     
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

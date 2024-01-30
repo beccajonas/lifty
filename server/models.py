@@ -25,10 +25,7 @@ passenger_ride_association = db.Table(
 class User(db.Model, SerializerMixin):
     __tablename__ = 'user_table'
     
-    serialize_rules = ['-rides_as_driver.driver', 
-                       '-rides_as_driver.driver_id', 
-                       '-rides_as_driver.passenger',
-                       '-rides_as_passenger.passenger', 
+    serialize_rules = ['-rides_as_passenger.passenger', 
                        '-rides_as_passenger.passenger_id',
                        '-rides_as_passenger.driver']
 
@@ -39,15 +36,17 @@ class User(db.Model, SerializerMixin):
     # password = db.Column(db.String, nullable=False)
     # total_distance_traveled = db.Column(db.Float)
     # total_emissions_saved = db.Column(db.Float)
+    rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
 
 class Ride(db.Model, SerializerMixin):
     __tablename__ = 'ride_table'
 
-    serialize_rules =['-driver.rides_as_driver', '-driver.rides_as_passenger']
+    serialize_rules =['-driver.rides_as_passenger', 
+                      '-passengers.rides_as_passenger']
 
     id = db.Column(db.Integer, primary_key=True)
     capacity = db.Column(db.Integer)
-    passengers = db.relationship('User', secondary=passenger_ride_association)
+    passengers = db.relationship('User', secondary=passenger_ride_association, back_populates='rides_as_passenger')
 
     driver_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
     lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'))
@@ -60,7 +59,10 @@ class Ride(db.Model, SerializerMixin):
     def validate_passengers(self, key, passenger):
         if len(self.passengers) >= self.capacity:
             raise ValueError("Ride is already at full capacity")
+        if passenger.id == self.driver_id:
+            raise ValueError("A user cannot be both the driver and a passenger in the same ride")
         return passenger
+    
 
 
 class Lot(db.Model, SerializerMixin):

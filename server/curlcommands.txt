@@ -1,11 +1,12 @@
-POST post_new_ride
+# Add new ride
 curl -X POST -H "Content-Type: application/json" -d '{
   "driver_id": 1,
   "lot_id": 2,
   "resort_id": 3,
-  "capacity": 2
-}' http://localhost:5555/users/1/rides-as-driver
+  "capacity": 1
+}' http://localhost:5555/users/1/new_ride
 
+# Add passenger to ride
 curl -X POST -H "Content-Type: application/json" -d '{
   "id": 2
 }' http://localhost:5555/rides/1/add_passengers
@@ -18,3 +19,11 @@ curl -X POST -H "Content-Type: application/json" -d '{
 curl -X POST -H "Content-Type: application/json" -d '{
   "id": 4
 }' http://localhost:5555/rides/1/add_passengers
+
+# Delete passenger from ride 
+curl -X DELETE http://localhost:5555/rides/1/remove_passenger/3
+
+# Delete ride 
+curl -X DELETE http://localhost:5555/users/1/rides/1
+
+
