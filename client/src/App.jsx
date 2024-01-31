@@ -102,7 +102,15 @@ function App() {
 			<Routes>
 				<Route
 					path='/rides'
-					element={<Rides />}
+					element={
+						<Rides
+							user={user}
+							errorMessage={errorMessage}
+							setErrorMessage={setErrorMessage}
+							message={message}
+							setMessage={setMessage}
+						/>
+					}
 				/>
 				<Route
 					path='/about'

@@ -160,7 +160,7 @@ def post_new_ride(id):
 def add_passengers_to_ride(id):
     try:
         data = request.json
-        ride = db.session.get(Ride, id)
+        ride = db.session.query(Ride).get(id)
         if not ride:
             return {"error": "Ride not found."}, 404
         if len(ride.passengers) >= ride.capacity:
