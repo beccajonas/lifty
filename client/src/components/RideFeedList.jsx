@@ -3,14 +3,15 @@ function RideFeedList({ rides }) {
 	console.log(rides);
 	return (
 		<>
-			<ul>
+			<div>
+				<h1>List view</h1>
 				{rides.map((ride) => (
 					<RideListItem
 						key={ride.id}
 						ride={ride}
 					/>
 				))}
-			</ul>
+			</div>
 		</>
 	);
 }

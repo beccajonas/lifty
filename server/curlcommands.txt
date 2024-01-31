@@ -6,6 +6,20 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "capacity": 1
 }' http://localhost:5555/api/users/1/new_ride
 
+curl -X POST -H "Content-Type: application/json" -d '{
+  "driver_id": 2,
+  "lot_id": 3,
+  "resort_id": 5,
+  "capacity": 2
+}' http://localhost:5555/api/users/2/new_ride
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "driver_id": 4,
+  "lot_id": 10,
+  "resort_id": 2,
+  "capacity": 2
+}' http://localhost:5555/api/users/4/new_ride
+
 # Add passenger to ride
 curl -X POST -H "Content-Type: application/json" -d '{
   "id": 2

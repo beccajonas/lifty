@@ -89,7 +89,7 @@ function App() {
 					element={<About />}
 				/>
 				<Route
-					path='/mystats'
+					path='/mystats/:id'
 					element={<MyStatsPage />}
 				/>
 				<Route
