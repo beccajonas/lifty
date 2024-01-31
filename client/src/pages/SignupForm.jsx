@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-function SignupForm({ setReturningUser, handleSignup, error }) {
+function SignupForm({ setReturningUser, handleSignup, errorMessage }) {
 	const [passwordOne, setPasswordOne] = useState('');
 	const [passwordTwo, setPasswordTwo] = useState('');
 	const [newEmail, setNewEmail] = useState('');
@@ -36,7 +36,7 @@ function SignupForm({ setReturningUser, handleSignup, error }) {
 				<button type='submit'>Sign Up</button>
 			</form>
 			<button onClick={() => setReturningUser(true)}>Back to Login</button>
-			{error && <p style={{ color: 'red' }}>{error}</p>}
+			{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 		</>
 	);
 }

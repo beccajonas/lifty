@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import SignupForm from './SignupForm.jsx';
 
-function LoginPage({ handleLogin, returningUser, setReturningUser }) {
+function LoginPage({
+	handleLogin,
+	returningUser,
+	setReturningUser,
+	errorMessage,
+	setErrorMessage,
+}) {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
-	const [errorMessage, setErrorMessage] = useState('');
 	const [message, setMessage] = useState('');
 
 	useEffect(() => {
@@ -88,13 +93,14 @@ function LoginPage({ handleLogin, returningUser, setReturningUser }) {
 						<button type='submit'>Login</button>
 					</form>
 					<button onClick={() => setReturningUser(false)}>Signup</button>
+					{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 					{message && <p style={{ color: 'green' }}>{message}</p>}
 				</>
 			) : (
 				<SignupForm
 					setReturningUser={setReturningUser}
 					handleSignup={handleSignup}
-					error={errorMessage}
+					errorMessage={errorMessage}
 				/>
 			)}
 		</div>

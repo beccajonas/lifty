@@ -31,7 +31,7 @@ def check_session():
     if user:
         return user.to_dict(rules=['-password']), 200
     else:
-        return {"message": "No user logged in"}, 401
+        return {"message": "No user logged in."}, 401
     
 # Login
 @app.post("/api/login")
@@ -46,9 +46,9 @@ def login():
             return user.to_dict(rules=['-password_hash']), 200
         else:
             if not user:
-                return {"error": "User not found"}, 404
+                return {"error": "User not found. Please try again."}, 404
             else:
-                return {"error": "Incorrect password"}, 401
+                return {"error": "Incorrect password. Please try again."}, 401
 
     except Exception as e:
         return {"error": str(e)}
@@ -68,7 +68,7 @@ def signup():
         existing_user = User.query.filter_by(email=data.get("email")).first()
 
         if existing_user:
-            return {"error": "Email already exists"}, 400
+            return {"error": "Email already exists. Please select new email."}, 400
     
         new_user = User(
             email=data.get("email"),
@@ -98,11 +98,11 @@ def get_user_by_id(id):
 def get_rides_by_user(user_id):
     user = db.session.get(User, user_id)
     if not user:
-        return {"error": "user not found"}, 404
+        return {"error": "User not found."}, 404
     
     rides_as_driver = Ride.query.filter_by(driver_id=user_id).all()
     if not rides_as_driver:
-        return {"error": "ride not found"}
+        return {"error": "Ride not found."}
     
     return [r.to_dict() for r in rides_as_driver], 200
 
@@ -144,13 +144,13 @@ def add_passengers_to_ride(id):
         data = request.json
         ride = db.session.get(Ride, id)
         if not ride:
-            return {"error": "ride not found"}
+            return {"error": "Ride not found."}
         if len(ride.passengers) >= ride.capacity:
-            return jsonify({"error": "Ride is already at full capacity"}), 400
+            return jsonify({"error": "Ride is already at full capacity."}), 400
         
         passenger = User.query.get(data['id'])
         if not passenger:
-            return jsonify({"error": "Passenger not found"}), 404
+            return jsonify({"error": "Passenger not found."}), 404
 
         ride.passengers.append(passenger)
         db.session.commit()
@@ -166,18 +166,18 @@ def remove_passenger_from_ride(ride_id, passenger_id):
     try:
         ride = Ride.query.get(ride_id)
         if not ride:
-            return {"error": "Ride not found"}, 404
+            return {"error": "Ride not found."}, 404
         
         passenger = User.query.get(passenger_id)
         if not passenger:
-            return {"error": "Passenger not found"}, 404
+            return {"error": "Passenger not found."}, 404
         
         if passenger in ride.passengers:
             ride.passengers.remove(passenger)
             db.session.commit()
             return ride.to_dict(), 200
         else: 
-            return {"error": "Passenger is not in the ride"}, 400
+            return {"error": "Passenger is not in the ride."}, 400
     except Exception as e:
         return {"error": str(e)}
         
@@ -187,19 +187,19 @@ def delete_ride(driver_id, ride_id):
     try:
         ride = Ride.query.get(ride_id)
         if not ride:
-            return {"error": "Ride not found"}, 404
+            return {"error": "Ride not found."}, 404
         
         driver = User.query.get(driver_id)
         if not driver:
-            return {"error": "Driver not found"}, 404
+            return {"error": "Driver not found."}, 404
         
         if ride.driver_id != driver_id:
-            return {"error": "User is not the driver of the ride"}, 403
+            return {"error": "User is not the driver of the ride."}, 403
 
         db.session.delete(ride)
         db.session.commit()
 
-        return {"message": "Ride deleted successfully"}, 200
+        return {"message": "Ride deleted successfully."}, 200
 
     except Exception as e:
         return {"error": str(e)}

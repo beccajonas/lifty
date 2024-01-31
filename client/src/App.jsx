@@ -18,6 +18,7 @@ import About from './pages/About';
 function App() {
 	const [user, setUser] = useState(null);
 	const [returningUser, setReturningUser] = useState(true);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
@@ -40,7 +41,15 @@ function App() {
 				},
 				body: JSON.stringify(userInfo),
 			})
-				.then((res) => res.json())
+				.then((res) => {
+					if (!res.ok) {
+						return res.json().then((data) => {
+							setErrorMessage(data.error);
+							throw new Error(data.error);
+						});
+					}
+					return res.json();
+				})
 				.then((data) => setUser(data));
 		} catch (error) {
 			console.log(error);
@@ -93,6 +102,8 @@ function App() {
 							handleLogin={handleLogin}
 							returningUser={returningUser}
 							setReturningUser={setReturningUser}
+							errorMessage={errorMessage}
+							setErrorMessage={setErrorMessage}
 						/>
 					}
 				/>
