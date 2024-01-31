@@ -15,11 +15,15 @@ import NavBar from './components/NavBar';
 import MyStatsPage from './pages/MyStatsPage';
 import Rides from './pages/Rides';
 import About from './pages/About';
+import RideForm from './components/RideForm';
 
 function App() {
 	const [user, setUser] = useState(null);
 	const [returningUser, setReturningUser] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [message, setMessage] = useState('');
+	const [lots, setLots] = useState([]);
+	const [resorts, setResorts] = useState([]);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
@@ -69,6 +73,22 @@ function App() {
 		}
 	}
 
+	useEffect(() => {
+		fetch(`/api/lots`).then((res) => {
+			if (res.ok) {
+				res.json().then((data) => setLots(data));
+			}
+		});
+	}, []);
+
+	useEffect(() => {
+		fetch(`/api/resorts`).then((res) => {
+			if (res.ok) {
+				res.json().then((data) => setResorts(data));
+			}
+		});
+	}, []);
+
 	return (
 		<Router>
 			<div>
@@ -105,6 +125,8 @@ function App() {
 							setReturningUser={setReturningUser}
 							errorMessage={errorMessage}
 							setErrorMessage={setErrorMessage}
+							message={message}
+							setMessage={setMessage}
 							user={user}
 						/>
 					}
@@ -112,6 +134,20 @@ function App() {
 				<Route
 					path='/profile/:id'
 					element={<UserProfilePage />}
+				/>
+				<Route
+					path='/add-ride'
+					element={
+						<RideForm
+							lots={lots}
+							resorts={resorts}
+							user={user}
+							errorMessage={errorMessage}
+							setErrorMessage={setErrorMessage}
+							message={message}
+							setMessage={setMessage}
+						/>
+					}
 				/>
 			</Routes>
 		</Router>

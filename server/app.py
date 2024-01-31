@@ -88,6 +88,16 @@ def get_all_users():
     users = User.query.all()
     return [u.to_dict() for u in users]
 
+@app.get("/api/lots")
+def get_all_lots():
+    lots = Lot.query.all()
+    return [l.to_dict() for l in lots]
+
+@app.get("/api/resorts")
+def get_all_resorts():
+    resorts = Resort.query.all()
+    return [r.to_dict() for r in resorts]
+
 @app.get("/api/users/<int:id>")
 def get_user_by_id(id):
     user = db.session.get(User, id)
@@ -129,6 +139,14 @@ def post_new_ride(id):
             resort_id=data.get("resort_id"),
             capacity=data.get("capacity")
             )
+        if not ride.driver_id:
+            return {"error": "Problem finding user info. Try again."},  404
+        if not ride.lot_id:
+            return {"error": "Please select a Park-And-Ride lot."}, 404
+        if not ride.resort_id:
+            return {"error": "Please select a resort."}, 404
+        if not ride.capacity:
+            return {"error": "Select a passenger  capacity for your ride."}, 404
         db.session.add(ride)
         db.session.commit()
 
@@ -144,7 +162,7 @@ def add_passengers_to_ride(id):
         data = request.json
         ride = db.session.get(Ride, id)
         if not ride:
-            return {"error": "Ride not found."}
+            return {"error": "Ride not found."}, 404
         if len(ride.passengers) >= ride.capacity:
             return jsonify({"error": "Ride is already at full capacity."}), 400
         

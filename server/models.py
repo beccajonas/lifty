@@ -46,12 +46,12 @@ class Ride(db.Model, SerializerMixin):
                       '-passengers.rides_as_passenger']
 
     id = db.Column(db.Integer, primary_key=True)
-    capacity = db.Column(db.Integer)
+    capacity = db.Column(db.Integer, nullable=False)
     passengers = db.relationship('User', secondary=passenger_ride_association, back_populates='rides_as_passenger')
 
-    driver_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
-    lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'))
-    resort_id = db.Column(db.Integer, db.ForeignKey('resort_table.id'))
+    driver_id = db.Column(db.Integer, db.ForeignKey('user_table.id'), nullable=False)
+    lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'), nullable=False)
+    resort_id = db.Column(db.Integer, db.ForeignKey('resort_table.id'), nullable=False)
     # date_time = db.Column(db.DateTime)
     # emissions_saved_data = db.Column(db.Float)
     # distance_traveled = db.Column(db.Float)

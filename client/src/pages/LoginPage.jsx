@@ -9,10 +9,11 @@ function LoginPage({
 	errorMessage,
 	setErrorMessage,
 	user,
+	message,
+	setMessage,
 }) {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
-	const [message, setMessage] = useState('');
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {

@@ -23,7 +23,7 @@ const routes = [
 				element: <About />,
 			},
 			{
-				path: '/mystats',
+				path: '/mystats/:id',
 				element: <MyStatsPage />,
 			},
 			{

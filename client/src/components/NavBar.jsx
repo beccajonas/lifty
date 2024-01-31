@@ -56,31 +56,29 @@ const Navbar = ({ user, handleLogout }) => {
 
 	return (
 		<header className='bg-slate-200 border-gray-200 font-sans'>
-			<div className='container mx-auto py-3 px-2 md:flex md:items-center md:justify-between'>
+			<div className='container mx-auto py-1 px-2 md:flex md:items-center md:justify-between'>
 				<div className='flex items-center justify-between'>
-					<a className='text-2xl font-semibold text-gray-800'>
-						<img
-							className='object-contain h-20'
-							src={logo}
-							alt=''
-						/>
-					</a>
+					<img
+						className='object-contain h-20'
+						src={logo}
+						alt=''
+					/>
 				</div>
-				<nav className='hidden md:flex space-x-4'>{navList()}</nav>
+				<nav className='hidden md:flex space-x-5'>{navList()}</nav>
 				{user ? (
 					<div
 						onClick={toggleAvatarDropdown}
 						className='relative transition-all duration-500'>
 						<button
 							type='button'
-							className='flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600'
+							className='flex text-sm bg-gray-800 rounded-full md:me-0'
 							id='user-menu-button'
 							aria-expanded='false'
 							data-dropdown-toggle='user-dropdown'
 							data-dropdown-placement='bottom'>
 							<span className='sr-only'>Open user menu</span>
 							<img
-								className='w-8 h-8 rounded-full'
+								className='object-contain h-10 rounded-full'
 								src={user.profile_pic}
 								alt='user photo'
 							/>
