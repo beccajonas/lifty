@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import SignupForm from './SignupForm.jsx';
+import { Navigate } from 'react-router-dom';
 
 function LoginPage({
 	handleLogin,
@@ -7,6 +8,7 @@ function LoginPage({
 	setReturningUser,
 	errorMessage,
 	setErrorMessage,
+	user,
 }) {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
@@ -70,41 +72,45 @@ function LoginPage({
 		}
 	}
 
-	return (
-		<div>
-			<h1>{returningUser ? 'Login' : 'Signup'}</h1>
-			{returningUser ? (
-				<>
-					<form onSubmit={handleSubmit}>
-						<input
-							type='text'
-							placeholder='Email'
-							name='Email'
-							value={loginEmail}
-							onChange={(e) => setLoginEmail(e.target.value)}
-						/>
-						<input
-							type='text'
-							placeholder='Password'
-							name='Password'
-							value={loginPassword}
-							onChange={(e) => setLoginPassword(e.target.value)}
-						/>
-						<button type='submit'>Login</button>
-					</form>
-					<button onClick={() => setReturningUser(false)}>Signup</button>
-					{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-					{message && <p style={{ color: 'green' }}>{message}</p>}
-				</>
-			) : (
-				<SignupForm
-					setReturningUser={setReturningUser}
-					handleSignup={handleSignup}
-					errorMessage={errorMessage}
-				/>
-			)}
-		</div>
-	);
+	if (user) {
+		return <Navigate to='/rides' />;
+	} else {
+		return (
+			<div>
+				<h1>{returningUser ? 'Login' : 'Signup'}</h1>
+				{returningUser ? (
+					<>
+						<form onSubmit={handleSubmit}>
+							<input
+								type='text'
+								placeholder='Email'
+								name='Email'
+								value={loginEmail}
+								onChange={(e) => setLoginEmail(e.target.value)}
+							/>
+							<input
+								type='text'
+								placeholder='Password'
+								name='Password'
+								value={loginPassword}
+								onChange={(e) => setLoginPassword(e.target.value)}
+							/>
+							<button type='submit'>Login</button>
+						</form>
+						<button onClick={() => setReturningUser(false)}>Signup</button>
+						{errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+						{message && <p style={{ color: 'green' }}>{message}</p>}
+					</>
+				) : (
+					<SignupForm
+						setReturningUser={setReturningUser}
+						handleSignup={handleSignup}
+						errorMessage={errorMessage}
+					/>
+				)}
+			</div>
+		);
+	}
 }
 
 export default LoginPage;

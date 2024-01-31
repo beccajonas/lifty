@@ -6,6 +6,7 @@ import {
 	Route,
 	useNavigate,
 	Link,
+	Navigate,
 } from 'react-router-dom';
 import CollectiveImpactPage from './pages/CollectiveImpactPage';
 import LoginPage from './pages/LoginPage';
@@ -80,7 +81,7 @@ function App() {
 			</div>
 			<Routes>
 				<Route
-					path='/'
+					path='/rides'
 					element={<Rides />}
 				/>
 				<Route
@@ -104,6 +105,7 @@ function App() {
 							setReturningUser={setReturningUser}
 							errorMessage={errorMessage}
 							setErrorMessage={setErrorMessage}
+							user={user}
 						/>
 					}
 				/>

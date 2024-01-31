@@ -6,7 +6,7 @@ function NavBar({ user, handleLogout }) {
 	}
 	return (
 		<nav>
-			<NavLink to='/'>Home</NavLink>
+			{user ? <NavLink to='/rides'>Rides</NavLink> : null}
 			<NavLink to='/about'>About</NavLink>
 			{user ? <NavLink to='/mystats'>My Stats</NavLink> : null}
 			<NavLink to='/collectiveimpact'>Collective Impact</NavLink>
