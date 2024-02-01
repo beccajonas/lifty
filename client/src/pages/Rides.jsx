@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react';
 import RideFeedList from '../components/RideFeedList';
-import RideForm from '../components/RideForm';
+import RideFormModal from '../components/RideFormModal';
 import { NavLink } from 'react-router-dom';
 
-function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
+function Rides({
+	errorMessage,
+	setErrorMessage,
+	user,
+	message,
+	setMessage,
+	showModal,
+	setShowModal,
+	lots,
+	resorts,
+}) {
 	const [rides, setRides] = useState([]);
 	const [listView, setListView] = useState(true);
 	const [bookRide, setBookRide] = useState(null);
@@ -13,12 +23,6 @@ function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
 		fetch(`/api/rides`)
 			.then((res) => res.json())
 			.then((data) => setRides(data));
-	}, [bookRide, leftRide]);
-
-	useEffect(() => {
-		console.log(
-			`In book ride: bookRide = ${bookRide} | leftRide = ${leftRide}`
-		);
 	}, [bookRide, leftRide]);
 
 	function handleLeaveRide(rideId) {
@@ -59,12 +63,27 @@ function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
 	return (
 		<div>
 			<h1>Rides Here</h1>
-			<NavLink
-				to='/add-ride'
+			<button
+				onClick={() => setShowModal(true)}
 				type='button'
+				data-modal-target='crud-modal'
+				data-modal-toggle='crud-modal'
 				className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800'>
 				Post A Ride
-			</NavLink>
+			</button>
+			{showModal ? (
+				<RideFormModal
+					lots={lots}
+					resorts={resorts}
+					user={user}
+					errorMessage={errorMessage}
+					setErrorMessage={setErrorMessage}
+					message={message}
+					setMessage={setMessage}
+					showModal={showModal}
+					setShowModal={setShowModal}
+				/>
+			) : null}
 			<div>
 				<button
 					className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800'

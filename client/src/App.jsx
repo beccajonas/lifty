@@ -15,7 +15,7 @@ import NavBar from './components/NavBar';
 import MyStatsPage from './pages/MyStatsPage';
 import Rides from './pages/Rides';
 import About from './pages/About';
-import RideForm from './components/RideForm';
+import RideFormModal from './components/RideFormModal';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -24,6 +24,7 @@ function App() {
 	const [message, setMessage] = useState('');
 	const [lots, setLots] = useState([]);
 	const [resorts, setResorts] = useState([]);
+	const [showModal, setShowModal] = useState(null);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
@@ -109,6 +110,10 @@ function App() {
 							setErrorMessage={setErrorMessage}
 							message={message}
 							setMessage={setMessage}
+							showModal={showModal}
+							setShowModal={setShowModal}
+							lots={lots}
+							resorts={resorts}
 						/>
 					}
 				/>
@@ -142,20 +147,6 @@ function App() {
 				<Route
 					path='/profile/:id'
 					element={<UserProfilePage />}
-				/>
-				<Route
-					path='/add-ride'
-					element={
-						<RideForm
-							lots={lots}
-							resorts={resorts}
-							user={user}
-							errorMessage={errorMessage}
-							setErrorMessage={setErrorMessage}
-							message={message}
-							setMessage={setMessage}
-						/>
-					}
 				/>
 			</Routes>
 		</Router>
