@@ -15,6 +15,12 @@ function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
 			.then((data) => setRides(data));
 	}, [bookRide, leftRide]);
 
+	useEffect(() => {
+		console.log(
+			`In book ride: bookRide = ${bookRide} | leftRide = ${leftRide}`
+		);
+	}, [bookRide, leftRide]);
+
 	function handleLeaveRide(rideId) {
 		fetch(`/api/rides/${rideId}/remove_passenger/${user.id}`, {
 			method: 'DELETE',
@@ -26,11 +32,8 @@ function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
 				if (!res.ok) {
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
-				console.log('Successfully left ride.');
 				setLeftRide(true);
-				console.log(
-					`In book ride: bookRide = ${bookRide} | leftRide = ${leftRide}`
-				);
+				setBookRide(!bookRide);
 			})
 			.catch((error) => console.error('Error:', error));
 	}
@@ -45,11 +48,10 @@ function Rides({ errorMessage, setErrorMessage, user, message, setMessage }) {
 		})
 			.then((res) => res.json())
 			.then((data) => {
+				console.log('booked ride!');
 				console.log(data);
 				setBookRide(true);
-				console.log(
-					`In book ride: bookRide = ${bookRide} | leftRide = ${leftRide}`
-				);
+				setLeftRide(!leftRide);
 			})
 			.catch((error) => console.error('Error:', error));
 	}
