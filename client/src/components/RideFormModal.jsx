@@ -11,6 +11,7 @@ function RideFormModal({
 	message,
 	showModal,
 	setShowModal,
+	setBookRide,
 }) {
 	const [lotId, setLotId] = useState('');
 	const [resortId, setResortId] = useState('');
@@ -52,6 +53,7 @@ function RideFormModal({
 				})
 				.then((data) => {
 					console.log(data);
+					setBookRide(true);
 					setMessage('Ride posted successfully!');
 				})
 				.catch((error) => {

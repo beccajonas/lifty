@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import RideFeedList from '../components/RideFeedList';
 import RideFormModal from '../components/RideFormModal';
 import RideFeedMap from '../components/RideFeedMap';
-import { NavLink } from 'react-router-dom';
 
 function Rides({
 	errorMessage,
@@ -19,8 +18,6 @@ function Rides({
 	const [listView, setListView] = useState(true);
 	const [bookRide, setBookRide] = useState(null);
 	const [leftRide, setLeftRide] = useState(null);
-
-	console.log(rides);
 
 	useEffect(() => {
 		fetch(`/api/rides`)
@@ -85,6 +82,7 @@ function Rides({
 					setMessage={setMessage}
 					showModal={showModal}
 					setShowModal={setShowModal}
+					setBookRide={setBookRide}
 				/>
 			) : null}
 			<div>

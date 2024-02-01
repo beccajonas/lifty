@@ -1,24 +1,41 @@
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { useState, useEffect } from 'react';
+
 function RideFeedMap(props) {
+	const [markers, setMarkers] = useState([]);
+
 	useEffect(() => {
-		// Log each ride when the component is mounted or when 'rides' prop changes
-		props.rides.forEach((ride) => {
-			console.log(ride);
-		});
+		// Update markers when 'rides' prop changes
+		const updatedMarkers = props.rides.map((ride) => ({
+			position: { lat: ride.latitude, lng: ride.longitude },
+		}));
+
+		setMarkers(updatedMarkers);
 	}, [props.rides]);
 
 	const mapStyles = {
 		width: '50%',
 		height: '50%',
 	};
+
+	const displayMarkers = () => {
+		return markers.map((marker, index) => (
+			<Marker
+				key={index}
+				position={marker.position}
+				onClick={() => console.log('click')}
+			/>
+		));
+	};
+
 	return (
 		<Map
 			google={props.google}
 			zoom={10}
 			style={mapStyles}
-			initialCenter={{ lat: 40.7608, lng: -111.891 }}
-		/>
+			initialCenter={{ lat: 40.7608, lng: -111.891 }}>
+			{displayMarkers()}
+		</Map>
 	);
 }
 
