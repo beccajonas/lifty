@@ -1,4 +1,10 @@
+import { useState, useEffect } from 'react';
+import ListDetailModal from './ListDetailModal';
+import MapDetailModal from './MapDetailModal';
+
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
+	const [showListDetailModal, setShowListDetailModal] = useState(false);
+
 	const isUserBooked = ride.passengers.some(
 		(passenger) => passenger.id === user.id
 	);
@@ -12,9 +18,21 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 	function handleJoinClick() {
 		handleBookRide(ride.id);
 	}
+
+	function handleDetailClick() {
+		setShowListDetailModal(true);
+	}
 	return (
 		<>
-			<div>
+			{showListDetailModal ? (
+				<ListDetailModal
+					setShowListDetailModal={setShowListDetailModal}
+					ride={ride}
+				/>
+			) : null}
+			<div
+				className='border border-solid border-black'
+				onClick={handleDetailClick}>
 				Start: {ride.lot.lot_name} | Resort: {ride.resort.resort_name} |
 				Passenger Spots: {ride.passengers.length} / {ride.capacity}
 			</div>

@@ -4,7 +4,7 @@ import MapDetailModal from './MapDetailModal';
 
 function RideFeedMap(props) {
 	const [markers, setMarkers] = useState([]);
-	const [showDetailModal, setShowDetailModal] = useState(false);
+	const [showMapDetailModal, setShowMapDetailModal] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null);
 
 	useEffect(() => {
@@ -17,7 +17,7 @@ function RideFeedMap(props) {
 	}, [props.rides, props.bookRide]);
 
 	function handleDetailClick(ride) {
-		setShowDetailModal(true);
+		setShowMapDetailModal(true);
 		setSelectedMarker(ride);
 	}
 
@@ -38,9 +38,9 @@ function RideFeedMap(props) {
 
 	return (
 		<>
-			{showDetailModal ? (
+			{showMapDetailModal ? (
 				<MapDetailModal
-					setShowDetailModal={setShowDetailModal}
+					setShowDetailModal={setShowMapDetailModal}
 					selectedMarker={selectedMarker}
 				/>
 			) : null}

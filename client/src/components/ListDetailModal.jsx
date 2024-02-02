@@ -1,5 +1,4 @@
-function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
-	console.log(selectedMarker);
+function ListDetailModal({ setShowListDetailModal, ride }) {
 	return (
 		<>
 			<div
@@ -51,33 +50,30 @@ function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
 								fontWeight: '500',
 								padding: '0.2rem 1rem',
 							}}
-							onClick={() => setShowMapDetailModal(false)}>
+							onClick={() => setShowListDetailModal(false)}>
 							Close
 						</button>
 					</div>
 					<div>
-						<div class='flex items-center mt-1 mb-1 gap-4'>
+						<div className='flex items-center mt-1 mb-1 gap-4'>
 							<img
 								className='w-10  rounded-full ring-2 ring-gray-300'
-								src={selectedMarker.driver.profile_pic}
+								src={ride.driver.profile_pic}
 								alt=''
 							/>
-							<div class='font-medium'>
+							<div className='font-medium'>
 								<div>
-									Driver: {selectedMarker.driver.first_name}{' '}
-									{selectedMarker.driver.last_name}
+									Driver: {ride.driver.first_name} {ride.driver.last_name}
 								</div>
-								<div class='text-sm text-gray-500 dark:text-gray-400'>
-									Total Drives in Lifty:{' '}
-									{selectedMarker.driver.rides_as_driver.length}
+								<div className='text-sm text-gray-500 dark:text-gray-400'>
+									Total Drives in Lifty: {ride.driver.rides_as_driver.length}
 								</div>
 							</div>
 						</div>
-						<p>Meet At: {selectedMarker.lot.address}</p>
-						<p>Resort: {selectedMarker.resort.resort_name}</p>
+						<p>Meet At: {ride.lot.address}</p>
+						<p>Resort: {ride.resort.resort_name}</p>
 						<p>
-							Passenger Spots: {selectedMarker.passengers.length} /{' '}
-							{selectedMarker.capacity}
+							Passenger Spots: {ride.passengers.length} / {ride.capacity}
 						</p>
 					</div>
 				</div>
@@ -86,4 +82,4 @@ function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
 	);
 }
 
-export default MapDetailModal;
+export default ListDetailModal;

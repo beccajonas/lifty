@@ -1,4 +1,5 @@
 import RideListItem from './RideListItem';
+
 function RideFeedList({
 	rides,
 	bookRide,
