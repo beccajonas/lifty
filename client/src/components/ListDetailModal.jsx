@@ -7,6 +7,7 @@ function ListDetailModal(props) {
 	const [route, setRoute] = useState(null);
 	const [distance, setDistance] = useState('');
 	const [duration, setDuration] = useState('');
+	console.log(props.ride.passengers);
 	const origin = {
 		lat: props.ride.lot.latitude,
 		lng: props.ride.lot.longitude,
@@ -110,8 +111,7 @@ function ListDetailModal(props) {
 									</NavLink>
 								</div>
 								<div className='text-sm text-gray-500 dark:text-gray-400'>
-									Total Drives in Lifty:{' '}
-									{props.ride.driver.rides_as_driver.length}
+									Total Miles Traveled With Lifty:{' '}
 								</div>
 							</div>
 						</div>
@@ -121,8 +121,25 @@ function ListDetailModal(props) {
 							Passenger Spots: {props.ride.passengers.length} /{' '}
 							{props.ride.capacity}
 						</p>
+
+						{props.ride.passengers.length > 0 && (
+							<div>
+								<p className='font-semibold text-indigo-500'>
+									Riders:{' '}
+									{props.ride.passengers.map((passenger) => (
+										<NavLink
+											to={`/profile/${passenger.id}`}
+											key={passenger.id}>
+											{passenger.first_name} {passenger.last_name}
+										</NavLink>
+									))}
+								</p>
+							</div>
+						)}
+
 						<p>Distance: {distance}</p>
 						<p>Duration: {duration}</p>
+
 						{props.isUserDriver ? (
 							<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
 								Your Ride!

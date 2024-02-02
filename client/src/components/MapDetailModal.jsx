@@ -118,8 +118,7 @@ function MapDetailModal(props) {
 									</NavLink>
 								</div>
 								<div className='text-sm text-gray-500 dark:text-gray-400'>
-									Total Drives in Lifty:{' '}
-									{props.selectedMarker.driver.rides_as_driver.length}
+									Total Miles Traveled With Lifty:{' '}
 								</div>
 							</div>
 						</div>
@@ -129,6 +128,21 @@ function MapDetailModal(props) {
 							Passenger Spots: {props.selectedMarker.passengers.length} /{' '}
 							{props.selectedMarker.capacity}
 						</p>
+						{props.selectedMarker.passengers.length > 0 && (
+							<div>
+								<p className='font-semibold text-indigo-500'>
+									Riders:{' '}
+									{props.selectedMarker.passengers.map((passenger) => (
+										<NavLink
+											to={`/profile/${passenger.id}`}
+											key={passenger.id}>
+											{passenger.first_name} {passenger.last_name}
+										</NavLink>
+									))}
+								</p>
+							</div>
+						)}
+
 						<p>Distance: {distance}</p>
 						<p>Duration: {duration}</p>
 						{isUserDriver ? (

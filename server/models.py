@@ -45,7 +45,8 @@ class Ride(db.Model, SerializerMixin):
     __tablename__ = 'ride_table'
 
     serialize_rules =['-driver.rides_as_passenger', 
-                      '-passengers.rides_as_passenger']
+                      '-passengers.rides_as_passenger',
+                      '-passengers.rides_as_driver']
 
     id = db.Column(db.Integer, primary_key=True)
     capacity = db.Column(db.Integer, nullable=False)
