@@ -123,6 +123,27 @@ function ListDetailModal(props) {
 						</p>
 						<p>Distance: {distance}</p>
 						<p>Duration: {duration}</p>
+						{props.isUserDriver ? (
+							<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
+								Your Ride!
+							</button>
+						) : (
+							<>
+								{!props.isUserBooked ? (
+									<button
+										onClick={props.handleJoinClick}
+										className='text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+										Join this ride
+									</button>
+								) : (
+									<button
+										onClick={props.handleLeaveClick}
+										className='text-white bg-red-700 hover:bg-red-800  font-medium rounded-full text-sm px-3 py-1  text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+										Leave this ride
+									</button>
+								)}
+							</>
+						)}
 						<Map
 							google={props.google}
 							zoom={13}

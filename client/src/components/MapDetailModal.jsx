@@ -4,11 +4,17 @@ import { DirectionsRenderer } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
 
 function MapDetailModal(props) {
-	console.log(props);
+	console.log(props.user);
 	const [route, setRoute] = useState(null);
 	const [distance, setDistance] = useState('');
 	const [duration, setDuration] = useState('');
-	console.log(props.selectedMarker.lot.latitude);
+
+	const isUserBooked = props.selectedMarker.passengers.some(
+		(passenger) => passenger.id === props.user.id
+	);
+
+	const isUserDriver = props.selectedMarker.driver_id === props.user.id;
+
 	const origin = {
 		lat: props.selectedMarker.lot.latitude,
 		lng: props.selectedMarker.lot.longitude,
@@ -125,6 +131,31 @@ function MapDetailModal(props) {
 						</p>
 						<p>Distance: {distance}</p>
 						<p>Duration: {duration}</p>
+						{isUserDriver ? (
+							<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
+								Your Ride!
+							</button>
+						) : (
+							<>
+								{!isUserBooked ? (
+									<button
+										onClick={() =>
+											props.handleJoinClick(props.selectedMarker.id)
+										}
+										className='text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+										Join this ride
+									</button>
+								) : (
+									<button
+										onClick={() =>
+											props.handleLeaveClick(props.selectedMarker.id)
+										}
+										className='text-white bg-red-700 hover:bg-red-800  font-medium rounded-full text-sm px-3 py-1  text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+										Leave this ride
+									</button>
+								)}
+							</>
+						)}
 						<Map
 							google={props.google}
 							zoom={13}

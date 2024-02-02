@@ -95,6 +95,7 @@ class Resort(db.Model, SerializerMixin):
     address = db.Column(db.String)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
+    logo=db.Column(db.String)
 
     rides = db.relationship('Ride', back_populates='resort')
 

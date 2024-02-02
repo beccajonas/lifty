@@ -21,6 +21,14 @@ function RideFeedMap(props) {
 		setSelectedMarker(ride);
 	}
 
+	function handleJoinClick(rideId) {
+		props.handleBookRide(rideId);
+	}
+
+	function handleLeaveClick(rideId) {
+		props.handleLeaveRide(rideId);
+	}
+
 	const mapStyles = {
 		width: '50%',
 		height: '50%',
@@ -42,6 +50,11 @@ function RideFeedMap(props) {
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
 					selectedMarker={selectedMarker}
+					handleBookRide={props.handleBookRide}
+					handleLeaveRide={props.handleLeaveRide}
+					handleLeaveClick={handleLeaveClick}
+					handleJoinClick={handleJoinClick}
+					user={props.user}
 				/>
 			) : null}
 			<Map

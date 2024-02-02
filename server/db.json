@@ -5,84 +5,96 @@
 			"resort_name": "Alta",
 			"address": "10300 Little Cottonwood Rd, Alta, UT 84092",
 			"latitude": 40.5885,
-			"longitude": -111.635
+			"longitude": -111.635,
+			"logo": "https://dreamskiadventures.com/wp-content/uploads/sites/3/2019/06/Utah-Logo-Alta-tranparent.png"
 		},
 		{
 			"id": 2,
 			"resort_name": "Brian Head",
 			"address": "329 UT-143, Brian Head, UT 84719",
 			"latitude": 37.6826,
-			"longitude": -112.8511
+			"longitude": -112.8511,
+			"logo": "https://www.brianhead.com/wp-content/uploads/sites/7/2023/01/structured-data-logo.png"
 		},
 		{
 			"id": 3,
 			"resort_name": "Brighton",
 			"address": "8302 S Brighton Loop Rd, Brighton, UT 84121",
 			"latitude": 40.5981,
-			"longitude": -111.5844
+			"longitude": -111.5844,
+			"logo": "https://pbs.twimg.com/profile_images/547133020801495040/sJ-1T2JU_400x400.png"
 		},
 		{
 			"id": 4,
 			"resort_name": "Deer Valley",
 			"address": "2250 Deer Valley Dr S, Park City, UT 84060",
 			"latitude": 40.6375,
-			"longitude": -111.4787
+			"longitude": -111.4787,
+			"logo": "https://upload.wikimedia.org/wikipedia/en/d/d9/Deer_Valley_Resort_logo.svg"
 		},
 		{
 			"id": 5,
 			"resort_name": "Nordic Valley",
 			"address": "3567 Nordic Valley Way, Eden, UT 84310",
 			"latitude": 41.3507,
-			"longitude": -111.8436
+			"longitude": -111.8436,
+			"logo": "https://www3.co.weber.ut.us/gis_data/images/nordic-valley-logo5.png"
 		},
 		{
 			"id": 6,
 			"resort_name": "Park City",
 			"address": "1355 Lowell Ave, Park City, UT 84060",
 			"latitude": 40.6461,
-			"longitude": -111.4977
+			"longitude": -111.4977,
+			"logo": "https://dnyjvzj5aqor7.cloudfront.net/logos/a06f4999-1263-11e3-8b6f-c42c031157e6/GYP10oOe4ZMTdcG53Kf14VD1DdcBMEvN057I3VyK.png"
 		},
 		{
 			"id": 7,
 			"resort_name": "Powder Mountain",
 			"address": "6965 E Powder Mountain Rd, Eden, UT 84310",
 			"latitude": 41.3808,
-			"longitude": -111.745
+			"longitude": -111.745,
+			"logo": "https://ams.allmountainsigns.com/wp-content/uploads/2020/08/logo-powdermtn.png"
 		},
 		{
 			"id": 8,
 			"resort_name": "Snowbasin",
 			"address": "925 E. Snowbasin Road Huntsville, Utah 84317",
 			"latitude": 41.2006,
-			"longitude": -111.8614
+			"longitude": -111.8614,
+			"logo": "https://svsbstagingstorage.blob.core.windows.net/svsb-staging-snowbasin-media/snowbasin/media/siteassets/logos/sun-logo-blue.png?ext=.png?w=150&h=150&mode=crop&scale=both"
 		},
 		{
 			"id": 9,
 			"resort_name": "Snowbird",
 			"address": "9385 Snowbird Center Trail, Snowbird, UT 84092",
 			"latitude": 40.580982,
-			"longitude": -111.657615
+			"longitude": -111.657615,
+			"logo": "https://4728cad996218e466a50.cdn6.editmysite.com/uploads/b/4728cad996218e466a50fe3f76acbb6059631ee758c172ce6bd7dd67a43b31f2/Snowbird_Logo_Stacked_Spot_1669661554_1702331203.png?width=2400&optimize=medium"
 		},
 		{
 			"id": 10,
 			"resort_name": "Solitude",
 			"address": "12000 Big Cottonwood Canyon Rd, Solitude, UT 84121",
 			"latitude": 40.6200538,
-			"longitude": -111.59136162271176
+			"longitude": -111.59136162271176,
+			"logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtusaaad8u4DZlK30OMr63PcFlHvtkUXumc-lzH4T0wA&s"
 		},
 		{
 			"id": 11,
 			"resort_name": "Sundance",
 			"address": "8841 Alpine Loop Scenic Byway, Sundance, UT 84604",
 			"latitude": 40.3934,
-			"longitude": 111.5888
+			"longitude": 111.5888,
+			"logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXRz6mS8S2jjfgtTO5g_lqfSxNyX4NOeKyB28m4pMUuA&s"
 		},
 		{
 			"id": 12,
 			"resort_name": "Woodward",
 			"address": "3863 Kilby Rd, Park City, UT 84098",
 			"latitude": 40.75451,
-			"longitude": -111.587
+			"longitude": -111.587,
+			"logo": "https://assets.simpleviewinc.com/simpleview/image/upload/crm/saltlake/Woodward_stacked_ParkCity-2-_A74178A8-9B8D-4360-B2A18E41A81CECB5_633baa48-0ca4-4b5b-b0e5bd131a7578cb.png"
 		}
 	],
 	"lots": [

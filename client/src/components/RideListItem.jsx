@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import ListDetailModal from './ListDetailModal';
 
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
-	console.log(ride);
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
 
 	const isUserBooked = ride.passengers.some(
@@ -28,35 +27,35 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 				<ListDetailModal
 					setShowListDetailModal={setShowListDetailModal}
 					ride={ride}
+					handleLeaveClick={handleLeaveClick}
+					handleJoinClick={handleJoinClick}
+					handleDetailClick={handleDetailClick}
+					isUserBooked={isUserBooked}
+					isUserDriver={isUserDriver}
 				/>
 			) : null}
-			<div
-				className='border border-solid border-black'
-				onClick={handleDetailClick}>
-				Start: {ride.lot.lot_name} | Resort: {ride.resort.resort_name} |
-				Passenger Spots: {ride.passengers.length} / {ride.capacity}
-			</div>
-			{isUserDriver ? (
-				<button className='text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>
-					View Your Ride
-				</button>
-			) : (
-				<>
-					{!isUserBooked ? (
-						<button
-							onClick={handleJoinClick}
-							className='text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-							Join this ride
-						</button>
-					) : (
-						<button
-							onClick={handleLeaveClick}
-							className='text-white bg-red-700 hover:bg-red-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
-							Leave this ride
-						</button>
-					)}
-				</>
-			)}
+			<a
+				onClick={handleDetailClick}
+				className='flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-300'>
+				<img
+					className='object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg'
+					src={ride.driver.profile_pic}
+					alt=''
+				/>
+				<div className='flex flex-col justify-between p-4 leading-normal'>
+					<img
+						className='object-contain h-20 w-20 rounded-full'
+						src={ride.resort.logo}
+						alt=''
+					/>
+					<h3 className='mb-2 text-l font-bold tracking-tight text-gray-900'>
+						{ride.lot.lot_name} Park & Ride
+					</h3>
+					<p>
+						Driver: {ride.driver.first_name} {ride.driver.last_name}
+					</p>
+				</div>
+			</a>
 		</>
 	);
 }

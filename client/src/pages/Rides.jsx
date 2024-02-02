@@ -115,12 +115,13 @@ function Rides({
 					handleLeaveRide={handleLeaveRide}
 				/>
 			) : (
-				<>
-					<RideFeedMap
-						rides={rides}
-						bookRide={bookRide}
-					/>
-				</>
+				<RideFeedMap
+					user={user}
+					rides={rides}
+					bookRide={bookRide}
+					handleLeaveRide={handleLeaveRide}
+					handleBookRide={handleBookRide}
+				/>
 			)}
 		</div>
 	);
