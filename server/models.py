@@ -46,7 +46,9 @@ class Ride(db.Model, SerializerMixin):
 
     serialize_rules =['-driver.rides_as_passenger', 
                       '-passengers.rides_as_passenger',
-                      '-passengers.rides_as_driver']
+                      '-passengers.rides_as_driver',
+                      '-passengers.password_hash',
+                      '-driver.password_hash']
 
     id = db.Column(db.Integer, primary_key=True)
     capacity = db.Column(db.Integer, nullable=False)

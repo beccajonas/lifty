@@ -86,7 +86,7 @@ def signup():
 @app.get("/api/users")
 def get_all_users():
     users = User.query.all()
-    return [u.to_dict() for u in users]
+    return [u.to_dict(rules=['-password_hash']) for u in users]
 
 @app.get("/api/lots")
 def get_all_lots():

@@ -4,7 +4,6 @@ import { DirectionsRenderer } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
 
 function MapDetailModal(props) {
-	console.log(props.user);
 	const [route, setRoute] = useState(null);
 	const [distance, setDistance] = useState('');
 	const [duration, setDuration] = useState('');
