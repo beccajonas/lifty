@@ -103,6 +103,10 @@ function App() {
 			</div>
 			<Routes>
 				<Route
+					path='/'
+					element={user ? <Navigate to='/rides' /> : <Navigate to='/login' />}
+				/>
+				<Route
 					path='/rides'
 					element={
 						<Rides
