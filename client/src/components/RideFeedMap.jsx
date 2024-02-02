@@ -40,7 +40,7 @@ function RideFeedMap(props) {
 		<>
 			{showMapDetailModal ? (
 				<MapDetailModal
-					setShowDetailModal={setShowMapDetailModal}
+					setShowMapDetailModal={setShowMapDetailModal}
 					selectedMarker={selectedMarker}
 				/>
 			) : null}

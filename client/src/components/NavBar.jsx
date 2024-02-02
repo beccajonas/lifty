@@ -91,7 +91,7 @@ const Navbar = ({ user, handleLogout }) => {
 							<div className='p-4 flex flex-col'>
 								<NavLink
 									className='hover:text-blue-900'
-									to={`/profile/${user.id}`}>
+									to={`/myprofile/${user.id}`}>
 									Profile
 								</NavLink>
 								<NavLink

@@ -101,7 +101,7 @@ def get_all_resorts():
 @app.get("/api/users/<int:id>")
 def get_user_by_id(id):
     user = db.session.get(User, id)
-    return user.to_dict()
+    return user.to_dict(rules=['-password_hash'])
 
 # Get rides for user 
 @app.get("/api/users/<int:user_id>/rides")

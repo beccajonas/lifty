@@ -1,5 +1,6 @@
+import { NavLink } from 'react-router-dom';
+
 function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
-	console.log(selectedMarker);
 	return (
 		<>
 			<div
@@ -64,8 +65,10 @@ function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
 							/>
 							<div class='font-medium'>
 								<div>
-									Driver: {selectedMarker.driver.first_name}{' '}
-									{selectedMarker.driver.last_name}
+									<NavLink to={`/profile/${selectedMarker.driver.id}`}>
+										Driver: {selectedMarker.driver.first_name}{' '}
+										{selectedMarker.driver.last_name}
+									</NavLink>
 								</div>
 								<div class='text-sm text-gray-500 dark:text-gray-400'>
 									Total Drives in Lifty:{' '}

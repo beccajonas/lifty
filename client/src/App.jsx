@@ -16,6 +16,7 @@ import MyStatsPage from './pages/MyStatsPage';
 import Rides from './pages/Rides';
 import About from './pages/About';
 import RideFormModal from './components/RideFormModal';
+import Profile from './pages/Profile';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -145,8 +146,12 @@ function App() {
 					}
 				/>
 				<Route
-					path='/profile/:id'
+					path='/myprofile/:id'
 					element={<UserProfilePage />}
+				/>
+				<Route
+					path='/profile/:id'
+					element={<Profile />}
 				/>
 			</Routes>
 		</Router>

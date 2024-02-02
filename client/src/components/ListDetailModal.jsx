@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 function ListDetailModal({ setShowListDetailModal, ride }) {
 	return (
 		<>
@@ -63,7 +65,9 @@ function ListDetailModal({ setShowListDetailModal, ride }) {
 							/>
 							<div className='font-medium'>
 								<div>
-									Driver: {ride.driver.first_name} {ride.driver.last_name}
+									<NavLink to={`/profile/${ride.driver.id}`}>
+										Driver: {ride.driver.first_name} {ride.driver.last_name}
+									</NavLink>
 								</div>
 								<div className='text-sm text-gray-500 dark:text-gray-400'>
 									Total Drives in Lifty: {ride.driver.rides_as_driver.length}
