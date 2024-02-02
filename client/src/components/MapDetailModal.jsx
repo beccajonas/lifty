@@ -1,6 +1,47 @@
 import { NavLink } from 'react-router-dom';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { DirectionsRenderer } from '@react-google-maps/api';
+import { useState, useEffect } from 'react';
 
-function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
+function MapDetailModal(props) {
+	console.log(props);
+	const [route, setRoute] = useState(null);
+	const [distance, setDistance] = useState('');
+	const [duration, setDuration] = useState('');
+	console.log(props.selectedMarker.lot.latitude);
+	const origin = {
+		lat: props.selectedMarker.lot.latitude,
+		lng: props.selectedMarker.lot.longitude,
+	};
+	const destination = {
+		lat: props.selectedMarker.resort.latitude,
+		lng: props.selectedMarker.resort.longitude,
+	};
+
+	const directionsService = new window.google.maps.DirectionsService();
+
+	useEffect(() => {
+		calculateDistance();
+	}, []);
+
+	function calculateDistance() {
+		const request = {
+			origin: origin,
+			destination: destination,
+			travelMode: 'DRIVING',
+		};
+
+		directionsService.route(request, (result, status) => {
+			if (status === 'OK') {
+				setRoute(result);
+				setDistance(result.routes[0].legs[0].distance.text);
+				setDuration(result.routes[0].legs[0].duration.text);
+			} else {
+				console.error(`Error fetching directions: ${status}`);
+			}
+		});
+	}
+
 	return (
 		<>
 			<div
@@ -19,8 +60,8 @@ function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
 					style={{
 						position: 'relative',
 						padding: '1rem',
-						maxWidth: '100%',
-						maxHeight: '100%',
+						width: '80%',
+						height: '80%',
 						overflowY: 'auto',
 						overflowX: 'hidden',
 						background: '#fff',
@@ -52,41 +93,52 @@ function MapDetailModal({ setShowMapDetailModal, selectedMarker }) {
 								fontWeight: '500',
 								padding: '0.2rem 1rem',
 							}}
-							onClick={() => setShowMapDetailModal(false)}>
+							onClick={() => props.setShowMapDetailModal(false)}>
 							Close
 						</button>
 					</div>
 					<div>
-						<div class='flex items-center mt-1 mb-1 gap-4'>
+						<div className='flex items-center mt-1 mb-1 gap-4'>
 							<img
 								className='w-10  rounded-full ring-2 ring-gray-300'
-								src={selectedMarker.driver.profile_pic}
+								src={props.selectedMarker.driver.profile_pic}
 								alt=''
 							/>
-							<div class='font-medium'>
+							<div className='font-medium'>
 								<div>
-									<NavLink to={`/profile/${selectedMarker.driver.id}`}>
-										Driver: {selectedMarker.driver.first_name}{' '}
-										{selectedMarker.driver.last_name}
+									<NavLink to={`/profile/${props.selectedMarker.driver.id}`}>
+										Driver: {props.selectedMarker.driver.first_name}{' '}
+										{props.selectedMarker.driver.last_name}
 									</NavLink>
 								</div>
-								<div class='text-sm text-gray-500 dark:text-gray-400'>
+								<div className='text-sm text-gray-500 dark:text-gray-400'>
 									Total Drives in Lifty:{' '}
-									{selectedMarker.driver.rides_as_driver.length}
+									{props.selectedMarker.driver.rides_as_driver.length}
 								</div>
 							</div>
 						</div>
-						<p>Meet At: {selectedMarker.lot.address}</p>
-						<p>Resort: {selectedMarker.resort.resort_name}</p>
+						<p>Meet At: {props.selectedMarker.lot.address}</p>
+						<p>Resort: {props.selectedMarker.resort.resort_name}</p>
 						<p>
-							Passenger Spots: {selectedMarker.passengers.length} /{' '}
-							{selectedMarker.capacity}
+							Passenger Spots: {props.selectedMarker.passengers.length} /{' '}
+							{props.selectedMarker.capacity}
 						</p>
+						<p>Distance: {distance}</p>
+						<p>Duration: {duration}</p>
+						<Map
+							google={props.google}
+							zoom={13}
+							style={{ width: '90%', height: '60%' }}>
+							<Marker position={origin} />
+							<Marker position={destination} />
+							{route && <DirectionsRenderer directions={route} />}
+						</Map>
 					</div>
 				</div>
 			</div>
 		</>
 	);
 }
-
-export default MapDetailModal;
+export default GoogleApiWrapper({
+	apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
+})(MapDetailModal);

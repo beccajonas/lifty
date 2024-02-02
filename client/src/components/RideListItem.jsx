@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import ListDetailModal from './ListDetailModal';
-import MapDetailModal from './MapDetailModal';
 
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
+	console.log(ride);
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
 
 	const isUserBooked = ride.passengers.some(

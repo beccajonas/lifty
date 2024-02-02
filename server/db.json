@@ -9,97 +9,76 @@
 		},
 		{
 			"id": 2,
-			"resort_name": "Beaver Mountain",
-			"address": "40000 East, US-89, Garden City, UT 84028",
-			"latitude": 41.9423,
-			"longitude": -111.5501
-		},
-		{
-			"id": 3,
 			"resort_name": "Brian Head",
 			"address": "329 UT-143, Brian Head, UT 84719",
 			"latitude": 37.6826,
 			"longitude": -112.8511
 		},
 		{
-			"id": 4,
+			"id": 3,
 			"resort_name": "Brighton",
 			"address": "8302 S Brighton Loop Rd, Brighton, UT 84121",
 			"latitude": 40.5981,
 			"longitude": -111.5844
 		},
 		{
-			"id": 5,
-			"resort_name": "Cherry Peak",
-			"address": "3200 E 11000 N, Richmond, UT 84333",
-			"latitude": 41.8817,
-			"longitude": -111.7918
-		},
-		{
-			"id": 6,
+			"id": 4,
 			"resort_name": "Deer Valley",
 			"address": "2250 Deer Valley Dr S, Park City, UT 84060",
 			"latitude": 40.6375,
 			"longitude": -111.4787
 		},
 		{
-			"id": 7,
-			"resort_name": "Eagle Point",
-			"address": "150 S W VILLAGE CIR, BEAVER, UT 84713",
-			"latitude": 38.3129,
-			"longitude": -112.3857
-		},
-		{
-			"id": 8,
+			"id": 5,
 			"resort_name": "Nordic Valley",
 			"address": "3567 Nordic Valley Way, Eden, UT 84310",
 			"latitude": 41.3507,
 			"longitude": -111.8436
 		},
 		{
-			"id": 9,
+			"id": 6,
 			"resort_name": "Park City",
 			"address": "1355 Lowell Ave, Park City, UT 84060",
 			"latitude": 40.6461,
 			"longitude": -111.4977
 		},
 		{
-			"id": 10,
+			"id": 7,
 			"resort_name": "Powder Mountain",
 			"address": "6965 E Powder Mountain Rd, Eden, UT 84310",
 			"latitude": 41.3808,
 			"longitude": -111.745
 		},
 		{
-			"id": 11,
+			"id": 8,
 			"resort_name": "Snowbasin",
 			"address": "925 E. Snowbasin Road Huntsville, Utah 84317",
 			"latitude": 41.2006,
 			"longitude": -111.8614
 		},
 		{
-			"id": 12,
+			"id": 9,
 			"resort_name": "Snowbird",
 			"address": "9385 Snowbird Center Trail, Snowbird, UT 84092",
 			"latitude": 40.580982,
 			"longitude": -111.657615
 		},
 		{
-			"id": 13,
+			"id": 10,
 			"resort_name": "Solitude",
 			"address": "12000 Big Cottonwood Canyon Rd, Solitude, UT 84121",
 			"latitude": 40.6200538,
 			"longitude": -111.59136162271176
 		},
 		{
-			"id": 14,
+			"id": 11,
 			"resort_name": "Sundance",
 			"address": "8841 Alpine Loop Scenic Byway, Sundance, UT 84604",
 			"latitude": 40.3934,
 			"longitude": 111.5888
 		},
 		{
-			"id": 15,
+			"id": 12,
 			"resort_name": "Woodward",
 			"address": "3863 Kilby Rd, Park City, UT 84098",
 			"latitude": 40.75451,
@@ -204,6 +183,64 @@
 			"profile_pic": "https://www.lego.com/cdn/cs/set/assets/blta2d94d7dfc4c6cb4/5006161.png?format=webply&fit=bounds&quality=60&width=800&height=800&dpr=2",
 			"total_distance_traveled": null,
 			"total_emissions_saved": null
+		}
+	],
+	"rides": [
+		{
+			"id": 1,
+			"capacity": 2,
+			"driver_id": 1,
+			"lot_id": 1,
+			"resort_id": 1
+		},
+		{
+			"id": 2,
+			"capacity": 2,
+			"driver_id": 2,
+			"lot_id": 2,
+			"resort_id": 8
+		},
+		{
+			"id": 3,
+			"capacity": 3,
+			"driver_id": 3,
+			"lot_id": 3,
+			"resort_id": 3
+		},
+		{
+			"id": 4,
+			"capacity": 2,
+			"driver_id": 4,
+			"lot_id": 4,
+			"resort_id": 4
+		},
+		{
+			"id": 5,
+			"capacity": 3,
+			"driver_id": 3,
+			"lot_id": 5,
+			"resort_id": 4
+		},
+		{
+			"id": 6,
+			"capacity": 3,
+			"driver_id": 2,
+			"lot_id": 6,
+			"resort_id": 5
+		},
+		{
+			"id": 7,
+			"capacity": 3,
+			"driver_id": 1,
+			"lot_id": 7,
+			"resort_id": 7
+		},
+		{
+			"id": 8,
+			"capacity": 2,
+			"driver_id": 4,
+			"lot_id": 8,
+			"resort_id": 8
 		}
 	]
 }

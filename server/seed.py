@@ -22,6 +22,9 @@ if __name__ == "__main__":
         for resorts in data['resorts']:
             db.session.add(Resort(**resorts))
 
+        for rides in data['rides']:
+            db.session.add(Ride(**rides))
+
         user_list = []
         for user in data['users']:
             u = User(

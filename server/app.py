@@ -119,8 +119,7 @@ def get_rides_by_user(user_id):
 @app.get("/api/rides")
 def get_rides():
     rides = Ride.query.all()
-    return [r.to_dict(rules=['-driver.password_hash', 
-                             '-driver.total_distance_traveled']) for r in rides]
+    return [r.to_dict() for r in rides]
 
 @app.get("/api/rides/<int:id>")
 def get_rides_by_id(id):
