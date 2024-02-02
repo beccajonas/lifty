@@ -79,6 +79,8 @@ class Lot(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     lot_name = db.Column(db.String)
     address = db.Column(db.String)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
     rides = db.relationship('Ride', back_populates='lot')
 

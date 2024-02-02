@@ -20,6 +20,14 @@ function Rides({
 	const [leftRide, setLeftRide] = useState(null);
 
 	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			setErrorMessage('');
+			setMessage('');
+		}, 3000);
+		return () => clearTimeout(timeoutId);
+	}, [message]);
+
+	useEffect(() => {
 		fetch(`/api/rides`)
 			.then((res) => res.json())
 			.then((data) => setRides(data));
@@ -63,6 +71,7 @@ function Rides({
 	return (
 		<div>
 			<h1>Rides Here</h1>
+			<p style={{ color: '#38a169', marginTop: '1rem' }}>{message}</p>
 			<button
 				onClick={() => setShowModal(true)}
 				type='button'
@@ -107,7 +116,10 @@ function Rides({
 				/>
 			) : (
 				<>
-					<RideFeedMap rides={rides} />
+					<RideFeedMap
+						rides={rides}
+						bookRide={bookRide}
+					/>
 				</>
 			)}
 		</div>

@@ -2,16 +2,17 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { useState, useEffect } from 'react';
 
 function RideFeedMap(props) {
+	console.log(props);
 	const [markers, setMarkers] = useState([]);
 
 	useEffect(() => {
 		// Update markers when 'rides' prop changes
 		const updatedMarkers = props.rides.map((ride) => ({
-			position: { lat: ride.latitude, lng: ride.longitude },
+			position: { lat: ride.lot.latitude, lng: ride.lot.longitude },
 		}));
 
 		setMarkers(updatedMarkers);
-	}, [props.rides]);
+	}, [props.rides, props.bookRide]);
 
 	const mapStyles = {
 		width: '50%',
@@ -19,9 +20,8 @@ function RideFeedMap(props) {
 	};
 
 	const displayMarkers = () => {
-		return markers.map((marker, index) => (
+		return markers.map((marker) => (
 			<Marker
-				key={index}
 				position={marker.position}
 				onClick={() => console.log('click')}
 			/>

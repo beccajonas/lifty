@@ -54,6 +54,7 @@ function RideFormModal({
 				.then((data) => {
 					console.log(data);
 					setBookRide(true);
+					setShowModal(!showModal);
 					setMessage('Ride posted successfully!');
 				})
 				.catch((error) => {
@@ -236,9 +237,6 @@ function RideFormModal({
 								<p style={{ color: '#e53e3e', marginTop: '1rem' }}>
 									{errorMessage}
 								</p>
-							)}
-							{message && (
-								<p style={{ color: '#38a169', marginTop: '1rem' }}>{message}</p>
 							)}
 						</form>
 					</div>
