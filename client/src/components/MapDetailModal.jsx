@@ -60,6 +60,18 @@ function MapDetailModal({ setShowDetailModal, selectedMarker }) {
 							Close
 						</button>
 					</div>
+					<div>
+						<p>Meet At: {selectedMarker.lot.address}</p>
+						<p>Resort: {selectedMarker.resort.resort_name}</p>
+						<p>
+							Driver: {selectedMarker.driver.first_name}{' '}
+							{selectedMarker.driver.last_name}
+						</p>
+						<p>
+							Passenger Spots: {selectedMarker.passengers.length} /{' '}
+							{selectedMarker.capacity}
+						</p>
+					</div>
 				</div>
 			</div>
 		</>
