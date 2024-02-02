@@ -1,18 +1,25 @@
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { useState, useEffect } from 'react';
+import MapDetailModal from './MapDetailModal';
 
 function RideFeedMap(props) {
-	console.log(props);
 	const [markers, setMarkers] = useState([]);
+	const [showDetailModal, setShowDetailModal] = useState(false);
+	const [selectedMarker, setSelectedMarker] = useState(null);
 
 	useEffect(() => {
-		// Update markers when 'rides' prop changes
 		const updatedMarkers = props.rides.map((ride) => ({
 			position: { lat: ride.lot.latitude, lng: ride.lot.longitude },
+			rideInfo: ride,
 		}));
 
 		setMarkers(updatedMarkers);
 	}, [props.rides, props.bookRide]);
+
+	function handleDetailClick(ride) {
+		setShowDetailModal(true);
+		setSelectedMarker(ride);
+	}
 
 	const mapStyles = {
 		width: '50%',
@@ -20,22 +27,31 @@ function RideFeedMap(props) {
 	};
 
 	const displayMarkers = () => {
-		return markers.map((marker) => (
+		return markers.map((marker, index) => (
 			<Marker
+				key={index}
 				position={marker.position}
-				onClick={() => console.log('click')}
+				onClick={() => handleDetailClick(marker.rideInfo)}
 			/>
 		));
 	};
 
 	return (
-		<Map
-			google={props.google}
-			zoom={10}
-			style={mapStyles}
-			initialCenter={{ lat: 40.7608, lng: -111.891 }}>
-			{displayMarkers()}
-		</Map>
+		<>
+			{showDetailModal ? (
+				<MapDetailModal
+					setShowDetailModal={setShowDetailModal}
+					selectedMarker={selectedMarker}
+				/>
+			) : null}
+			<Map
+				google={props.google}
+				zoom={10}
+				style={mapStyles}
+				initialCenter={{ lat: 40.7608, lng: -111.891 }}>
+				{displayMarkers()}
+			</Map>
+		</>
 	);
 }
 
