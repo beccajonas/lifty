@@ -1,6 +1,7 @@
 from app import app
 from models import db, User, Ride, Lot, Resort, passenger_ride_association
 import json
+from datetime import datetime 
 from flask_bcrypt import Bcrypt
 
 if __name__ == "__main__":
@@ -22,8 +23,21 @@ if __name__ == "__main__":
         for resorts in data['resorts']:
             db.session.add(Resort(**resorts))
 
-        for rides in data['rides']:
-            db.session.add(Ride(**rides))
+        ride_list = []
+        for ride in data['rides']:
+            r = Ride(
+                capacity=ride.get('capacity'),
+                driver_id=ride.get('driver_id'),
+                lot_id=ride.get('lot_id'),
+                resort_id=ride.get('resort_id'),
+                date_time=datetime.strptime(ride.get('date_time'), "%Y-%m-%dT%H:%M:%S"),
+                emmissions_saved=ride.get('emmissions_saved'),
+                distance_traveled=ride.get('distance_traveled'),
+                roundtrip=ride.get('roundtrip')
+            )
+            ride_list.append(r)
+        db.session.add_all(ride_list)
+        db.session.commit()
 
         user_list = []
         for user in data['users']:

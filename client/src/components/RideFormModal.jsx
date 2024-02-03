@@ -15,6 +15,8 @@ function RideFormModal({
 	const [lotId, setLotId] = useState('');
 	const [resortId, setResortId] = useState('');
 	const [capacity, setCapacity] = useState('');
+	const [dateTime, setDateTime] = useState('');
+	const [roundTrip, setRoundTrip] = useState(false);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -24,45 +26,58 @@ function RideFormModal({
 		return () => clearTimeout(timeoutId);
 	}, [errorMessage, message]);
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
-		const newRide = {
-			driver_id: user.id,
-			lot_id: parseInt(lotId),
-			resort_id: parseInt(resortId),
-			capacity: parseInt(capacity),
-		};
+
+		if (!lotId) {
+			setErrorMessage('Please select a park-and-ride lot.');
+			return;
+		}
+
+		if (!resortId) {
+			setErrorMessage('Please select a resort.');
+			return;
+		}
+
+		if (!dateTime) {
+			setErrorMessage('Please select a valid date and time.');
+			return;
+		}
+
 		try {
-			fetch(`/api/users/${user.id}/new_ride`, {
+			console.log(dateTime);
+			const newRide = {
+				driver_id: user.id,
+				lot_id: parseInt(lotId),
+				resort_id: parseInt(resortId),
+				capacity: parseInt(capacity),
+				date_time: dateTime,
+				roundtrip: roundTrip,
+			};
+
+			const response = await fetch(`/api/users/${user.id}/new_ride`, {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
 				},
 				body: JSON.stringify(newRide),
-			})
-				.then((res) => {
-					if (!res.ok) {
-						return res.json().then((data) => {
-							console.log(data.error);
-							setErrorMessage(data.error);
-							throw new Error(data.error);
-						});
-					}
-					return res.json();
-				})
-				.then((data) => {
-					console.log(data);
-					setBookRide(true);
-					setShowModal(!showModal);
-					setMessage('Ride posted successfully!');
-				})
-				.catch((error) => {
-					console.log(error);
-					setErrorMessage(error.message);
-				});
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				console.log('Error Response:', errorData);
+				setErrorMessage(errorData.error);
+				throw new Error(errorData.error);
+			}
+
+			const data = await response.json();
+			console.log('Success Response:', data);
+			setBookRide(true);
+			setShowModal(!showModal);
+			setMessage('Ride posted successfully!');
 		} catch (error) {
-			console.log(error);
-			setErrorMessage(error);
+			console.error('Error:', error.message);
+			setErrorMessage(error.message);
 		}
 	}
 
@@ -188,6 +203,50 @@ function RideFormModal({
 									</option>
 								))}
 							</select>
+							<label className='block font-sm text-gray-900'>
+								Date and Time
+							</label>
+							<input
+								type='datetime-local'
+								id='datetime'
+								value={dateTime}
+								onChange={(e) => setDateTime(e.target.value)}
+								style={{
+									width: '100%',
+									padding: '0.5rem',
+									fontSize: '0.875rem',
+									border: '1px solid #d1d5db',
+									borderRadius: '0.375rem',
+								}}
+							/>
+							<label className='block font-sm text-gray-900'>Trip Type</label>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+								<label style={{ marginRight: '1rem' }}>
+									<input
+										type='radio'
+										id='oneWay'
+										name='tripType'
+										value='oneWay'
+										checked={!roundTrip}
+										onChange={() => setRoundTrip(false)}
+										style={{ marginRight: '0.5rem' }}
+									/>
+									One Way
+								</label>
+								<label>
+									<input
+										type='radio'
+										id='roundTrip'
+										name='tripType'
+										value='roundTrip'
+										checked={roundTrip}
+										onChange={() => setRoundTrip(true)}
+										style={{ marginRight: '0.5rem' }}
+									/>
+									Round Trip
+								</label>
+							</div>
+
 							<label className='block font-sm text-gray-900'>
 								Passenger Capacity
 							</label>

@@ -202,7 +202,7 @@
 			"password_hash": "e",
 			"first_name": "Becca",
 			"last_name": "Jonas",
-			"profile_pic": "s3://lifty/Screen Shot 2024-02-02 at 7.35.28 PM.png",
+			"profile_pic": "https://lifty.s3.us-east-2.amazonaws.com/Screen+Shot+2024-02-02+at+7.35.28+PM.png",
 			"total_distance_traveled": null,
 			"total_emissions_saved": null
 		}
@@ -213,56 +213,88 @@
 			"capacity": 2,
 			"driver_id": 1,
 			"lot_id": 1,
-			"resort_id": 1
+			"resort_id": 1,
+			"date_time": "2024-02-20T08:30:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		},
 		{
 			"id": 2,
 			"capacity": 2,
 			"driver_id": 2,
 			"lot_id": 2,
-			"resort_id": 8
+			"resort_id": 8,
+			"date_time": "2024-02-21T12:15:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		},
 		{
 			"id": 3,
 			"capacity": 3,
 			"driver_id": 3,
 			"lot_id": 3,
-			"resort_id": 3
+			"resort_id": 3,
+			"date_time": "2024-02-22T16:45:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": false
 		},
 		{
 			"id": 4,
 			"capacity": 2,
 			"driver_id": 4,
 			"lot_id": 4,
-			"resort_id": 4
+			"resort_id": 4,
+			"date_time": "2024-02-23T09:00:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": false
 		},
 		{
 			"id": 5,
 			"capacity": 3,
 			"driver_id": 3,
 			"lot_id": 5,
-			"resort_id": 4
+			"resort_id": 4,
+			"date_time": "2024-02-24T14:30:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		},
 		{
 			"id": 6,
 			"capacity": 3,
 			"driver_id": 2,
 			"lot_id": 6,
-			"resort_id": 5
+			"resort_id": 5,
+			"date_time": "2024-02-25T11:45:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		},
 		{
 			"id": 7,
 			"capacity": 3,
 			"driver_id": 1,
 			"lot_id": 7,
-			"resort_id": 7
+			"resort_id": 7,
+			"date_time": "2024-02-26T18:00:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		},
 		{
 			"id": 8,
 			"capacity": 2,
 			"driver_id": 4,
 			"lot_id": 8,
-			"resort_id": 8
+			"resort_id": 8,
+			"date_time": "2024-02-27T13:20:00",
+			"emmissions_saved": null,
+			"distance_traveled": null,
+			"roundtrip": true
 		}
 	]
 }

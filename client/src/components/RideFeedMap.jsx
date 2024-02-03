@@ -30,8 +30,12 @@ function RideFeedMap(props) {
 	}
 
 	const mapStyles = {
-		width: '50%',
-		height: '50%',
+		width: '70%',
+		height: '60%',
+		'border-width': '3px',
+		'z-index': '0px',
+		padding: '5px',
+		margin: '5px',
 	};
 
 	const displayMarkers = () => {
@@ -45,7 +49,7 @@ function RideFeedMap(props) {
 	};
 
 	return (
-		<>
+		<div>
 			{showMapDetailModal ? (
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
@@ -57,14 +61,16 @@ function RideFeedMap(props) {
 					user={props.user}
 				/>
 			) : null}
-			<Map
-				google={props.google}
-				zoom={10}
-				style={mapStyles}
-				initialCenter={{ lat: 40.7608, lng: -111.891 }}>
-				{displayMarkers()}
-			</Map>
-		</>
+			<div className=''>
+				<Map
+					google={props.google}
+					zoom={10}
+					style={mapStyles}
+					initialCenter={{ lat: 40.7, lng: -111.891 }}>
+					{displayMarkers()}
+				</Map>
+			</div>
+		</div>
 	);
 }
 

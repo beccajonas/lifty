@@ -1,7 +1,7 @@
 from flask import Flask, make_response, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-import datetime
+from datetime import datetime
 from models import db, User, Ride, Lot, Resort
 from flask_cors import CORS
 from dotenv import dotenv_values
@@ -133,11 +133,17 @@ def get_rides_by_id(id):
 def post_new_ride(id):
     try:
         data = request.json
+        date_time_str = data.get("date_time")
+        date_time_converted = datetime.strptime(date_time_str, "%Y-%m-%dT%H:%M")
         ride = Ride(
             driver_id=data.get("driver_id"),
             lot_id=data.get("lot_id"),
             resort_id=data.get("resort_id"),
-            capacity=data.get("capacity")
+            capacity=data.get("capacity"),
+            date_time=date_time_converted,
+            emmissions_saved=data.get("emmissions_saved"),
+            distance_traveled=data.get("distance_traveled"),
+            roundtrip=data.get("roundtrip"),
             )
         if not ride.driver_id:
             return {"error": "Problem finding user info. Try again."},  404
@@ -147,19 +153,22 @@ def post_new_ride(id):
             return {"error": "Please select a resort."}, 404
         if not ride.capacity:
             return {"error": "Select a passenger  capacity for your ride."}, 404
+        if not ride.date_time:
+            return {"error": "Please select a date and time. Try again."},  404
         db.session.add(ride)
-        db.session.commit
+        db.session.commit()
 
         return ride.to_dict(rules=['-driver', '-passengers']), 201
     
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": str(e)}, 500
 
 # Add passenger to ride (POST)
 @app.post('/api/rides/<int:id>/add_passengers')
 def add_passengers_to_ride(id):
     try:
         data = request.json
+        
         ride = db.session.query(Ride).get(id)
         if not ride:
             return {"error": "Ride not found."}, 404

@@ -34,28 +34,40 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 					isUserDriver={isUserDriver}
 				/>
 			) : null}
-			<a
-				onClick={handleDetailClick}
-				className='flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-300'>
-				<img
-					className='object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg'
-					src={ride.driver.profile_pic}
-					alt=''
-				/>
-				<div className='flex flex-col justify-between p-4 leading-normal'>
-					<img
-						className='object-contain h-20 w-20 rounded-full'
-						src={ride.resort.logo}
-						alt=''
-					/>
-					<h3 className='mb-2 text-l font-bold tracking-tight text-gray-900'>
-						{ride.lot.lot_name} Park & Ride
-					</h3>
-					<p>
-						Driver: {ride.driver.first_name} {ride.driver.last_name}
-					</p>
-				</div>
-			</a>
+			<div className='m-2 w-full'>
+				<a onClick={handleDetailClick}>
+					<div className='flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-300 pr-3'>
+						<img
+							className='object-cover bg-cyan-800 w-40 h-40 bg-cyan'
+							src={ride.driver.profile_pic}
+							alt={ride.driver.name}
+						/>
+						<div
+							className='m-8 w-20 h-24
+							'>
+							<img
+								className='object-contain h-20 w-24 ring-2 ring-gray-300 rounded-full'
+								src={ride.resort.logo}
+								alt={ride.resort.resort_name}
+							/>
+							<p className='mb-2 tracking-tight text-gray-900'>Round trip</p>
+						</div>
+						<div>
+							<p className='mb-2 tracking-tight text-gray-900'>
+								{ride.lot.lot_name}
+							</p>
+							<p className='mb-2 tracking-tight text-gray-900'>Date:</p>
+							<p className='mb-2 tracking-tight text-gray-900'>Time:</p>
+							<p className='mb-2 tracking-tight text-gray-900'>
+								Seats left: {ride.capacity - ride.passengers.length}
+							</p>
+							{ride.capacity - ride.passengers.length === 0 ? (
+								<p className='font-bold text-red-500'>Ride full!</p>
+							) : null}
+						</div>
+					</div>
+				</a>
+			</div>
 		</>
 	);
 }
