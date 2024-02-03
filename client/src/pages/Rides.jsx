@@ -15,7 +15,6 @@ function Rides({
 	resorts,
 }) {
 	const [rides, setRides] = useState([]);
-	const [listView, setListView] = useState(true);
 	const [bookRide, setBookRide] = useState(null);
 	const [leftRide, setLeftRide] = useState(null);
 
@@ -75,8 +74,6 @@ function Rides({
 				<button
 					onClick={() => setShowModal(true)}
 					type='button'
-					data-modal-target='crud-modal'
-					data-modal-toggle='crud-modal'
 					className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'>
 					Post A Ride
 				</button>
@@ -94,20 +91,9 @@ function Rides({
 						setBookRide={setBookRide}
 					/>
 				) : null}
-				<button
-					className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
-					onClick={() => setListView(true)}>
-					List View
-				</button>
-				<button
-					className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
-					onClick={() => setListView(false)}>
-					Map View
-				</button>
 			</div>
-
-			{listView ? (
-				<div className='grid m-4 max-w-2xl'>
+			<div className='grid grid-cols-2 h-screen overflow-x-hidden'>
+				<div className='outline-dotted h-screen overflow-y-auto'>
 					<RideFeedList
 						rides={rides}
 						bookRide={bookRide}
@@ -116,8 +102,7 @@ function Rides({
 						handleLeaveRide={handleLeaveRide}
 					/>
 				</div>
-			) : (
-				<div>
+				<div className='outline-dotted h-screen overflow-y-auto'>
 					<RideFeedMap
 						user={user}
 						rides={rides}
@@ -126,9 +111,8 @@ function Rides({
 						handleBookRide={handleBookRide}
 					/>
 				</div>
-			)}
+			</div>
 		</div>
 	);
 }
-
 export default Rides;

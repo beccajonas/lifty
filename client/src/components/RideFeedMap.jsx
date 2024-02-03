@@ -30,12 +30,20 @@ function RideFeedMap(props) {
 	}
 
 	const mapStyles = {
-		width: '70%',
-		height: '60%',
-		'border-width': '3px',
-		'z-index': '0px',
+		width: '100%', // Set width to 100%
+		height: '100%', // Set height to 100%
+		borderWidth: '2px', // Use camelCase for border-width
+		zIndex: '0px',
+		margin: '2px',
 		padding: '5px',
-		margin: '5px',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+	};
+
+	const containerStyle = {
+		width: '100%', // Adjusted to 100%
+		height: '100%', // Adjusted to 100%
+		maxWidth: '800px',
 	};
 
 	const displayMarkers = () => {
@@ -61,15 +69,14 @@ function RideFeedMap(props) {
 					user={props.user}
 				/>
 			) : null}
-			<div className=''>
-				<Map
-					google={props.google}
-					zoom={10}
-					style={mapStyles}
-					initialCenter={{ lat: 40.7, lng: -111.891 }}>
-					{displayMarkers()}
-				</Map>
-			</div>
+			<Map
+				google={props.google}
+				zoom={10}
+				style={mapStyles}
+				containerStyle={containerStyle}
+				initialCenter={{ lat: 40.7, lng: -111.891 }}>
+				{displayMarkers()}
+			</Map>
 		</div>
 	);
 }
