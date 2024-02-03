@@ -148,7 +148,7 @@ def post_new_ride(id):
         if not ride.capacity:
             return {"error": "Select a passenger  capacity for your ride."}, 404
         db.session.add(ride)
-        db.session.commit()
+        db.session.commit
 
         return ride.to_dict(rules=['-driver', '-passengers']), 201
     
