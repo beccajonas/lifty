@@ -7,7 +7,7 @@ function ListDetailModal(props) {
 	const [route, setRoute] = useState(null);
 	const [distance, setDistance] = useState('');
 	const [duration, setDuration] = useState('');
-	console.log(props.ride.passengers);
+
 	const origin = {
 		lat: props.ride.lot.latitude,
 		lng: props.ride.lot.longitude,
