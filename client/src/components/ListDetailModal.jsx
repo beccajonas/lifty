@@ -129,7 +129,7 @@ function ListDetailModal(props) {
 									<>
 										{!props.isUserBooked ? (
 											<button
-												onClick={props.handleJoinClick}
+												onClick={() => props.handleJoinClick(distance)}
 												className='text-white bg-indigo-700 hover:bg-indigo-900 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
 												Join this ride
 											</button>

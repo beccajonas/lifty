@@ -15,8 +15,8 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 		handleLeaveRide(ride.id);
 	}
 
-	function handleJoinClick() {
-		handleBookRide(ride.id);
+	function handleJoinClick(distance) {
+		handleBookRide(ride.id, distance);
 	}
 
 	function handleDetailClick() {

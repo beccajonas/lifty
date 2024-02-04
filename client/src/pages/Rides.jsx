@@ -54,7 +54,10 @@ function Rides({
 			.catch((error) => console.error('Error:', error));
 	}
 
-	function handleBookRide(rideId) {
+	function handleBookRide(rideId, distanceString) {
+		const match = distanceString.match(/\d+(\.\d+)?/);
+		const distanceFloat = parseFloat(match[0]);
+
 		fetch(`/api/rides/${rideId}/add_passengers`, {
 			method: 'POST',
 			headers: {
@@ -68,6 +71,21 @@ function Rides({
 				console.log(data);
 				setBookRide(true);
 				setLeftRide(!leftRide);
+			})
+			.catch((error) => console.error('Error:', error));
+
+		// Patch distance data
+		fetch(`/api/rides/${rideId}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ distance_traveled: distanceFloat }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log('edited ride!');
+				console.log(data);
 			})
 			.catch((error) => console.error('Error:', error));
 	}

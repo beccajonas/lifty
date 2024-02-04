@@ -128,6 +128,24 @@ def get_rides_by_id(id):
         return {"error": "ride not found"}
     return ride.to_dict(rules=['-passenger']) 
 
+@app.patch("/api/rides/<int:id>")
+def patch_ride(id):
+    try:
+        data = request.json
+        ride = db.session.get(Ride, id)
+
+        for key in data:
+            setattr(ride, key, data[key])
+
+        db.session.add(ride)
+        db.session.commit()
+
+        return ride.to_dict(rules=['-passenger']), 201 
+
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+
 # Add new ride (POST)
 @app.post("/api/users/<int:id>/new_ride")
 def post_new_ride(id):
@@ -162,6 +180,7 @@ def post_new_ride(id):
     
     except Exception as e:
         return {"error": str(e)}, 500
+    
 
 # Add passenger to ride (POST)
 @app.post('/api/rides/<int:id>/add_passengers')
