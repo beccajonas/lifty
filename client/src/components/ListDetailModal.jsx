@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { DirectionsRenderer } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
+import React from 'react';
 
 function ListDetailModal(props) {
 	const [route, setRoute] = useState(null);
@@ -93,19 +94,28 @@ function ListDetailModal(props) {
 
 								<div className='flex items-center'>
 									{props.ride.passengers.length > 0 ? (
-										<>
-											<p>Riders | </p>
-											{props.ride.passengers.map((passenger) => (
-												<NavLink
-													to={`/profile/${passenger.id}`}
-													key={passenger.id}>
-													<p className='font-semibold text-indigo-500'>
-														{' '}
-														{passenger.first_name} {passenger.last_name}
-													</p>
-												</NavLink>
-											))}
-										</>
+										[
+											<p key='label'>Riders: </p>,
+											...props.ride.passengers.map((passenger, index) => (
+												<React.Fragment key={passenger.id}>
+													{index > 0 && (
+														<>
+															<span key={`separator-${index}`}> | </span>
+															<span>&nbsp;</span>
+														</>
+													)}
+													<NavLink to={`/profile/${passenger.id}`}>
+														<p
+															key={passenger.id}
+															className='font-semibold text-indigo-500'>
+															<span>&nbsp;</span>
+															{passenger.first_name} {passenger.last_name}
+															<span>&nbsp;</span>
+														</p>
+													</NavLink>
+												</React.Fragment>
+											)),
+										]
 									) : (
 										<p>No riders yet.</p>
 									)}

@@ -27,10 +27,15 @@ function Rides({
 	}, [message]);
 
 	useEffect(() => {
-		fetch(`/api/rides`)
+		fetch(`/api/rides?sortBy=date_time`)
 			.then((res) => res.json())
-			.then((data) => setRides(data));
-	}, [bookRide, leftRide]);
+			.then((data) => {
+				const sortedRides = data.sort(
+					(a, b) => new Date(a.date_time) - new Date(b.date_time)
+				);
+				setRides(sortedRides);
+			});
+	}, [bookRide, leftRide, showModal, message]);
 
 	function handleLeaveRide(rideId) {
 		fetch(`/api/rides/${rideId}/remove_passenger/${user.id}`, {
@@ -69,7 +74,7 @@ function Rides({
 
 	return (
 		<div>
-			<div>
+			<div className='flex justify-center m-4'>
 				<p style={{ color: '#38a169', marginTop: '1rem' }}>{message}</p>
 				<button
 					onClick={() => setShowModal(true)}

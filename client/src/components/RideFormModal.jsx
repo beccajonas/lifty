@@ -84,87 +84,29 @@ function RideFormModal({
 	return (
 		<>
 			{showModal && (
-				<div
-					style={{
-						position: 'fixed',
-						top: 0,
-						right: 0,
-						left: 0,
-						bottom: 0,
-						zIndex: 50,
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}>
-					<div
-						style={{
-							position: 'relative',
-							padding: '1rem',
-							maxWidth: '100%',
-							maxHeight: '100%',
-							overflowY: 'auto',
-							overflowX: 'hidden',
-							background: '#fff',
-							borderRadius: '0.375rem',
-							boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
-							border: '1px solid #e5e7eb',
-						}}>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'space-between',
-								padding: '1rem',
-								borderBottom: '1px solid #d1d5db',
-								borderRadius: '0.375rem 0.375rem 0 0',
-							}}>
-							<h3
-								style={{
-									fontSize: '1.125rem',
-									fontWeight: '600',
-									color: '#1a202c',
-								}}>
+				<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center'>
+					<div className='relative p-4 max-w-full max-h-full overflow-y-auto overflow-x-hidden bg-white rounded-md shadow border border-gray-300'>
+						<div className='flex justify-between p-4 border-b border-gray-300 rounded-t-md'>
+							<h3 className='text-xl font-semibold text-gray-800'>
 								Create a ride
 							</h3>
 							<button
-								style={{
-									color: '#e53e3e',
-									cursor: 'pointer',
-									fontSize: '0.875rem',
-									fontWeight: '500',
-									padding: '0.5rem 1rem',
-									borderRadius: '0.375rem',
-									background: 'none',
-									border: '1px solid transparent',
-									transition: 'background-color 0.2s',
-									hover: { backgroundColor: '#feb2b2' },
-								}}
+								className='text-red-600 cursor-pointer text-sm font-medium py-2 px-4 rounded-md transition duration-200 hover:bg-red-200'
 								onClick={() => setShowModal(false)}>
 								Close
 							</button>
 						</div>
 						<form
 							onSubmit={handleSubmit}
-							style={{ maxWidth: '24rem', margin: '0 auto', padding: '1rem' }}>
-							<label
-								style={{
-									display: 'block',
-									marginBottom: '0.5rem',
-									fontSize: '0.875rem',
-									color: '#1a202c',
-								}}>
+							className='max-w-96 mx-auto p-4'>
+							<label className='block text-sm text-gray-900'>
 								Park-And-Ride Lot
 							</label>
 							<select
 								id='lots'
 								value={lotId}
 								onChange={(e) => setLotId(e.target.value)}
-								style={{
-									width: '100%',
-									padding: '0.5rem',
-									fontSize: '0.875rem',
-									border: '1px solid #d1d5db',
-									borderRadius: '0.375rem',
-								}}>
+								className='w-full p-2 text-sm border border-gray-300 rounded-md'>
 								<option
 									value=''
 									disabled>
@@ -178,18 +120,13 @@ function RideFormModal({
 									</option>
 								))}
 							</select>
-							<label className='block font-sm text-gray-900'>Resort</label>
+
+							<label className='block text-sm text-gray-900'>Resort</label>
 							<select
 								id='resort'
 								value={resortId}
 								onChange={(e) => setResortId(e.target.value)}
-								style={{
-									width: '100%',
-									padding: '0.5rem',
-									fontSize: '0.875rem',
-									border: '1px solid #d1d5db',
-									borderRadius: '0.375rem',
-								}}>
+								className='w-full p-2 text-sm border border-gray-300 rounded-md'>
 								<option
 									value=''
 									disabled>
@@ -203,7 +140,8 @@ function RideFormModal({
 									</option>
 								))}
 							</select>
-							<label className='block font-sm text-gray-900'>
+
+							<label className='block text-sm text-gray-900'>
 								Date and Time
 							</label>
 							<input
@@ -211,17 +149,12 @@ function RideFormModal({
 								id='datetime'
 								value={dateTime}
 								onChange={(e) => setDateTime(e.target.value)}
-								style={{
-									width: '100%',
-									padding: '0.5rem',
-									fontSize: '0.875rem',
-									border: '1px solid #d1d5db',
-									borderRadius: '0.375rem',
-								}}
+								className='w-full p-2 text-sm border border-gray-300 rounded-md'
 							/>
-							<label className='block font-sm text-gray-900'>Trip Type</label>
-							<div style={{ display: 'flex', alignItems: 'center' }}>
-								<label style={{ marginRight: '1rem' }}>
+
+							<label className='block text-sm text-gray-900'>Trip Type</label>
+							<div className='flex items-center'>
+								<label className='mr-4'>
 									<input
 										type='radio'
 										id='oneWay'
@@ -229,7 +162,7 @@ function RideFormModal({
 										value='oneWay'
 										checked={!roundTrip}
 										onChange={() => setRoundTrip(false)}
-										style={{ marginRight: '0.5rem' }}
+										className='mr-1'
 									/>
 									One Way
 								</label>
@@ -241,25 +174,19 @@ function RideFormModal({
 										value='roundTrip'
 										checked={roundTrip}
 										onChange={() => setRoundTrip(true)}
-										style={{ marginRight: '0.5rem' }}
+										className='mr-1'
 									/>
 									Round Trip
 								</label>
 							</div>
 
-							<label className='block font-sm text-gray-900'>
+							<label className='block text-sm text-gray-900'>
 								Passenger Capacity
 							</label>
 							<select
 								id='capacity'
 								value={capacity}
-								style={{
-									width: '100%',
-									padding: '0.5rem',
-									fontSize: '0.875rem',
-									border: '1px solid #d1d5db',
-									borderRadius: '0.375rem',
-								}}
+								className='w-full p-2 text-sm border border-gray-300 rounded-md'
 								onChange={(e) => setCapacity(e.target.value)}>
 								<option
 									value=''
@@ -271,30 +198,17 @@ function RideFormModal({
 								<option>4</option>
 								<option>5</option>
 							</select>
-							<p className='font-style: italic'>
+							<p className='italic mt-1'>
 								Please take into consideration space for gear and seatbelt laws
 								when choosing a capacity.
 							</p>
 							<button
 								type='submit'
-								style={{
-									marginTop: '1rem',
-									padding: '0.75rem 1rem',
-									fontSize: '1rem',
-									fontWeight: '600',
-									color: '#fff',
-									background: '#1a202c',
-									borderRadius: '0.375rem',
-									cursor: 'pointer',
-									transition: 'background-color 0.2s',
-									hover: { backgroundColor: '#2d3748' },
-								}}>
+								className='mt-4 py-2 px-4 text-white bg-gray-800 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
 								Submit
 							</button>
 							{errorMessage && (
-								<p style={{ color: '#e53e3e', marginTop: '1rem' }}>
-									{errorMessage}
-								</p>
+								<p className='text-red-600 mt-4'>{errorMessage}</p>
 							)}
 						</form>
 					</div>

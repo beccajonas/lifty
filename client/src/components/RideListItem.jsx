@@ -5,8 +5,6 @@ import ListDetailModal from './ListDetailModal';
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
 
-	console.log(ride);
-
 	const isUserBooked = ride.passengers.some(
 		(passenger) => passenger.id === user.id
 	);
@@ -39,7 +37,10 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 			)}
 			<div className='m-2 w-full'>
 				<a onClick={handleDetailClick}>
-					<div className='flex items-center bg-gray-200 border border-gray-200 rounded-lg shadow hover:bg-gray-300 pr-3 pl-3'>
+					<div
+						className={`flex items-center bg-${
+							isUserBooked ? 'blue' : isUserDriver ? 'blue' : 'gray'
+						}-200 border border-gray-200 rounded-lg shadow hover:bg-gray-300 pr-3 pl-3`}>
 						<div className='m-8 flex items-center'>
 							<img
 								className='object-cover bg-cyan-800 w-40 h-40 bg-cyan'
@@ -54,9 +55,15 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 								alt={ride.resort.resort_name}
 							/>
 							<div className='mt-1'>
-								<button className='text-white bg-purple-700 p-2 mt-3 text-xs rounded-full'>
-									{ride.roundtrip ? 'Round Trip' : 'One Way'}
-								</button>
+								{ride.roundtrip ? (
+									<button className='text-white bg-purple-700 p-2 mt-3 text-xs rounded-full'>
+										Round Trip
+									</button>
+								) : (
+									<button className='text-white bg-yellow-500 p-2 mt-3 text-xs rounded-full'>
+										One Way
+									</button>
+								)}
 							</div>
 						</div>
 						<div>
@@ -76,8 +83,20 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 							<p className='mb-2 tracking-tight text-gray-900'>
 								Seats left: {ride.capacity - ride.passengers.length}
 							</p>
+							{isUserDriver ? (
+								<button className='text-white bg-green-500 p-2 text-xs rounded-full'>
+									You're driving!
+								</button>
+							) : null}
+							{isUserBooked ? (
+								<button className='text-white bg-green-500 p-2 text-xs rounded-full'>
+									You're riding!
+								</button>
+							) : null}
 							{ride.capacity - ride.passengers.length === 0 && (
-								<p className='font-bold text-red-500'>Ride full!</p>
+								<button className='text-white bg-red-500 p-2 m-2 text-xs rounded-full'>
+									Ride full!
+								</button>
 							)}
 						</div>
 					</div>

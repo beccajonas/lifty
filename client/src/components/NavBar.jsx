@@ -78,7 +78,7 @@ const Navbar = ({ user, handleLogout }) => {
 							data-dropdown-placement='bottom'>
 							<span className='sr-only'>Open user menu</span>
 							<img
-								className='object-contain h-10 rounded-full'
+								className='object-cover h-10 w-10 rounded-full'
 								src={
 									user.profile_pic ||
 									'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
