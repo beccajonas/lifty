@@ -3,6 +3,13 @@ from models import db, User, Ride, Lot, Resort, passenger_ride_association
 import json
 from datetime import datetime 
 from flask_bcrypt import Bcrypt
+from googlemaps import Client
+from dotenv import load_dotenv
+import os
+import re
+
+load_dotenv()
+api_key = os.getenv('API_KEY')
 
 if __name__ == "__main__":
     with app.app_context():
@@ -24,18 +31,35 @@ if __name__ == "__main__":
             db.session.add(Resort(**resorts))
 
         ride_list = []
-        for ride in data['rides']:
-            r = Ride(
-                capacity=ride.get('capacity'),
-                driver_id=ride.get('driver_id'),
-                lot_id=ride.get('lot_id'),
-                resort_id=ride.get('resort_id'),
-                date_time=datetime.strptime(ride.get('date_time'), "%Y-%m-%dT%H:%M:%S"),
-                emmissions_saved=ride.get('emmissions_saved'),
-                distance_traveled=ride.get('distance_traveled'),
-                roundtrip=ride.get('roundtrip')
+        for ride_data in data['rides']:
+            ride = Ride(
+                capacity=ride_data.get('capacity'),
+                driver_id=ride_data.get('driver_id'),
+                lot_id=ride_data.get('lot_id'),
+                resort_id=ride_data.get('resort_id'),
+                date_time=datetime.strptime(ride_data.get('date_time'), "%Y-%m-%dT%H:%M:%S"),
+                emmissions_saved=ride_data.get('emmissions_saved'),
+                roundtrip=ride_data.get('roundtrip')
             )
-            ride_list.append(r)
+
+            # Retrieve Lot and Resort instances
+            lot = Lot.query.get(ride_data.get('lot_id'))
+            resort = Resort.query.get(ride_data.get('resort_id'))
+
+            if lot and resort:
+                # Calculate distance traveled
+                lot_coordinates_str = f"{lot.latitude},{lot.longitude}"
+                resort_coordinates_str = f"{resort.latitude},{resort.longitude}"
+                api_key = api_key
+
+                try:
+                    distance_miles = Ride.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
+                    ride.distance_traveled = round(distance_miles, 1)
+                    ride_list.append(ride)
+
+                except ValueError as e:
+                    print(f"Error calculating distance: {e}")
+
         db.session.add_all(ride_list)
         db.session.commit()
 

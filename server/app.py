@@ -10,6 +10,7 @@ config = dotenv_values(".env")
 
 app = Flask(__name__)
 app.secret_key = config['FLASK_SECRET_KEY']
+app.api_key = config['API_KEY']
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -145,7 +146,6 @@ def patch_ride(id):
     except Exception as e:
         return {"error": str(e)}, 500
 
-
 # Add new ride (POST)
 @app.post("/api/users/<int:id>/new_ride")
 def post_new_ride(id):
@@ -153,6 +153,8 @@ def post_new_ride(id):
         data = request.json
         date_time_str = data.get("date_time")
         date_time_converted = datetime.strptime(date_time_str, "%Y-%m-%dT%H:%M")
+        
+        # Create a new Ride instance
         ride = Ride(
             driver_id=data.get("driver_id"),
             lot_id=data.get("lot_id"),
@@ -160,19 +162,31 @@ def post_new_ride(id):
             capacity=data.get("capacity"),
             date_time=date_time_converted,
             emmissions_saved=data.get("emmissions_saved"),
-            distance_traveled=data.get("distance_traveled"),
             roundtrip=data.get("roundtrip"),
-            )
-        if not ride.driver_id:
-            return {"error": "Problem finding user info. Try again."},  404
-        if not ride.lot_id:
-            return {"error": "Please select a Park-And-Ride lot."}, 404
-        if not ride.resort_id:
-            return {"error": "Please select a resort."}, 404
-        if not ride.capacity:
-            return {"error": "Select a passenger  capacity for your ride."}, 404
-        if not ride.date_time:
-            return {"error": "Please select a date and time. Try again."},  404
+        )
+        
+        # Validate ride parameters
+        if not ride.driver_id or not ride.lot_id or not ride.resort_id or \
+                not ride.capacity or not ride.date_time:
+            return {"error": "Invalid ride parameters. Please provide all required information."}, 404
+        
+        # Fetch Lot and Resort instances based on lot_id and resort_id
+        try:
+            lot = Lot.query.get(ride.lot_id)
+            resort = Resort.query.get(ride.resort_id)
+        except Exception as e:
+            return {"error": f"Error retrieving Lot or Resort: {e}"}, 500
+
+        # Set distance traveled
+        try:
+            ride.set_distance_traveled(app.api_key, lot, resort)
+        except ValueError as ve:
+            return {"error": str(ve)}, 500
+        
+        if ride.distance_traveled is None:
+            return {"error": "Distance calculation failed or returned null value."}, 500
+        
+        # Add the ride to the database
         db.session.add(ride)
         db.session.commit()
 
@@ -180,7 +194,7 @@ def post_new_ride(id):
     
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
 
 # Add passenger to ride (POST)
 @app.post('/api/rides/<int:id>/add_passengers')

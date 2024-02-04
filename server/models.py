@@ -4,6 +4,13 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
 import string, datetime
+from googlemaps import Client
+from dotenv import load_dotenv
+import os
+import re
+
+load_dotenv()
+api_key = os.getenv('API_KEY')
 
 metadata = MetaData(
     naming_convention={
@@ -41,8 +48,27 @@ class User(db.Model, SerializerMixin):
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
     rides_as_driver = db.relationship('Ride', back_populates='driver')
 
+
 class Ride(db.Model, SerializerMixin):
     __tablename__ = 'ride_table'
+
+    @classmethod
+    def calculate_distance(cls, api_key, start_coordinates, end_coordinates):
+        gmaps = Client(key=api_key)
+        try:
+            distance_matrix_result = gmaps.distance_matrix(
+                origins=start_coordinates,
+                destinations=end_coordinates,
+                mode="driving",
+                units="imperial"  # Use "metric" for kilometers
+            )
+
+            distance_text = distance_matrix_result['rows'][0]['elements'][0]['distance']['text']
+            numeric_distance = float(re.search(r'\d+(\.\d+)?', distance_text).group())
+            return numeric_distance
+
+        except Exception as e:
+            raise ValueError(f"Error: {e} | Please enter valid coordinates.")
 
     serialize_rules =['-driver.rides_as_passenger', 
                       '-passengers.rides_as_passenger',
@@ -73,7 +99,20 @@ class Ride(db.Model, SerializerMixin):
             raise ValueError("A user cannot be both the driver and a passenger in the same ride")
         return passenger
     
+    def set_distance_traveled(self, api_key, Lot, Resort):
+        try:
+            lot = Lot.query.get(self.lot_id)
+            resort = Resort.query.get(self.resort_id)
 
+            lot_coordinates_str = f"{lot.latitude},{lot.longitude}"
+            resort_coordinates_str = f"{resort.latitude},{resort.longitude}"
+
+            distance_miles = self.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
+            self.distance_traveled = round(distance_miles, 1)
+
+        except Exception as e:
+            raise ValueError(f"Error: {e} | Unable to retrieve coordinates from Lot or Resort.")
+    
 
 class Lot(db.Model, SerializerMixin):
     __tablename__ = 'lot_table'
