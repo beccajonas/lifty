@@ -32,6 +32,15 @@ passenger_ride_association = db.Table(
 class User(db.Model, SerializerMixin):
     __tablename__ = 'user_table'
     
+    def calculate_total_distance_traveled(self):
+        print(self.rides_as_driver)
+        distance_list = []
+        for ride in self.rides_as_driver:
+            distance_list.append(ride.distance_traveled)
+        total_distance_traveled = sum(distance_list)
+        self.total_distance_traveled = total_distance_traveled
+        print(self.rides_as_driver)
+        
     serialize_rules = ['-rides_as_passenger.passenger', 
                        '-rides_as_passenger.passenger_id',
                        '-rides_as_passenger.driver',

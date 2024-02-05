@@ -193,6 +193,14 @@ def post_new_ride(id):
         db.session.add(ride)
         db.session.commit()
 
+        try:
+            driver_user = User.query.get(ride.driver_id)
+            driver_user.calculate_total_distance_traveled()
+            db.session.commit()
+        except Exception as e:
+            return {"error": f"Error updating total distance traveled for user: {e}"}, 500
+
+
         return ride.to_dict(rules=['-driver', '-passengers']), 201
     
     except Exception as e:
