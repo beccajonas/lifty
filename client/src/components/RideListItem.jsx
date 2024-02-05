@@ -11,6 +11,9 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 
 	const isUserDriver = ride.driver_id === user.id;
 
+	console.log(isUserDriver);
+	console.log(isUserBooked);
+
 	function handleLeaveClick() {
 		handleLeaveRide(ride.id);
 	}
@@ -38,19 +41,17 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 			<div className='m-2 w-full'>
 				<a onClick={handleDetailClick}>
 					<div
-						className={`flex items-center bg-${
-							isUserBooked ? 'blue' : isUserDriver ? 'blue' : 'gray'
-						}-200 border border-gray-200 rounded-lg shadow hover:bg-gray-300 pr-3 pl-3`}>
+						className={`flex items-center bg-blue-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400 pr-3 pl-3`}>
 						<div className='m-8 flex items-center'>
 							<img
-								className='object-cover bg-cyan-800 w-40 h-40 bg-cyan'
+								className='object-cover bg-cyan-800 w-40 h-40 border-2 border-gray-100'
 								src={ride.driver.profile_pic}
 								alt={ride.driver.name}
 							/>
 						</div>
 						<div className='m-8 flex flex-col items-center'>
 							<img
-								className='object-contain h-20 w-24 ring-2 ring-gray-300 rounded-full'
+								className='object-contain h-20 w-24 ring-2 ring-gray-100 rounded-full'
 								src={ride.resort.logo}
 								alt={ride.resort.resort_name}
 							/>
@@ -84,7 +85,7 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 								Seats left: {ride.capacity - ride.passengers.length}
 							</p>
 							{isUserDriver ? (
-								<button className='text-white bg-green-500 p-2 text-xs rounded-full'>
+								<button className='text-white bg-green-800 p-2 text-xs rounded-full'>
 									You're driving!
 								</button>
 							) : null}

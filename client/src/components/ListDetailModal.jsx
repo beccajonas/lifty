@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 function ListDetailModal(props) {
+	console.log(props.ride);
 	const [route, setRoute] = useState(null);
-	const [distance, setDistance] = useState('');
 	const [duration, setDuration] = useState('');
 
 	const origin = {
@@ -34,7 +34,6 @@ function ListDetailModal(props) {
 		directionsService.route(request, (result, status) => {
 			if (status === 'OK') {
 				setRoute(result);
-				setDistance(result.routes[0].legs[0].distance.text);
 				setDuration(result.routes[0].legs[0].duration.text);
 			} else {
 				console.error(`Error fetching directions: ${status}`);
@@ -89,7 +88,7 @@ function ListDetailModal(props) {
 								</p>
 								<p>Resort: {props.ride.resort.resort_name}</p>
 
-								<p>Distance: {distance}</p>
+								<p>Distance: {props.ride.distance_traveled} miles</p>
 								<p>Duration: {duration}</p>
 
 								<div className='flex items-center'>
@@ -129,7 +128,7 @@ function ListDetailModal(props) {
 									<>
 										{!props.isUserBooked ? (
 											<button
-												onClick={() => props.handleJoinClick(distance)}
+												onClick={props.handleJoinClick}
 												className='text-white bg-indigo-700 hover:bg-indigo-900 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
 												Join this ride
 											</button>
