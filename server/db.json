@@ -217,7 +217,8 @@
 			"date_time": "2024-02-20T08:30:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 20.6
 		},
 		{
 			"id": 2,
@@ -228,7 +229,8 @@
 			"date_time": "2024-02-21T12:15:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 14.6
 		},
 		{
 			"id": 3,
@@ -239,7 +241,8 @@
 			"date_time": "2024-02-22T16:45:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": false
+			"roundtrip": false,
+			"mpg": 18.6
 		},
 		{
 			"id": 4,
@@ -250,7 +253,8 @@
 			"date_time": "2024-02-23T09:00:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": false
+			"roundtrip": false,
+			"mpg": 23.4
 		},
 		{
 			"id": 5,
@@ -261,7 +265,8 @@
 			"date_time": "2024-02-24T14:30:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 21.4
 		},
 		{
 			"id": 6,
@@ -272,7 +277,8 @@
 			"date_time": "2024-02-25T11:45:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 18.3
 		},
 		{
 			"id": 7,
@@ -283,7 +289,8 @@
 			"date_time": "2024-02-26T18:00:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 25.4
 		},
 		{
 			"id": 8,
@@ -294,7 +301,8 @@
 			"date_time": "2024-02-27T13:20:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true
+			"roundtrip": true,
+			"mpg": 18.9
 		}
 	]
 }

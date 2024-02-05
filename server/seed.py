@@ -38,7 +38,8 @@ if __name__ == "__main__":
                 lot_id=ride_data.get('lot_id'),
                 resort_id=ride_data.get('resort_id'),
                 date_time=datetime.strptime(ride_data.get('date_time'), "%Y-%m-%dT%H:%M:%S"),
-                roundtrip=ride_data.get('roundtrip')
+                roundtrip=ride_data.get('roundtrip'),
+                mpg=ride_data.get('mpg')
             )
 
             # Retrieve Lot and Resort instances
@@ -53,7 +54,7 @@ if __name__ == "__main__":
 
                 try:
                     distance_miles = Ride.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
-                    ride.distance_traveled = round(distance_miles, 1)
+                    ride.distance_traveled = round(distance_miles, 2)
                     ride.set_emissions_saved()
                     ride_list.append(ride)
 

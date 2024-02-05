@@ -161,6 +161,7 @@ def post_new_ride(id):
             capacity=data.get("capacity"),
             date_time=date_time_converted,
             roundtrip=data.get("roundtrip"),
+            mpg=data.get("mpg")
         )
         
         if not ride.driver_id or not ride.lot_id or not ride.resort_id or \

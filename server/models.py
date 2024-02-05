@@ -86,6 +86,7 @@ class Ride(db.Model, SerializerMixin):
     date_time = db.Column(db.DateTime)
     emissions_saved = db.Column(db.Float)
     distance_traveled = db.Column(db.Float)
+    mpg = db.Column(db.Float)
     roundtrip = db.Column(db.Boolean, default=False)
     driver = db.relationship('User', back_populates='rides_as_driver')
     lot = db.relationship('Lot', back_populates='rides')
@@ -115,25 +116,56 @@ class Ride(db.Model, SerializerMixin):
             
     def set_emissions_saved(self):
         try:
-            ride_emissions = round((self.distance_traveled / 20) * 19.6, 1)
-            #assumed 20mpg
-            emissions_per_user = ride_emissions * ((len(self.passengers)) + 1)
-            emissions_saved_by_carpooping_per_person = round((emissions_per_user - len(self.passengers)))
+            # Check if there are no passengers
+            if not self.passengers:
+                # If no passengers, set emissions_saved to None
+                self.emissions_saved = None
+            else:
+                # Calculate emissions for the current trip based on distance traveled and car's mpg
+                ride_emissions = (self.distance_traveled / self.mpg) * 19.6
+                # Assuming 19.6 lbs of CO2 emitted per gallon
 
-            self.emissions_saved = emissions_saved_by_carpooping_per_person
+                # Calculate emissions if each person drove alone for comparison
+                emissions_if_each_person_drove_alone = ride_emissions * (len(self.passengers) + 1)
+
+                # Calculate emissions saved by carpooling per person
+                emissions_saved_by_carpooling_per_person = emissions_if_each_person_drove_alone - ride_emissions
+
+                # Set the calculated emissions saved value
+                self.emissions_saved = emissions_saved_by_carpooling_per_person
+                #lbs of carbon
 
         except Exception as e:
-            raise ValueError(f"Error: {e} | Unable to retrieve coordinates from Lot or Resort.")
-    
+            # Raise a ValueError with an error message if an exception occurs during the calculation
+            raise ValueError(f"Error: {e} | Unable to calculate emissions saved.")
+
+
+
     def update_emissions_after_join(self):
         try:
-            emissions_per_user = self.distance_traveled * (len(self.passengers) + 1)
-            emissions_saved_by_carpooping_per_person = round((emissions_per_user - len(self.passengers)))
+            # Check if there are no passengers
+            if not self.passengers:
+                # If no passengers, set emissions_saved to None
+                self.emissions_saved = None
+            else:
+                # Calculate emissions for the current trip based on distance traveled and car's mpg
+                ride_emissions = (self.distance_traveled / self.mpg) * 19.6
+                # Assuming 19.6 lbs of CO2 emitted per gallon
 
-            self.emissions_saved = emissions_saved_by_carpooping_per_person
+                # Calculate emissions if each person drove alone for comparison
+                emissions_if_each_person_drove_alone = ride_emissions * (len(self.passengers) + 1)
+
+                # Calculate emissions saved by carpooling per person
+                emissions_saved_by_carpooling_per_person = emissions_if_each_person_drove_alone - ride_emissions
+
+                # Set the calculated emissions saved value
+                self.emissions_saved = emissions_saved_by_carpooling_per_person
+                # lbs of carbon
 
         except Exception as e:
-            raise ValueError(f"Error: {e} | Unable to update emissions after passenger joins.")
+            # Raise a ValueError with an error message if an exception occurs during the calculation
+            raise ValueError(f"Error: {e} | Unable to update emissions after joining.")
+
             
 class Lot(db.Model, SerializerMixin):
     __tablename__ = 'lot_table'
