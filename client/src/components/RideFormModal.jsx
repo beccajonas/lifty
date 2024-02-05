@@ -17,6 +17,7 @@ function RideFormModal({
 	const [capacity, setCapacity] = useState('');
 	const [dateTime, setDateTime] = useState('');
 	const [roundTrip, setRoundTrip] = useState(false);
+	const [mpg, setMpg] = useState(15);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -25,6 +26,10 @@ function RideFormModal({
 		}, 3000);
 		return () => clearTimeout(timeoutId);
 	}, [errorMessage, message]);
+
+	const handleMpgChange = (e) => {
+		setMpg(parseFloat(e.target.value), 100);
+	};
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -53,6 +58,7 @@ function RideFormModal({
 				capacity: parseInt(capacity),
 				date_time: dateTime,
 				roundtrip: roundTrip,
+				mpg: mpg,
 			};
 
 			const response = await fetch(`/api/users/${user.id}/new_ride`, {
@@ -179,6 +185,18 @@ function RideFormModal({
 									Round Trip
 								</label>
 							</div>
+
+							<label className='block text-sm text-gray-900'>MPG</label>
+							<input
+								id='default-range'
+								type='range'
+								min='0'
+								max='50'
+								value={mpg}
+								onChange={handleMpgChange}
+								className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer'
+							/>
+							<p>Selected MPG: {mpg}</p>
 
 							<label className='block text-sm text-gray-900'>
 								Passenger Capacity

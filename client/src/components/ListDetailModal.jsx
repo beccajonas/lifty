@@ -81,11 +81,7 @@ function ListDetailModal(props) {
 						{/* Left Column */}
 						<div className='w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pr-4 mt-4 pb-4'>
 							<div className='space-y-4 outline-dotted w-full h-full'>
-								<p
-									className='font-sans'
-									font-sans>
-									Meet At: {props.ride.lot.lot_name}
-								</p>
+								<p className='font-sans'>Meet At: {props.ride.lot.lot_name}</p>
 								<p>Resort: {props.ride.resort.resort_name}</p>
 
 								<p>Distance: {props.ride.distance_traveled} miles</p>
