@@ -8,10 +8,25 @@ function RideFeedMap(props) {
 	const [selectedMarker, setSelectedMarker] = useState(null);
 
 	useEffect(() => {
-		const updatedMarkers = props.rides.map((ride) => ({
-			position: { lat: ride.lot.latitude, lng: ride.lot.longitude },
-			rideInfo: ride,
-		}));
+		const existingPositions = new Set();
+		const updatedMarkers = props.rides.map((ride) => {
+			const newPosition = { lat: ride.lot.latitude, lng: ride.lot.longitude };
+
+			// Check if a marker already exists at the new position
+			if (existingPositions.has(JSON.stringify(newPosition))) {
+				// If yes, make slight adjustments to latitude and longitude
+				newPosition.lat += 0.001; // Example adjustment, you can modify as needed
+				newPosition.lng += 0.001; // Example adjustment, you can modify as needed
+			}
+
+			// Add the new position to the set of existing positions
+			existingPositions.add(JSON.stringify(newPosition));
+
+			return {
+				position: newPosition,
+				rideInfo: ride,
+			};
+		});
 
 		setMarkers(updatedMarkers);
 	}, [props.rides, props.bookRide]);
@@ -30,9 +45,9 @@ function RideFeedMap(props) {
 	}
 
 	const mapStyles = {
-		width: '100%', // Set width to 100%
-		height: '100%', // Set height to 100%
-		borderWidth: '2px', // Use camelCase for border-width
+		width: '100%',
+		height: '100%',
+		borderWidth: '2px',
 		zIndex: '0px',
 		margin: '2px',
 		padding: '5px',
@@ -41,8 +56,8 @@ function RideFeedMap(props) {
 	};
 
 	const containerStyle = {
-		width: '100%', // Adjusted to 100%
-		height: '100%', // Adjusted to 100%
+		width: '100%',
+		height: '100%',
 		maxWidth: '800px',
 	};
 

@@ -50,7 +50,6 @@ function RideFormModal({
 		}
 
 		try {
-			console.log(dateTime);
 			const newRide = {
 				driver_id: user.id,
 				lot_id: parseInt(lotId),
