@@ -14,9 +14,8 @@ function RideFeedMap(props) {
 
 			// Check if a marker already exists at the new position
 			if (existingPositions.has(JSON.stringify(newPosition))) {
-				// If yes, make slight adjustments to latitude and longitude
-				newPosition.lat += 0.001; // Example adjustment, you can modify as needed
-				newPosition.lng += 0.001; // Example adjustment, you can modify as needed
+				newPosition.lat += 0.001;
+				newPosition.lng += 0.001;
 			}
 
 			// Add the new position to the set of existing positions
@@ -56,8 +55,8 @@ function RideFeedMap(props) {
 	};
 
 	const containerStyle = {
-		width: '100%',
-		height: '100%',
+		width: '45%',
+		height: '70%',
 		maxWidth: '800px',
 	};
 

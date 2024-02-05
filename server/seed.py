@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
         for user in user_list:
             user.calculate_total_distance_traveled()
-            
+
         db.session.commit()
    
         print("seeding complete!")

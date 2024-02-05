@@ -33,17 +33,41 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'user_table'
     
     def calculate_total_distance_traveled(self):
-        print(self.rides_as_driver)
-        print(self.rides_as_passenger)
-        
         distance_list = []
-        for ride in self.rides_as_driver:
-            distance_list.append(ride.distance_traveled)
-        for ride in self.rides_as_passenger:
-            distance_list.append(ride.distance_traveled)
+        if self.rides_as_driver:
+            for ride in self.rides_as_driver:
+                distance_list.append(ride.distance_traveled)
+        if self.rides_as_passenger:
+            for ride in self.rides_as_passenger:
+                distance_list.append(ride.distance_traveled)
+
         total_distance_traveled = sum(distance_list) 
         self.total_distance_traveled = total_distance_traveled
-        print(self.total_distance_traveled)
+
+    def calculate_total_emissions_saved(self):
+        # Initialize an empty list to store emissions saved from rides
+        emissions_saved_list = []
+
+        # Check if the user has rides where they are the driver
+        if self.rides_as_driver:
+            # Iterate over rides where the user is the driver
+            for ride in self.rides_as_driver:
+                if ride and ride.emissions_saved is not None:
+                    emissions_saved_list.append(ride.emissions_saved)
+
+        # Check if the user has rides where they are a passenger
+        if self.rides_as_passenger:
+            # Iterate over rides where the user is a passenger
+            for ride in self.rides_as_passenger:
+                if ride and ride.emissions_saved is not None:
+                    emissions_saved_list.append(ride.emissions_saved)
+
+        # Calculate the total emissions saved by summing the values in the list
+        total_emissions_saved = sum(emissions_saved_list)
+
+        # Update the user's total_emissions_saved attribute
+        self.total_emissions_saved = total_emissions_saved
+
         
     serialize_rules = ['-rides_as_passenger.passenger', 
                        '-rides_as_passenger.passenger_id',
@@ -56,8 +80,8 @@ class User(db.Model, SerializerMixin):
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     profile_pic = db.Column(db.String)
-    total_distance_traveled = db.Column(db.Float)
-    total_emissions_saved = db.Column(db.Float)
+    total_distance_traveled = db.Column(db.Float, default=0.0)
+    total_emissions_saved = db.Column(db.Float, default=0.0)
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
     rides_as_driver = db.relationship('Ride', back_populates='driver')
 
