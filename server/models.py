@@ -84,7 +84,7 @@ class Ride(db.Model, SerializerMixin):
     lot_id = db.Column(db.Integer, db.ForeignKey('lot_table.id'), nullable=False)
     resort_id = db.Column(db.Integer, db.ForeignKey('resort_table.id'), nullable=False)
     date_time = db.Column(db.DateTime)
-    emmissions_saved = db.Column(db.Float)
+    emissions_saved = db.Column(db.Float)
     distance_traveled = db.Column(db.Float)
     roundtrip = db.Column(db.Boolean, default=False)
     driver = db.relationship('User', back_populates='rides_as_driver')
@@ -109,11 +109,32 @@ class Ride(db.Model, SerializerMixin):
 
             distance_miles = self.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
             self.distance_traveled = round(distance_miles, 1)
+        
+        except Exception as e:
+            return str(f"error: {e}")
+            
+    def set_emissions_saved(self):
+        try:
+            ride_emissions = round((self.distance_traveled / 20) * 19.6, 1)
+            #assumed 20mpg
+            emissions_per_user = ride_emissions * ((len(self.passengers)) + 1)
+            emissions_saved_by_carpooping_per_person = round((emissions_per_user - len(self.passengers)))
+
+            self.emissions_saved = emissions_saved_by_carpooping_per_person
 
         except Exception as e:
             raise ValueError(f"Error: {e} | Unable to retrieve coordinates from Lot or Resort.")
     
+    def update_emissions_after_join(self):
+        try:
+            emissions_per_user = self.distance_traveled * (len(self.passengers) + 1)
+            emissions_saved_by_carpooping_per_person = round((emissions_per_user - len(self.passengers)))
 
+            self.emissions_saved = emissions_saved_by_carpooping_per_person
+
+        except Exception as e:
+            raise ValueError(f"Error: {e} | Unable to update emissions after passenger joins.")
+            
 class Lot(db.Model, SerializerMixin):
     __tablename__ = 'lot_table'
 

@@ -38,7 +38,6 @@ if __name__ == "__main__":
                 lot_id=ride_data.get('lot_id'),
                 resort_id=ride_data.get('resort_id'),
                 date_time=datetime.strptime(ride_data.get('date_time'), "%Y-%m-%dT%H:%M:%S"),
-                emmissions_saved=ride_data.get('emmissions_saved'),
                 roundtrip=ride_data.get('roundtrip')
             )
 
@@ -55,10 +54,12 @@ if __name__ == "__main__":
                 try:
                     distance_miles = Ride.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
                     ride.distance_traveled = round(distance_miles, 1)
+                    ride.set_emissions_saved()
                     ride_list.append(ride)
 
                 except ValueError as e:
                     print(f"Error calculating distance: {e}")
+
 
         db.session.add_all(ride_list)
         db.session.commit()

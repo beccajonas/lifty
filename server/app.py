@@ -154,18 +154,15 @@ def post_new_ride(id):
         date_time_str = data.get("date_time")
         date_time_converted = datetime.strptime(date_time_str, "%Y-%m-%dT%H:%M")
         
-        # Create a new Ride instance
         ride = Ride(
             driver_id=data.get("driver_id"),
             lot_id=data.get("lot_id"),
             resort_id=data.get("resort_id"),
             capacity=data.get("capacity"),
             date_time=date_time_converted,
-            emmissions_saved=data.get("emmissions_saved"),
             roundtrip=data.get("roundtrip"),
         )
         
-        # Validate ride parameters
         if not ride.driver_id or not ride.lot_id or not ride.resort_id or \
                 not ride.capacity or not ride.date_time:
             return {"error": "Invalid ride parameters. Please provide all required information."}, 404
@@ -186,7 +183,12 @@ def post_new_ride(id):
         if ride.distance_traveled is None:
             return {"error": "Distance calculation failed or returned null value."}, 500
         
-        # Add the ride to the database
+        # Set emissions saved
+        try: 
+            ride.set_emissions_saved()
+        except ValueError as ve:
+            return {"error": str(ve)}, 500
+        
         db.session.add(ride)
         db.session.commit()
 
@@ -213,6 +215,8 @@ def add_passengers_to_ride(id):
             return jsonify({"error": "Passenger not found."}), 404
 
         ride.passengers.append(passenger)
+        ride.update_emissions_after_join()
+
         db.session.commit()
 
         return ride.to_dict(), 200
@@ -234,6 +238,7 @@ def remove_passenger_from_ride(ride_id, passenger_id):
         
         if passenger in ride.passengers:
             ride.passengers.remove(passenger)
+            ride.update_emissions_after_join()
             db.session.commit()
             return ride.to_dict(), 200
         else: 

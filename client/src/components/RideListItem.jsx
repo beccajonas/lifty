@@ -11,9 +11,6 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 
 	const isUserDriver = ride.driver_id === user.id;
 
-	console.log(isUserDriver);
-	console.log(isUserBooked);
-
 	function handleLeaveClick() {
 		handleLeaveRide(ride.id);
 	}
