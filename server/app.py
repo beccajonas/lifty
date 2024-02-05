@@ -224,7 +224,20 @@ def add_passengers_to_ride(id):
             return jsonify({"error": "Passenger not found."}), 404
 
         ride.passengers.append(passenger)
+    
         ride.update_emissions_after_join()
+
+        try:
+            driver_user = User.query.get(ride.driver_id)
+            driver_user.calculate_total_distance_traveled()
+        except Exception as e:
+            return {"error": f"Error updating total distance traveled for driver: {e}"}, 500
+
+        # Update total distance traveled for the passenger
+        try:
+            passenger.calculate_total_distance_traveled()
+        except Exception as e:
+            return {"error": f"Error updating total distance traveled for passenger: {e}"}, 500
 
         db.session.commit()
 
@@ -248,12 +261,28 @@ def remove_passenger_from_ride(ride_id, passenger_id):
         if passenger in ride.passengers:
             ride.passengers.remove(passenger)
             ride.update_emissions_after_join()
+
+            # Update total distance traveled for the driver
+            try:
+                driver_user = User.query.get(ride.driver_id)
+                driver_user.calculate_total_distance_traveled()
+            except Exception as e:
+                return {"error": f"Error updating total distance traveled for driver: {e}"}, 500
+
+            # Update total distance traveled for the removed passenger
+            try:
+                passenger.calculate_total_distance_traveled()
+            except Exception as e:
+                return {"error": f"Error updating total distance traveled for passenger: {e}"}, 500
+
             db.session.commit()
             return ride.to_dict(), 200
         else: 
             return {"error": "Passenger is not in the ride."}, 400
+        
     except Exception as e:
         return {"error": str(e)}
+
         
 # Delete ride (DELETE)
 @app.delete("/api/users/<int:driver_id>/rides/<int:ride_id>")

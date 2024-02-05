@@ -79,4 +79,10 @@ if __name__ == "__main__":
             user_list.append(u)
         db.session.add_all(user_list)
         db.session.commit()
+
+        for user in user_list:
+            user.calculate_total_distance_traveled()
+            
+        db.session.commit()
+   
         print("seeding complete!")
