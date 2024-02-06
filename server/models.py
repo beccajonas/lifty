@@ -84,6 +84,8 @@ class User(db.Model, SerializerMixin):
     total_emissions_saved = db.Column(db.Float, default=0.0)
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
     rides_as_driver = db.relationship('Ride', back_populates='driver')
+    sent_messages = db.relationship('Message', back_populates='sender')
+    groups = db.relationship('Group', secondary='group_membership_table', back_populates='members')
 
 
 class Ride(db.Model, SerializerMixin):
@@ -111,7 +113,9 @@ class Ride(db.Model, SerializerMixin):
                       '-passengers.rides_as_passenger',
                       '-passengers.rides_as_driver',
                       '-passengers.password_hash',
-                      '-driver.password_hash']
+                      '-driver.password_hash',
+                      '-driver.groups',
+                      '-passengers.groups']
 
     id = db.Column(db.Integer, primary_key=True)
     capacity = db.Column(db.Integer, nullable=False)
@@ -153,12 +157,10 @@ class Ride(db.Model, SerializerMixin):
             
     def set_emissions_saved(self):
         try:
-            # Check if there are no passengers
+
             if not self.passengers:
-                # If no passengers, set emissions_saved to None
                 self.emissions_saved = None
             else:
-                # Calculate emissions for the current trip based on distance traveled and car's mpg
                 ride_emissions = (self.distance_traveled / self.mpg) * 19.6
                 # Assuming 19.6 lbs of CO2 emitted per gallon
 
@@ -173,19 +175,15 @@ class Ride(db.Model, SerializerMixin):
                 #lbs of carbon
 
         except Exception as e:
-            # Raise a ValueError with an error message if an exception occurs during the calculation
             raise ValueError(f"Error: {e} | Unable to calculate emissions saved.")
 
 
 
     def update_emissions_after_join(self):
         try:
-            # Check if there are no passengers
             if not self.passengers:
-                # If no passengers, set emissions_saved to None
                 self.emissions_saved = None
             else:
-                # Calculate emissions for the current trip based on distance traveled and car's mpg
                 ride_emissions = (self.distance_traveled / self.mpg) * 19.6
                 # Assuming 19.6 lbs of CO2 emitted per gallon
 
@@ -197,10 +195,8 @@ class Ride(db.Model, SerializerMixin):
 
                 # Set the calculated emissions saved value
                 self.emissions_saved = emissions_saved_by_carpooling_per_person
-                # lbs of carbon
 
         except Exception as e:
-            # Raise a ValueError with an error message if an exception occurs during the calculation
             raise ValueError(f"Error: {e} | Unable to update emissions after joining.")
 
             
@@ -231,4 +227,38 @@ class Resort(db.Model, SerializerMixin):
     logo=db.Column(db.String)
 
     rides = db.relationship('Ride', back_populates='resort')
+
+class Message(db.Model, SerializerMixin):
+    __tablename__ = 'message_table'
+
+    serialize_rules =['-sender', '-group']
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String)
+    timestamp = db.Column(db.DateTime)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('group_table.id'))
+
+    sender = db.relationship('User', back_populates='sent_messages')
+    group = db.relationship('Group', back_populates='messages')
+
+class Group(db.Model, SerializerMixin):
+    __tablename__ = 'group_table'
+
+    serialize_rules =['-messages.group', '-members.groups', 'members.sent_messages']
+
+    id = db.Column(db.Integer, primary_key=True)
+    group_name = db.Column(db.String)
+    timestamp = db.Column(db.DateTime)
+
+    messages = db.relationship('Message', back_populates='group')
+    members = db.relationship('User', secondary='group_membership_table', back_populates='groups')
+
+
+class GroupMembership(db.Model, SerializerMixin):
+    __tablename__ = 'group_membership_table'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('group_table.id'))
 

@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
-from models import db, User, Ride, Lot, Resort
+from models import db, User, Ride, Lot, Resort, Group, GroupMembership, Message
 from flask_cors import CORS
 from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
@@ -192,6 +192,22 @@ def post_new_ride(id):
         
         db.session.add(ride)
         db.session.commit()
+        
+        # Add the driver to the group membership
+        try:
+            group = Group(group_name=f"Ride Group {ride.id}", timestamp=datetime.now())
+            db.session.add(group)
+            db.session.commit()
+        except Exception as e:
+            return {"error": f"Error creating group: {e}"}, 500
+            
+        try:
+            group_membership_driver = GroupMembership(user_id=ride.driver_id, group_id=group.id)
+            db.session.add(group_membership_driver)
+        except Exception as e:
+            return {"error": f"Error adding driver to group membership: {e}"}, 500
+
+        db.session.commit()
 
         try:
             driver_user = User.query.get(ride.driver_id)
@@ -205,7 +221,94 @@ def post_new_ride(id):
     
     except Exception as e:
         return {"error": str(e)}, 500
+    
+'''
+'
+'
+MESSAGING FUNCTIONS
+'
+'
+'
+'''
+def create_group_membership(ride):
+    try:
+        group = Group.query.get(ride.id)
 
+        for passenger in ride.passengers:
+            group_membership_passenger = GroupMembership(user_id=passenger.id, group_id=group.id)
+            db.session.add(group_membership_passenger)
+
+        db.session.add(group)
+        db.session.commit()
+
+        return group
+    
+    except Exception as e:
+        return {"error": str(e)}
+    
+
+# Add message to group convo (POST)
+@app.post('/api/groups/<int:group_id>/add_message_from/<int:user_id>')
+def add_message_to_group(group_id, user_id):
+    try:
+        data = request.json
+        
+        # Check if the user belongs to the group
+        group = Group.query.get(group_id)
+        if not group:
+            return {"error": "Group not found."}, 404
+        
+        user = User.query.get(user_id)
+        if not user:
+            return {"error": "User not found."}, 404
+        
+        if user not in group.members:
+            return {"error": "User is not a member of the group."}, 403
+        
+        timestamp_now = datetime.utcnow()
+        
+        message = Message(
+            content=data.get("content"),
+            timestamp=timestamp_now,
+            sender_id=user_id,
+            group_id=group_id
+        )
+        
+        db.session.add(message)
+        db.session.commit()
+        
+        return message.to_dict(rules=['-group', '-sender']), 200
+
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+@app.get('/api/groups/<int:id>')
+def get_group_by_id(id):
+    try:
+        group = Group.query.get(id)
+        if not group:
+            return {"error": "Group not found."}, 404
+        
+        return group.to_dict(rules=['-members.groups', 
+                                    '-members.password_hash', 
+                                    '-members.rides_as_driver',
+                                    '-members.rides_as_passenger',
+                                    '-members.groups',
+                                    '-members.profile_pic',
+                                    '-messages.sender',
+                                    '-members.sent_messages']), 200
+    
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+'''
+'
+'
+MESSAGING FUNCTIONS
+'
+'
+'
+'''
 
 # Add passenger to ride (POST)
 @app.post('/api/rides/<int:id>/add_passengers')
@@ -224,6 +327,8 @@ def add_passengers_to_ride(id):
             return jsonify({"error": "Passenger not found."}), 404
 
         ride.passengers.append(passenger)
+
+        create_group_membership(ride)
     
         ride.update_emissions_after_join()
 
@@ -257,6 +362,7 @@ def add_passengers_to_ride(id):
     except Exception as e:
         return {"error": str(e)}
     
+
 # Remove passenger from ride (DELETE)
 @app.delete('/api/rides/<int:ride_id>/remove_passenger/<int:passenger_id>')
 def remove_passenger_from_ride(ride_id, passenger_id):
@@ -272,6 +378,11 @@ def remove_passenger_from_ride(ride_id, passenger_id):
         if passenger in ride.passengers:
             ride.passengers.remove(passenger)
             ride.update_emissions_after_join()
+
+            # Remove corresponding group membership
+            group_membership = GroupMembership.query.filter_by(user_id=passenger_id, group_id=ride_id).first()
+            if group_membership:
+                db.session.delete(group_membership)
 
             # Update total distance traveled for the driver
             try:
@@ -328,6 +439,7 @@ def delete_ride(driver_id, ride_id):
 
     except Exception as e:
         return {"error": str(e)}
+    
     
     
 if __name__ == "__main__":
