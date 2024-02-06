@@ -300,6 +300,25 @@ def get_group_by_id(id):
     
     except Exception as e:
         return {"error": str(e)}, 500
+    
+@app.get('/api/users/<int:user_id>/groups')
+def get_groups_by_user_id(user_id):
+    try:
+        groups = Group.query.filter(Group.members.any(id=user_id)).all()
+        
+        if not groups:
+            return {"error": "No groups found for the user."}, 404
+        
+        return [group.to_dict(rules=['-members.groups', 
+                                      '-members.password_hash', 
+                                      '-members.rides_as_driver',
+                                      '-members.rides_as_passenger',
+                                      '-members.groups',
+                                      '-messages.sender',
+                                      '-members.sent_messages']) for group in groups], 200
+    
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 '''
 '

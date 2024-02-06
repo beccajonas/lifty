@@ -17,6 +17,7 @@ import Rides from './pages/Rides';
 import About from './pages/About';
 import RideFormModal from './components/RideFormModal';
 import Profile from './pages/Profile';
+import MessagePage from './pages/MessagePage';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -148,6 +149,10 @@ function App() {
 							user={user}
 						/>
 					}
+				/>
+				<Route
+					path='/myprofile/:id/messages'
+					element={<MessagePage user={user} />}
 				/>
 				<Route
 					path='/myprofile/:id'

@@ -89,13 +89,18 @@ const Navbar = ({ user, handleLogout }) => {
 						<div
 							className={`absolute ${
 								openAvatarDropdown ? 'block' : 'hidden'
-							} bg-slate-300 rounded shadow-md space-y-2`}
+							} bg-slate-300 rounded shadow-md space-y-1`}
 							onMouseLeave={() => setOpenAvatarDropdown(false)}>
 							<div className='p-4 flex flex-col'>
 								<NavLink
 									className='hover:text-blue-900'
 									to={`/myprofile/${user.id}`}>
 									Profile
+								</NavLink>
+								<NavLink
+									className='hover:text-blue-900'
+									to={`/myprofile/${user.id}/messages`}>
+									Messages
 								</NavLink>
 								<NavLink
 									className='hover:text-blue-900'
