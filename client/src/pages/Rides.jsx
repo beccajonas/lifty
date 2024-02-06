@@ -65,7 +65,6 @@ function Rides({
 			.then((res) => res.json())
 			.then((data) => {
 				console.log('booked ride!');
-				console.log(data);
 				setBookRide(true);
 				setLeftRide(!leftRide);
 			})

@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Ride, Lot, Resort, passenger_ride_association
+from models import db, User, Ride, Lot, Resort, passenger_ride_association, Group, GroupMembership, Message
 import json
 from datetime import datetime 
 from flask_bcrypt import Bcrypt
@@ -22,6 +22,9 @@ if __name__ == "__main__":
         db.session.query(Ride).delete()
         db.session.query(Lot).delete()
         db.session.query(Resort).delete()
+        db.session.query(Group).delete()
+        db.session.query(GroupMembership).delete()
+        db.session.query(Message).delete()
         db.session.query(passenger_ride_association).delete()
 
         for lots in data['lots']:
@@ -61,8 +64,24 @@ if __name__ == "__main__":
                 except ValueError as e:
                     print(f"Error calculating distance: {e}")
 
-
         db.session.add_all(ride_list)
+        db.session.commit()
+
+        # Iterate over the ride instances to create groups and group memberships
+        for ride in ride_list:
+            try:
+                # Create a new group for each ride
+                group = Group(group_name=f"Ride Group {ride.id}", timestamp=datetime.now())
+                db.session.add(group)
+                db.session.commit()
+
+                # Create a group membership for the ride driver
+                group_membership_driver = GroupMembership(user_id=ride.driver_id, group_id=group.id)
+                db.session.add(group_membership_driver)
+                db.session.commit()
+            except Exception as e:
+                print(f"Error creating group and group membership: {e}")
+
         db.session.commit()
 
         user_list = []
