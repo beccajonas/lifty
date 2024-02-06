@@ -13,10 +13,12 @@ function Rides({
 	setShowModal,
 	lots,
 	resorts,
+	bookRide,
+	setBookRide,
+	leftRide,
+	setLeftRide,
 }) {
 	const [rides, setRides] = useState([]);
-	const [bookRide, setBookRide] = useState(null);
-	const [leftRide, setLeftRide] = useState(null);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {

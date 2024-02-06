@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
-	RouterProvider,
 	Route,
-	useNavigate,
-	Link,
 	Navigate,
 } from 'react-router-dom';
 import CollectiveImpactPage from './pages/CollectiveImpactPage';
@@ -27,6 +24,8 @@ function App() {
 	const [lots, setLots] = useState([]);
 	const [resorts, setResorts] = useState([]);
 	const [showModal, setShowModal] = useState(null);
+	const [bookRide, setBookRide] = useState(null);
+	const [leftRide, setLeftRide] = useState(null);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
@@ -120,6 +119,10 @@ function App() {
 							setShowModal={setShowModal}
 							lots={lots}
 							resorts={resorts}
+							setBookRide={setBookRide}
+							bookRide={bookRide}
+							leftRide={leftRide}
+							setLeftRide={setLeftRide}
 						/>
 					}
 				/>
@@ -152,7 +155,15 @@ function App() {
 				/>
 				<Route
 					path='/myprofile/:id/messages'
-					element={<MessagePage user={user} />}
+					element={
+						<MessagePage
+							user={user}
+							setBookRide={setBookRide}
+							bookRide={bookRide}
+							leftRide={leftRide}
+							setLeftRide={setLeftRide}
+						/>
+					}
 				/>
 				<Route
 					path='/myprofile/:id'

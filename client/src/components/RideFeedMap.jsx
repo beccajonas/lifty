@@ -83,18 +83,18 @@ function RideFeedMap(props) {
 					user={props.user}
 				/>
 			) : null}
-			<Map
+			{/* <Map
 				google={props.google}
 				zoom={10}
 				style={mapStyles}
 				containerStyle={containerStyle}
 				initialCenter={{ lat: 40.7, lng: -111.891 }}>
 				{displayMarkers()}
-			</Map>
+			</Map> */}
 		</div>
 	);
 }
 
 export default GoogleApiWrapper({
-	apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
+	// apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
 })(RideFeedMap);
