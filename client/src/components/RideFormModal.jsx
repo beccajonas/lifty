@@ -90,10 +90,10 @@ function RideFormModal({
 		<>
 			{showModal && (
 				<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center backdrop-blur-sm backdrop-brightness-50'>
-					<div className='relative p-4 max-w-full max-h-full overflow-y-auto overflow-x-hidden bg-white rounded-md shadow border border-gray-300'>
-						<div className='flex justify-between p-4 border-b border-gray-300 rounded-t-md'>
+					<div className='relative p-4 max-w-full max-h-full overflow-y-auto overflow-x-hidden bg-indigo-200 border-2 border-indigo-300 rounded-md shadow '>
+						<div className='flex justify-between p-4 border-b border-indigo-300 rounded-t-md'>
 							<h3 className='text-xl font-semibold text-gray-800'>
-								Create a ride
+								Create A Ride
 							</h3>
 							<button
 								className='text-red-600 cursor-pointer text-sm font-medium py-2 px-4 rounded-md transition duration-200 hover:bg-red-200'
@@ -104,14 +104,15 @@ function RideFormModal({
 						<form
 							onSubmit={handleSubmit}
 							className='max-w-96 mx-auto p-4'>
-							<label className='block text-sm text-gray-900'>
+							<label className='block text-sm font-semibold text-gray-900'>
 								Park-And-Ride Lot
 							</label>
 							<select
 								id='lots'
 								value={lotId}
 								onChange={(e) => setLotId(e.target.value)}
-								className='w-full p-2 text-sm border border-gray-300 rounded-md'>
+								className='w-full p-2 text-sm bg-blue-100 rounded-md mb-3
+								'>
 								<option
 									value=''
 									disabled>
@@ -126,12 +127,14 @@ function RideFormModal({
 								))}
 							</select>
 
-							<label className='block text-sm text-gray-900'>Resort</label>
+							<label className='block text-sm font-semibold text-gray-900'>
+								Resort
+							</label>
 							<select
 								id='resort'
 								value={resortId}
 								onChange={(e) => setResortId(e.target.value)}
-								className='w-full p-2 text-sm border border-gray-300 rounded-md'>
+								className='w-full p-2 text-sm  bg-blue-100 mb-3 rounded-md'>
 								<option
 									value=''
 									disabled>
@@ -146,7 +149,7 @@ function RideFormModal({
 								))}
 							</select>
 
-							<label className='block text-sm text-gray-900'>
+							<label className='block text-sm font-semibold text-gray-900'>
 								Date and Time
 							</label>
 							<input
@@ -154,11 +157,13 @@ function RideFormModal({
 								id='datetime'
 								value={dateTime}
 								onChange={(e) => setDateTime(e.target.value)}
-								className='w-full p-2 text-sm border border-gray-300 rounded-md'
+								className='w-full p-2 mb-3 text-sm bg-blue-100 rounded-md'
 							/>
 
-							<label className='block text-sm text-gray-900'>Trip Type</label>
-							<div className='flex items-center'>
+							<label className='block text-sm font-semibold text-gray-900'>
+								Trip Type
+							</label>
+							<div className='flex items-center mb-3'>
 								<label className='mr-4'>
 									<input
 										type='radio'
@@ -185,7 +190,10 @@ function RideFormModal({
 								</label>
 							</div>
 
-							<label className='block text-sm text-gray-900'>MPG</label>
+							<label className='block text-sm text-gray-900'>
+								My car gets approximately{' '}
+								<span className='font-semibold'>{mpg}</span> miles per gallon.
+							</label>
 							<input
 								id='default-range'
 								type='range'
@@ -193,17 +201,16 @@ function RideFormModal({
 								max='50'
 								value={mpg}
 								onChange={handleMpgChange}
-								className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer'
+								className='w-full h-2 mb-3 bg-blue-200 rounded-lg cursor-pointer'
 							/>
-							<p>Selected MPG: {mpg}</p>
 
-							<label className='block text-sm text-gray-900'>
+							<label className='block text-sm font-semibold text-gray-900'>
 								Passenger Capacity
 							</label>
 							<select
 								id='capacity'
 								value={capacity}
-								className='w-full p-2 text-sm border border-gray-300 rounded-md'
+								className='w-full p-2 mb-3 text-sm bg-blue-100 rounded-md'
 								onChange={(e) => setCapacity(e.target.value)}>
 								<option
 									value=''
@@ -215,13 +222,13 @@ function RideFormModal({
 								<option>4</option>
 								<option>5</option>
 							</select>
-							<p className='italic mt-1'>
+							<p className='italic mt-1 text-sm'>
 								Please take into consideration space for gear and seatbelt laws
 								when choosing a capacity.
 							</p>
 							<button
 								type='submit'
-								className='mt-4 py-2 px-4 text-white bg-gray-800 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
+								className='mt-4 py-2 px-4 text-white bg-indigo-700 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
 								Submit
 							</button>
 							{errorMessage && (
