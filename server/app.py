@@ -301,6 +301,20 @@ def get_group_by_id(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
+@app.get('/api/groups/<int:id>/messages')
+def get_messages_by_group(id):
+    try:
+        group = Group.query.get(id)
+        if not group:
+            return {"error": "Group not found."}, 404
+        
+        messages = [message.to_dict(rules=['-sender']) for message in group.messages]
+        return messages, 200
+    
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+    
 @app.get('/api/users/<int:user_id>/groups')
 def get_groups_by_user_id(user_id):
     try:

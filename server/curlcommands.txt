@@ -42,8 +42,12 @@ curl -X DELETE http://localhost:5555/api/users/1/rides/1
 
 # Post message to group
 curl -X POST -H "Content-Type: application/json" -d '{
-  "content": "howdy!! posting a message"
-}' http://localhost:5555/api/groups/7/add_message_from/1
+  "content": "This is Shawn. howdy!! posting a message"
+}' http://localhost:5555/api/groups/1/add_message_from/1
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "content": "This is Chloe. Hi!"
+}' http://localhost:5555/api/groups/1/add_message_from/2
 
 
 
