@@ -15,14 +15,18 @@ const Navbar = ({ user, handleLogout }) => {
 		handleLogout();
 	}
 
-	const navList = () => {
+	function navList() {
 		return (
 			<>
 				{user ? (
 					<NavLink
 						to='/rides'
 						className={({ isActive, isPending }) =>
-							isPending ? 'pending' : isActive ? 'text-blue-900' : ''
+							isPending
+								? 'pending'
+								: isActive
+								? 'text-blue-900 font-semibold'
+								: ''
 						}>
 						Rides
 					</NavLink>
@@ -30,14 +34,22 @@ const Navbar = ({ user, handleLogout }) => {
 				<NavLink
 					to='/about'
 					className={({ isActive, isPending }) =>
-						isPending ? 'pending' : isActive ? 'text-blue-900' : ''
+						isPending
+							? 'pending'
+							: isActive
+							? 'text-blue-900 font-semibold'
+							: ''
 					}>
 					About
 				</NavLink>
 				<NavLink
 					to='/collectiveimpact'
 					className={({ isActive, isPending }) =>
-						isPending ? 'pending' : isActive ? 'text-blue-900' : ''
+						isPending
+							? 'pending'
+							: isActive
+							? 'text-blue-900 font-semibold'
+							: ''
 					}>
 					Collective Impact
 				</NavLink>
@@ -45,18 +57,22 @@ const Navbar = ({ user, handleLogout }) => {
 					<NavLink
 						to='/login'
 						className={({ isActive, isPending }) =>
-							isPending ? 'pending' : isActive ? 'text-blue-900' : ''
+							isPending
+								? 'pending'
+								: isActive
+								? 'text-blue-900 font-semibold'
+								: ''
 						}>
 						Login
 					</NavLink>
 				)}
 			</>
 		);
-	};
+	}
 
 	return (
-		<header className='bg-slate-200 border-gray-200 font-sans'>
-			<div className='container mx-auto py-1 px-2 md:flex md:items-center md:justify-between'>
+		<header className='bg-gradient-to-l from-indigo-500 border-gray-200 font-sans'>
+			<div className='container mx-auto py-1 px-2 md:flex md:items-center md:justify-between '>
 				<div className='flex items-center justify-between'>
 					<img
 						className='object-contain h-20'
@@ -68,7 +84,7 @@ const Navbar = ({ user, handleLogout }) => {
 				{user ? (
 					<div
 						onClick={toggleAvatarDropdown}
-						className='relative transition-all duration-500'>
+						className='relative transition-all duration-500 mr-3'>
 						<button
 							type='button'
 							className='flex text-sm bg-gray-800 rounded-full md:me-0'
@@ -78,7 +94,7 @@ const Navbar = ({ user, handleLogout }) => {
 							data-dropdown-placement='bottom'>
 							<span className='sr-only'>Open user menu</span>
 							<img
-								className='object-cover h-10 w-10 rounded-full'
+								className='object-cover h-14 w-14 rounded-full border-2 border-blue-200'
 								src={
 									user.profile_pic ||
 									'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
@@ -89,9 +105,10 @@ const Navbar = ({ user, handleLogout }) => {
 						<div
 							className={`absolute ${
 								openAvatarDropdown ? 'block' : 'hidden'
-							} bg-slate-300 rounded shadow-md space-y-1`}
-							onMouseLeave={() => setOpenAvatarDropdown(false)}>
-							<div className='p-4 flex flex-col'>
+							}  rounded shadow-md space-y-31 bg-blue-200 justify-center`}
+							onMouseLeave={() => setOpenAvatarDropdown(false)}
+							style={{ zIndex: 9999 }}>
+							<div className='p-3 flex flex-col justify-center items-center'>
 								<NavLink
 									className='hover:text-blue-900'
 									to={`/myprofile/${user.id}`}>

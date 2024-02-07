@@ -74,13 +74,12 @@ function Rides({
 	}
 
 	return (
-		<div>
+		<div className='h-80vh'>
 			<div className='flex justify-center m-4'>
-				<p style={{ color: '#38a169', marginTop: '1rem' }}>{message}</p>
 				<button
 					onClick={() => setShowModal(true)}
 					type='button'
-					className='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'>
+					className='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2'>
 					Post A Ride
 				</button>
 				{showModal ? (
@@ -98,8 +97,13 @@ function Rides({
 					/>
 				) : null}
 			</div>
-			<div className='grid grid-cols-2 h-screen overflow-x-hidden'>
-				<div className='outline-dotted h-screen overflow-y-auto'>
+			<div className='grid grid-cols-2 h-screen overflow-x-hidden pl-10 pr-10'>
+				<div className='overflow-y-auto pr-20 pl-10'>
+					<div className='relative'>
+						<p className='absolute z-50 text-green-900 bg-green-200'>
+							{message}
+						</p>
+					</div>
 					<RideFeedList
 						rides={rides}
 						bookRide={bookRide}
@@ -108,15 +112,13 @@ function Rides({
 						handleLeaveRide={handleLeaveRide}
 					/>
 				</div>
-				<div className='outline-dotted h-screen overflow-y-auto'>
-					<RideFeedMap
-						user={user}
-						rides={rides}
-						bookRide={bookRide}
-						handleLeaveRide={handleLeaveRide}
-						handleBookRide={handleBookRide}
-					/>
-				</div>
+				<RideFeedMap
+					user={user}
+					rides={rides}
+					bookRide={bookRide}
+					handleLeaveRide={handleLeaveRide}
+					handleBookRide={handleBookRide}
+				/>
 			</div>
 		</div>
 	);

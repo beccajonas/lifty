@@ -1,6 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function GroupList({ group, rideDateTime }) {
+function GroupList({ group, onClick }) {
+	const [showGroupMessage, setShowGroupMessage] = useState(false);
+	const [rideDateTime, setRideDateTime] = useState([]);
+	const [rideResort, setRideResort] = useState([]);
+	const [rideLot, setRideLot] = useState([]);
+
+	function handleGroupClick() {
+		setShowGroupMessage(true);
+		onClick();
+	}
+
+	useEffect(() => {
+		fetch(`/api/rides/${group.id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setRideDateTime(data.date_time);
+				setRideResort(data.resort.resort_name);
+				setRideLot(data.lot.address);
+			});
+	}, [group.id]);
+
 	function formatDateTime(dateTimeString) {
 		const dateTime = new Date(dateTimeString);
 		const options = {
@@ -13,20 +33,21 @@ function GroupList({ group, rideDateTime }) {
 		return dateTime.toLocaleString('en-US', options);
 	}
 
-	function handleClick() {
-		console.log('click');
-	}
-
 	return (
 		<div className='m-2 w-full'>
-			<h1>Group Message for Ride On: {formatDateTime(rideDateTime)}</h1>
+			<h1>
+				Group Message for Ride On: {formatDateTime(rideDateTime)} to{' '}
+				{rideResort} from {rideLot}
+			</h1>
 			<div
-				onClick={handleClick}
+				onClick={handleGroupClick}
 				className={`flex items-center bg-blue-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400 pr-3 pl-3`}>
 				<div className='m-1 flex items-center'>
 					{group.members.length >= 2 ? (
 						group.members.map((member) => (
-							<div className='m-8 flex flex-col items-center'>
+							<div
+								className='m-8 flex flex-col items-center'
+								key={member.id}>
 								<p>
 									{member.first_name} {member.last_name}
 								</p>

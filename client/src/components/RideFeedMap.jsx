@@ -48,15 +48,15 @@ function RideFeedMap(props) {
 		height: '100%',
 		borderWidth: '2px',
 		zIndex: '0px',
-		margin: '2px',
-		padding: '5px',
 		overflowX: 'hidden',
 		overflowY: 'hidden',
 	};
 
 	const containerStyle = {
-		width: '45%',
-		height: '70%',
+		width: '43%',
+		padding: '10px',
+		'margin-top': '6px',
+		height: '95%',
 		maxWidth: '800px',
 	};
 
@@ -71,7 +71,7 @@ function RideFeedMap(props) {
 	};
 
 	return (
-		<div>
+		<div className=' overflow-y-auto pl-10 pr-20'>
 			{showMapDetailModal ? (
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
@@ -83,18 +83,18 @@ function RideFeedMap(props) {
 					user={props.user}
 				/>
 			) : null}
-			{/* <Map
+			<Map
 				google={props.google}
 				zoom={10}
 				style={mapStyles}
 				containerStyle={containerStyle}
 				initialCenter={{ lat: 40.7, lng: -111.891 }}>
 				{displayMarkers()}
-			</Map> */}
+			</Map>
 		</div>
 	);
 }
 
 export default GoogleApiWrapper({
-	// apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
+	apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
 })(RideFeedMap);

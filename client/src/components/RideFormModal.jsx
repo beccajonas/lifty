@@ -89,7 +89,7 @@ function RideFormModal({
 	return (
 		<>
 			{showModal && (
-				<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center'>
+				<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center backdrop-blur-sm backdrop-brightness-50'>
 					<div className='relative p-4 max-w-full max-h-full overflow-y-auto overflow-x-hidden bg-white rounded-md shadow border border-gray-300'>
 						<div className='flex justify-between p-4 border-b border-gray-300 rounded-t-md'>
 							<h3 className='text-xl font-semibold text-gray-800'>

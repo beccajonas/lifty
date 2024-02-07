@@ -4,29 +4,26 @@ import GroupMessageDisplay from '../components/GroupMessageDisplay';
 
 function MessagePage({ user, leftRide, bookRide }) {
 	const [groups, setGroups] = useState([]);
-	const [rideDateTime, setRideDateTime] = useState([]);
+	const [selectedGroup, setSelectedGroup] = useState(null);
+	const [messageContent, setMessageContent] = useState('');
 
 	useEffect(() => {
-		// Fetch groups data
 		fetch(`/api/users/${user.id}/groups`)
 			.then((res) => res.json())
 			.then((data) => setGroups(data));
-	}, [user.id]); // Fetch groups only once when user id changes
+	}, []);
 
-	useEffect(() => {
-		// Fetch all rides data
-		fetch(`/api/rides`)
+	function handleMessageSubmit(groupId, messageContent) {
+		fetch(`/api/groups/${groupId}/add_message_from/${user.id}`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify({ content: messageContent }),
+		})
 			.then((res) => res.json())
-			.then((ridesData) => {
-				// Filter rides data based on group ids
-				const filteredRides = ridesData.filter((ride) =>
-					groups.some((group) => group.id === ride.id)
-				);
-				// Extract date_time from filtered rides
-				const rideDateTimes = filteredRides.map((ride) => ride.date_time);
-				setRideDateTime(rideDateTimes);
-			});
-	}, [groups]); // Fetch rides and filter based on groups
+			.then((data) => console.log(data));
+	}
 
 	return (
 		<div>
@@ -35,19 +32,29 @@ function MessagePage({ user, leftRide, bookRide }) {
 			</div>
 			<div className='grid grid-cols-2 h-screen overflow-x-hidden'>
 				<div className='outline-dotted h-screen overflow-y-auto'>
-					{groups.map((group, index) => (
+					{groups.map((group) => (
 						<GroupList
-							group={group}
 							key={group.id}
+							group={group}
 							user={user}
 							leftRide={leftRide}
 							bookRide={bookRide}
-							rideDateTime={rideDateTime[index]} // Pass rideDateTime as a prop
+							onClick={() => setSelectedGroup(group)}
 						/>
 					))}
 				</div>
 				<div className='outline-dotted h-screen overflow-y-auto'>
-					<GroupMessageDisplay />
+					{selectedGroup ? (
+						<GroupMessageDisplay
+							group={selectedGroup}
+							user={user}
+							setMessageContent={setMessageContent}
+							messageContent={messageContent}
+							handleMessageSubmit={handleMessageSubmit}
+						/>
+					) : (
+						<p>Select a group</p>
+					)}
 				</div>
 			</div>
 		</div>

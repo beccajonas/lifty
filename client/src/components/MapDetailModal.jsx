@@ -48,7 +48,7 @@ function MapDetailModal(props) {
 
 	return (
 		<>
-			<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center'>
+			<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center backdrop-blur-sm backdrop-brightness-50'>
 				<div className='relative p-4 w-9/12 h-4/6 overflow-x-hidden bg-white rounded-md shadow-lg border-2 border-gray-300'>
 					<div className='flex justify-between border-b border-gray-300 rounded-t-md'>
 						<h3 className='text-xl font-semibold text-gray-700'>

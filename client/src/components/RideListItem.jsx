@@ -38,7 +38,7 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 			<div className='m-2 w-full'>
 				<a onClick={handleDetailClick}>
 					<div
-						className={`flex items-center bg-blue-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400 pr-3 pl-3`}>
+						className={`flex items-center bg-indigo-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400 pr-3 pl-3`}>
 						<div className='m-8 flex items-center'>
 							<img
 								className='object-cover bg-cyan-800 w-40 h-40 border-2 border-gray-100'

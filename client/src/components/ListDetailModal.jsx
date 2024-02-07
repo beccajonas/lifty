@@ -42,19 +42,19 @@ function ListDetailModal(props) {
 	}
 	return (
 		<>
-			<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center'>
-				<div className='relative p-4 w-9/12 h-4/6  overflow-x-hidden bg-white  rounded-md shadow-lg border-2 border-gray-300'>
-					<div className='flex justify-between border-b border-gray-300 rounded-t-md'>
+			<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center backdrop-blur-sm backdrop-brightness-50 '>
+				<div className='relative p-4 w-9/12 h-4/6 overflow-hidden bg-blue-200 border-2 border-blue-300'>
+					<div className='flex justify-between border-b border-blue-300 rounded-t-md mb-3 pb-3'>
 						<h3 className='text-xl font-semibold text-gray-700'>
 							Ride Details
 						</h3>
 						<button
-							className='text-red-600 cursor-pointer text-sm font-medium px-4 py-2'
+							className='text-red-600 cursor-pointer text-sm font-medium py-2 px-4 rounded-md transition duration-200 hover:bg-red-200'
 							onClick={() => props.setShowListDetailModal(false)}>
 							Close
 						</button>
 					</div>
-					<div className='mt-4'>
+					<div className='mt-4 pl-20'>
 						<div className='flex items-center gap-4 mt-1 mb-1'>
 							<img
 								className='object-cover w-20 h-20 rounded-full ring-2 ring-gray-300'
@@ -65,7 +65,7 @@ function ListDetailModal(props) {
 								<div>
 									<NavLink
 										to={`/profile/${props.ride.driver.id}`}
-										className='text-indigo-500 hover:underline'>
+										className='text-indigo-500 hover:text-indigo-700'>
 										Driver: {props.ride.driver.first_name}{' '}
 										{props.ride.driver.last_name}
 									</NavLink>
@@ -79,8 +79,8 @@ function ListDetailModal(props) {
 
 					<div className='flex space-y-4'>
 						{/* Left Column */}
-						<div className='w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pr-4 mt-4 pb-4'>
-							<div className='space-y-4 outline-dotted w-full h-full'>
+						<div className='w-full md:w-1/2 lg:w-1/2 xl:w-1/2 mt-4 pb-4'>
+							<div className='space-y-4 w-full h-full pl-20'>
 								<p className='font-sans'>Meet At: {props.ride.lot.lot_name}</p>
 								<p>Resort: {props.ride.resort.resort_name}</p>
 
@@ -102,7 +102,7 @@ function ListDetailModal(props) {
 													<NavLink to={`/profile/${passenger.id}`}>
 														<p
 															key={passenger.id}
-															className='font-semibold text-indigo-500'>
+															className='font-semibold text-indigo-500 hover:text-indigo-700'>
 															<span>&nbsp;</span>
 															{passenger.first_name} {passenger.last_name}
 															<span>&nbsp;</span>
@@ -144,8 +144,7 @@ function ListDetailModal(props) {
 						<div>
 							<Map
 								google={props.google}
-								zoom={13}
-								style={{ width: '45%', height: '60%', padding: '1em' }}>
+								style={{ width: '45%', height: '50%', padding: '1em' }}>
 								<Marker position={origin} />
 								<Marker position={destination} />
 								{route && <DirectionsRenderer directions={route} />}

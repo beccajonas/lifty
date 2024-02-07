@@ -158,10 +158,9 @@ function App() {
 					element={
 						<MessagePage
 							user={user}
-							setBookRide={setBookRide}
 							bookRide={bookRide}
 							leftRide={leftRide}
-							setLeftRide={setLeftRide}
+							onClick={() => setMessagePageOpen(true)}
 						/>
 					}
 				/>
