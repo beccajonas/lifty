@@ -1,4 +1,5 @@
 function UserProfilePage({ user }) {
+	console.log(user);
 	const dateCreatedString = user.profile_created;
 	const formattedDate = new Date(dateCreatedString).toLocaleDateString(
 		'en-US',

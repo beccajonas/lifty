@@ -211,7 +211,7 @@ function App() {
 				/>
 				<Route
 					path='/myprofile/:id'
-					element={<UserProfilePage />}
+					element={<UserProfilePage user={user} />}
 				/>
 				<Route
 					path='/profile/:id'

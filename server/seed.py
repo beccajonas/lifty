@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Ride, Lot, Resort, passenger_ride_association, Group, GroupMembership, Message
+from models import db, User, Ride, Lot, Resort, Group, GroupMembership, Message
 import json
 from datetime import datetime 
 from flask_bcrypt import Bcrypt
@@ -17,7 +17,7 @@ if __name__ == "__main__":
         data = {}
         with open("db.json") as f:
             data = json.load(f)
-        print("clearing data...")
+        print("Clearing data...")
         db.session.query(User).delete()
         db.session.query(Ride).delete()
         db.session.query(Lot).delete()
@@ -25,7 +25,6 @@ if __name__ == "__main__":
         db.session.query(Group).delete()
         db.session.query(GroupMembership).delete()
         db.session.query(Message).delete()
-        db.session.query(passenger_ride_association).delete()
 
         for lots in data['lots']:
             db.session.add(Lot(**lots))
@@ -53,11 +52,16 @@ if __name__ == "__main__":
                 # Calculate distance traveled
                 lot_coordinates_str = f"{lot.latitude},{lot.longitude}"
                 resort_coordinates_str = f"{resort.latitude},{resort.longitude}"
-                api_key = api_key
 
                 try:
                     distance_miles = Ride.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
                     ride.distance_traveled = round(distance_miles, 2)
+                    
+                    # Adjust distance based on roundtrip attribute
+                    if ride.roundtrip:
+                        ride.distance_traveled *= 2
+
+                    # Calculate emissions saved
                     ride.set_emissions_saved()
                     ride_list.append(ride)
 
@@ -93,7 +97,12 @@ if __name__ == "__main__":
                 last_name=user.get("last_name"),
                 profile_pic=user.get("profile_pic"),
                 total_distance_traveled=user.get("total_distance_traveled"),
-                total_emissions_saved=user.get("total_emissions_saved")
+                total_emissions_saved=user.get("total_emissions_saved"),
+                profile_created=datetime.strptime(user.get('profile_created'), "%Y-%m-%dT%H:%M:%S"),
+                bio=user.get("bio"),
+                area=user.get("area"),
+                skier=user.get("skier"),
+                snowboarder=user.get("snowboarder")
             )
             user_list.append(u)
         db.session.add_all(user_list)
@@ -104,4 +113,4 @@ if __name__ == "__main__":
 
         db.session.commit()
    
-        print("seeding complete!")
+        print("Seeding complete!")

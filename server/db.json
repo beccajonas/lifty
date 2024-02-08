@@ -156,7 +156,12 @@
 			"last_name": "White",
 			"profile_pic": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/545688_v9_be.jpg",
 			"total_distance_traveled": null,
-			"total_emissions_saved": null
+			"total_emissions_saved": null,
+			"profile_created": "2024-02-10T09:00:00",
+			"bio": "Let's rideeee",
+			"area": "Ballpark",
+			"skier": false,
+			"snowboarder": true
 		},
 		{
 			"id": 2,
@@ -166,7 +171,12 @@
 			"last_name": "Kim",
 			"profile_pic": "https://img.olympics.com/images/image/private/t_s_w960/t_s_16_9_g_auto/f_auto/primary/ptpf9gfakdcv1xvyrefo",
 			"total_distance_traveled": null,
-			"total_emissions_saved": null
+			"total_emissions_saved": null,
+			"profile_created": "2024-02-10T09:00:00",
+			"bio": "Let's rideeee",
+			"area": "Millcreek",
+			"skier": true,
+			"snowboarder": true
 		},
 		{
 			"id": 3,
@@ -176,7 +186,12 @@
 			"last_name": "Paltrow",
 			"profile_pic": "https://www.rollingstone.com/wp-content/uploads/2023/12/GettyImages-1249006299.jpg?w=1581&h=1054&crop=1",
 			"total_distance_traveled": null,
-			"total_emissions_saved": null
+			"total_emissions_saved": null,
+			"profile_created": "2024-02-10T09:00:00",
+			"bio": "Let's rideeee",
+			"area": "East Bench",
+			"skier": false,
+			"snowboarder": true
 		},
 		{
 			"id": 4,
@@ -186,7 +201,12 @@
 			"last_name": "Simander",
 			"profile_pic": "https://ichef.bbci.co.uk/news/976/cpsprodpb/1499/production/_100137250_81949daf-08ba-48d5-98bc-3eab3cdfd1d1.jpg",
 			"total_distance_traveled": null,
-			"total_emissions_saved": null
+			"total_emissions_saved": null,
+			"profile_created": "2024-02-10T09:00:00",
+			"bio": "Let's rideeee",
+			"area": "Marmalade",
+			"skier": true,
+			"snowboarder": true
 		},
 		{
 			"id": 5,
@@ -196,7 +216,12 @@
 			"last_name": "Jonas",
 			"profile_pic": "https://lifty.s3.us-east-2.amazonaws.com/Screen+Shot+2024-02-02+at+7.35.28+PM.png",
 			"total_distance_traveled": null,
-			"total_emissions_saved": null
+			"total_emissions_saved": null,
+			"profile_created": "2024-02-10T09:00:00",
+			"bio": "Let's rideeee",
+			"area": "Sugarhouse",
+			"skier": true,
+			"snowboarder": false
 		}
 	],
 	"rides": [
@@ -209,7 +234,7 @@
 			"date_time": "2024-02-20T08:30:00",
 			"emmissions_saved": null,
 			"distance_traveled": null,
-			"roundtrip": true,
+			"roundtrip": false,
 			"mpg": 20.6
 		},
 		{
