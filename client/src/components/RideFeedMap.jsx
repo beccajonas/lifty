@@ -7,6 +7,8 @@ function RideFeedMap(props) {
 	const [showMapDetailModal, setShowMapDetailModal] = useState(false);
 	const [selectedMarker, setSelectedMarker] = useState(null);
 
+	console.log(props);
+
 	useEffect(() => {
 		const existingPositions = new Set();
 		const updatedMarkers = props.rides.map((ride) => {
@@ -26,7 +28,6 @@ function RideFeedMap(props) {
 				rideInfo: ride,
 			};
 		});
-
 		setMarkers(updatedMarkers);
 	}, [props.rides, props.bookRide]);
 
@@ -81,6 +82,7 @@ function RideFeedMap(props) {
 					handleLeaveClick={handleLeaveClick}
 					handleJoinClick={handleJoinClick}
 					user={props.user}
+					rides={props.rides}
 				/>
 			) : null}
 			<Map

@@ -7,12 +7,32 @@ import React from 'react';
 function MapDetailModal(props) {
 	const [route, setRoute] = useState(null);
 	const [duration, setDuration] = useState('');
+	const [isUserBooked, setIsUserBooked] = useState(false);
+	const [isUserDriver, setIsUserDriver] = useState(false);
 
-	const isUserBooked = props.selectedMarker.passengers.some(
-		(passenger) => passenger.id === props.user.id
-	);
+	console.log(props.rides);
 
-	const isUserDriver = props.selectedMarker.driver_id === props.user.id;
+	useEffect(() => {
+		// Search for the corresponding ride in props.rides array
+		const correspondingRide = props.rides.find(
+			(ride) => ride.id === props.selectedMarker.id
+		);
+
+		// Check if the user is booked in the corresponding ride
+		const userBooked =
+			correspondingRide &&
+			correspondingRide.passengers.some(
+				(passenger) => passenger.id === props.user.id
+			);
+
+		// Check if the user is the driver of the corresponding ride
+		const userDriver =
+			correspondingRide && correspondingRide.driver_id === props.user.id;
+
+		// Update state based on the findings
+		setIsUserBooked(userBooked);
+		setIsUserDriver(userDriver);
+	}, [props.rides, props.selectedMarker, props.user]);
 
 	const origin = {
 		lat: props.selectedMarker.lot.latitude,
@@ -131,13 +151,17 @@ function MapDetailModal(props) {
 									<>
 										{!isUserBooked ? (
 											<button
-												onClick={props.handleJoinClick}
+												onClick={() =>
+													props.handleJoinClick(props.selectedMarker.id)
+												}
 												className='text-white bg-indigo-700 hover:bg-indigo-900 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
 												Join this ride
 											</button>
 										) : (
 											<button
-												onClick={props.handleLeaveClick}
+												onClick={() =>
+													props.handleLeaveClick(props.selectedMarker.id)
+												}
 												className='text-white bg-red-700 hover:bg-red-800 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
 												Leave this ride
 											</button>

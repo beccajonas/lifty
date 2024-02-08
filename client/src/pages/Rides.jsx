@@ -50,9 +50,14 @@ function Rides({
 				if (!res.ok) {
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
+				res.json();
+			})
+			.then((data) => {
+				console.log(data);
 				setLeftRide(true);
 				setBookRide(!bookRide);
 			})
+
 			.catch((error) => console.error('Error:', error));
 	}
 
@@ -66,7 +71,7 @@ function Rides({
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log('booked ride!');
+				console.log(data);
 				setBookRide(true);
 				setLeftRide(!leftRide);
 			})

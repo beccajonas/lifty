@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 function ListDetailModal(props) {
-	console.log(props.ride);
 	const [route, setRoute] = useState(null);
 	const [duration, setDuration] = useState('');
 
