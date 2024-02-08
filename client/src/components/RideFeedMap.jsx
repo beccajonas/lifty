@@ -77,8 +77,6 @@ function RideFeedMap(props) {
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
 					selectedMarker={selectedMarker}
-					handleBookRide={props.handleBookRide}
-					handleLeaveRide={props.handleLeaveRide}
 					handleLeaveClick={handleLeaveClick}
 					handleJoinClick={handleJoinClick}
 					user={props.user}

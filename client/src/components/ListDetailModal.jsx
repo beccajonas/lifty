@@ -84,7 +84,7 @@ function ListDetailModal(props) {
 								<p>Resort: {props.ride.resort.resort_name}</p>
 
 								<p>Distance: {props.ride.distance_traveled} miles</p>
-								<p>Duration: {duration}</p>
+								<p>Duration To/From: {duration}</p>
 
 								<div className='flex items-center'>
 									{props.ride.passengers.length > 0 ? (
