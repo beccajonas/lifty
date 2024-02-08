@@ -72,7 +72,7 @@ function RideFeedMap(props) {
 	};
 
 	return (
-		<div className=' overflow-y-auto pl-10 pr-20'>
+		<div className='overflow-y-auto pl-10 pr-20'>
 			{showMapDetailModal ? (
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
