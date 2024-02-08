@@ -320,9 +320,6 @@ def get_groups_by_user_id(user_id):
     try:
         groups = Group.query.filter(Group.members.any(id=user_id)).all()
         
-        if not groups:
-            return {"error": "No groups found for the user."}, 404
-        
         return [group.to_dict(rules=['-members.groups', 
                                       '-members.password_hash', 
                                       '-members.rides_as_driver',

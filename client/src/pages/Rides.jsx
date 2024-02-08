@@ -79,7 +79,7 @@ function Rides({
 				<button
 					onClick={() => setShowModal(true)}
 					type='button'
-					className='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2'>
+					className='mt-4 py-2 px-4 text-white bg-indigo-700 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
 					Post A Ride
 				</button>
 				{showModal ? (

@@ -17,7 +17,7 @@ function GroupList({ group, onClick }) {
 			.then((data) => {
 				setRideDateTime(data.date_time);
 				setRideResort(data.resort.resort_name);
-				setRideLot(data.lot.address);
+				setRideLot(data.lot.lot_name);
 			});
 	}, [group.id]);
 
@@ -34,32 +34,33 @@ function GroupList({ group, onClick }) {
 	}
 
 	return (
-		<div className='m-2 w-full'>
+		<div className='m-2'>
 			<h1>
-				Group Message for Ride On: {formatDateTime(rideDateTime)} to{' '}
-				{rideResort} from {rideLot}
+				Ride: {formatDateTime(rideDateTime)} to {rideResort} from {rideLot}
 			</h1>
 			<div
 				onClick={handleGroupClick}
-				className={`flex items-center bg-blue-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400 pr-3 pl-3`}>
-				<div className='m-1 flex items-center'>
+				className='flex items-center bg-indigo-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400'>
+				<div className='flex justify-center m-4'>
 					{group.members.length >= 2 ? (
 						group.members.map((member) => (
 							<div
 								className='m-8 flex flex-col items-center'
 								key={member.id}>
-								<p>
-									{member.first_name} {member.last_name}
-								</p>
 								<img
 									className='object-cover bg-cyan-800 w-20 h-20 border-2 border-gray-100'
 									src={member.profile_pic}
 									alt={`${member.first_name}'s profile pic`}
 								/>
+								<div>
+									<p>
+										{member.first_name} {member.last_name}
+									</p>
+								</div>
 							</div>
 						))
 					) : (
-						<div className='m-8 flex flex-col items-center'>
+						<div className='m-8 flex'>
 							<p>No riders yet</p>
 						</div>
 					)}

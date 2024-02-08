@@ -15,6 +15,7 @@ import About from './pages/About';
 import RideFormModal from './components/RideFormModal';
 import Profile from './pages/Profile';
 import MessagePage from './pages/MessagePage';
+import SignupForm from './pages/SignupForm';
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -72,6 +73,50 @@ function App() {
 				.then(setUser(null));
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	function handleSignup(newEmail, passwordOne, passwordTwo) {
+		console.log(
+			`New Email: ${newEmail} | Password1: ${passwordOne} | Password2: ${passwordTwo}`
+		);
+		if (passwordOne !== passwordTwo) {
+			setErrorMessage('Passwords do not match. Try again.');
+			return;
+		} else {
+			const newUser = {
+				email: newEmail,
+				password: passwordOne,
+			};
+			try {
+				fetch(`/api/signup`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(newUser),
+				})
+					.then((res) => {
+						if (!res.ok) {
+							return res.json().then((data) => {
+								setErrorMessage(data.error);
+								throw new Error(data.error);
+							});
+						}
+						return res.json();
+					})
+					.then((data) => {
+						console.log(data);
+						setMessage('Sign up successful! Please Login.');
+					})
+					.catch((error) => {
+						console.log(error);
+						setErrorMessage(error.message);
+					});
+			} catch (error) {
+				console.log(error);
+				setErrorMessage(error);
+			}
 		}
 	}
 
@@ -171,6 +216,18 @@ function App() {
 				<Route
 					path='/profile/:id'
 					element={<Profile />}
+				/>
+				<Route
+					path='/signup'
+					element={
+						<SignupForm
+							errorMessage={errorMessage}
+							handleSignup={handleSignup}
+							setErrorMessage={setErrorMessage}
+							setMessage={setMessage}
+							message={message}
+						/>
+					}
 				/>
 			</Routes>
 		</Router>

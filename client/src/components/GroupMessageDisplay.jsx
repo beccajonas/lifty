@@ -7,13 +7,26 @@ function GroupMessageDisplay({
 	setMessageContent,
 }) {
 	const [messageList, setMessageList] = useState([]);
+	const [newMessage, setNewMessage] = useState(false);
 	const otherMembers = group.members.filter((member) => member.id !== user.id);
 
 	useEffect(() => {
 		fetch(`/api/groups/${group.id}/messages`)
 			.then((res) => res.json())
-			.then((data) => setMessageList(data));
-	}, [messageList]);
+			.then((data) => {
+				// Filter out messages from members who are no longer in the group
+				const filteredMessages = data.filter((message) => {
+					return group.members.some(
+						(member) => member.id === message.sender_id
+					);
+				});
+				setMessageList(filteredMessages);
+				setNewMessage(false);
+			})
+			.catch((error) => {
+				console.error('Error fetching messages:', error);
+			});
+	}, [group.id, newMessage]);
 
 	function getSenderName(senderId) {
 		const sender = group.members.find((member) => member.id === senderId);
@@ -24,6 +37,7 @@ function GroupMessageDisplay({
 		e.preventDefault();
 		handleMessageSubmit(group.id, messageContent);
 		setMessageContent('');
+		setNewMessage(true);
 	}
 
 	return (

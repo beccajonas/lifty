@@ -55,7 +55,7 @@ function RideFeedMap(props) {
 	const containerStyle = {
 		width: '43%',
 		padding: '10px',
-		'margin-top': '6px',
+		marginTop: '6px',
 		height: '95%',
 		maxWidth: '800px',
 	};
