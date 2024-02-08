@@ -28,27 +28,29 @@ function MessagePage({ user, leftRide, bookRide }) {
 
 	return (
 		<div>
-			<div className='flex justify-center m-4'>
+			<div className='flexjustify-center m-4'>
 				<h1>Messages</h1>
 			</div>
-			<div className='grid grid-cols-2 h-screen overflow-x-hidden pl-4 pr-4'>
-				<div className='outline-dotted h-screen overflow-y-auto'>
+			<div className='grid grid-cols-2 gap-4 h-screen overflow-x-hidden outline-dotted pl-4 pr-4'>
+				<div className='overflow-y-auto'>
 					{groups.length < 1 ? (
 						<NoGroupDisplay />
 					) : (
-						groups.map((group) => (
-							<GroupList
-								key={group.id}
-								group={group}
-								user={user}
-								leftRide={leftRide}
-								bookRide={bookRide}
-								onClick={() => setSelectedGroup(group)}
-							/>
-						))
+						<div className='h-screen overflow-y-auto'>
+							{groups.map((group) => (
+								<GroupList
+									key={group.id}
+									group={group}
+									user={user}
+									leftRide={leftRide}
+									bookRide={bookRide}
+									onClick={() => setSelectedGroup(group)}
+								/>
+							))}
+						</div>
 					)}
 				</div>
-				<div className='outline-dotted h-screen overflow-y-auto'>
+				<div className='h-screen overflow-y-auto'>
 					{selectedGroup ? (
 						<GroupMessageDisplay
 							group={selectedGroup}
@@ -58,10 +60,12 @@ function MessagePage({ user, leftRide, bookRide }) {
 							handleMessageSubmit={handleMessageSubmit}
 						/>
 					) : groups.length === 0 ? (
-						<p>
-							Your messages will display here when you have a ride with other
-							Lifty users!
-						</p>
+						<div className='flex justify-center m-4 flex-col items-center text-center'>
+							<div className='p-5 bg-indigo-200 rounded-sm'>
+								Group messages for each Lifty ride you post or book will appear
+								here!
+							</div>
+						</div>
 					) : (
 						<p>Select a message</p>
 					)}

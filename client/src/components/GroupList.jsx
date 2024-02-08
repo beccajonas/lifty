@@ -34,37 +34,35 @@ function GroupList({ group, onClick }) {
 	}
 
 	return (
-		<div className='m-2'>
-			<h1>
+		<div className='m-3'>
+			<div className='text-center bg-indigo-50 rounded-t-lg shadow text-sm'>
 				Ride: {formatDateTime(rideDateTime)} to {rideResort} from {rideLot}
-			</h1>
+			</div>
 			<div
 				onClick={handleGroupClick}
-				className='flex items-center bg-indigo-200 border border-gray-200 rounded-lg shadow hover:bg-blue-400'>
-				<div className='flex justify-center m-4'>
-					{group.members.length >= 2 ? (
-						group.members.map((member) => (
-							<div
-								className='m-8 flex flex-col items-center'
-								key={member.id}>
-								<img
-									className='object-cover bg-cyan-800 w-20 h-20 border-2 border-gray-100'
-									src={member.profile_pic}
-									alt={`${member.first_name}'s profile pic`}
-								/>
-								<div>
-									<p>
-										{member.first_name} {member.last_name}
-									</p>
-								</div>
+				className='flex items-center justify-center overflow-y-auto bg-indigo-200 border border-gray-200 rounded-b-lg shadow hover:bg-blue-400'>
+				{group.members.length >= 2 ? (
+					group.members.map((member) => (
+						<div
+							className='m-4 flex flex-col items-center'
+							key={member.id}>
+							<img
+								className='object-cover bg-cyan-800 w-20 h-20 border-2 border-gray-100'
+								src={member.profile_pic}
+								alt={`${member.first_name}'s profile pic`}
+							/>
+							<div className='text-center mt-2'>
+								<p>
+									{member.first_name} {member.last_name}
+								</p>
 							</div>
-						))
-					) : (
-						<div className='m-8 flex'>
-							<p>No riders yet</p>
 						</div>
-					)}
-				</div>
+					))
+				) : (
+					<div className='flex items-center m-4'>
+						<p>No riders yet</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

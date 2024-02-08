@@ -41,22 +41,28 @@ function GroupMessageDisplay({
 	}
 
 	return (
-		<div>
+		<div className='m-3 overflow-y-auto outline-dashed h-5/6'>
 			{otherMembers.length === 0 ? (
-				<h1 className='text-center mt-8'>No messages to show yet</h1>
+				<div className='text-center bg-indigo-50 rounded-t-lg shadow p-2 text-sm'>
+					No messages to show yet
+				</div>
 			) : (
 				<>
-					<h1 className='text-center mt-8'>
+					<div className='text-center overflow-y-auto bg-indigo-50 rounded-t-lg shadow p-2 text-sm'>
 						Group Message With:{' '}
 						{otherMembers
 							.map((member) => `${member.first_name} ${member.last_name}`)
 							.join(', ')}
-					</h1>
-					<div className='message-container mt-4'>
+					</div>
+					<div className='p-4 bg-indigo-100 overflow-y-auto'>
 						{messageList.map((message) => (
 							<div
 								key={message.id}
-								className='bg-gray-100 p-3 rounded-lg mb-2'>
+								className={`p-3 rounded-lg mb-2 ${
+									message.sender_id === user.id
+										? 'bg-blue-300'
+										: 'bg-indigo-300'
+								}`}>
 								<div className='text-sm text-gray-600 mb-1'>
 									{message.sender_id === user.id
 										? 'You'
@@ -67,14 +73,29 @@ function GroupMessageDisplay({
 						))}
 					</div>
 					<div>
-						<form onSubmit={handleSubmit}>
+						<form
+							onSubmit={handleSubmit}
+							className='flex'>
 							<input
 								type='text'
-								placeholder='Enter your message and press ENTER'
+								className='mt-3 ml-4 mr-4 flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+								placeholder='Enter your message'
 								value={messageContent}
 								onChange={(e) => setMessageContent(e.target.value)}
 							/>
-							<button>Send</button>
+							<button
+								type='submit'
+								className='inline-flex justify-center pt-3 pr-4 mt-3 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100'>
+								<svg
+									className='w-5 h-5 rotate-90 rtl:-rotate-90'
+									aria-hidden='true'
+									xmlns='http://www.w3.org/2000/svg'
+									fill='currentColor'
+									viewBox='0 0 18 18'>
+									<path d='m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z' />
+								</svg>
+								<span className='sr-only'>Send message</span>
+							</button>
 						</form>
 					</div>
 				</>
