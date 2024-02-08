@@ -112,5 +112,7 @@ if __name__ == "__main__":
             user.calculate_total_distance_traveled()
 
         db.session.commit()
-   
+  
+
         print("Seeding complete!")
+
