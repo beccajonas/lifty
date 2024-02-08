@@ -40,6 +40,7 @@ function Rides({
 	}, [bookRide, leftRide, showModal, message]);
 
 	function handleLeaveRide(rideId) {
+		console.log(rideId);
 		fetch(`/api/rides/${rideId}/remove_passenger/${user.id}`, {
 			method: 'DELETE',
 			headers: {
@@ -51,12 +52,19 @@ function Rides({
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
 				res.json();
+<<<<<<< Updated upstream
 			})
 			.then((data) => {
 				console.log(data);
 				setLeftRide(true);
 				setBookRide(!bookRide);
 			})
+=======
+				setLeftRide(true);
+				setBookRide(!bookRide);
+			})
+			.then((data) => console.log(data))
+>>>>>>> Stashed changes
 
 			.catch((error) => console.error('Error:', error));
 	}
@@ -69,12 +77,22 @@ function Rides({
 			},
 			body: JSON.stringify({ id: user.id }),
 		})
+<<<<<<< Updated upstream
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data);
+=======
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error(`Failed to leave ride: ${res.status}`);
+				}
+				res.json();
+>>>>>>> Stashed changes
 				setBookRide(true);
 				setLeftRide(!leftRide);
 			})
+			.then((data) => console.log(data))
+
 			.catch((error) => console.error('Error:', error));
 	}
 

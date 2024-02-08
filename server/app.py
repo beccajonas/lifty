@@ -184,6 +184,9 @@ def post_new_ride(id):
         if ride.distance_traveled is None:
             return {"error": "Distance calculation failed or returned null value."}, 500
         
+        db.session.add(ride)
+        db.session.commit()
+        
         # Set emissions saved
         try: 
             ride.set_emissions_saved()

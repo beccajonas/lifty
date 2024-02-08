@@ -1,4 +1,8 @@
 function UserProfilePage({ user }) {
+<<<<<<< Updated upstream
+=======
+	console.log(user);
+>>>>>>> Stashed changes
 	const dateCreatedString = user.profile_created;
 	const formattedDate = new Date(dateCreatedString).toLocaleDateString(
 		'en-US',

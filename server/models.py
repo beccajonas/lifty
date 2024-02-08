@@ -80,6 +80,13 @@ class User(db.Model, SerializerMixin):
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     profile_pic = db.Column(db.String)
+
+    profile_created = db.Column(db.DateTime)
+    area = db.Column(db.String)
+    bio = db.Column(db.String)
+    skier = db.Column(db.Boolean)
+    snowboarder = db.Column(db.Boolean)
+    
     total_distance_traveled = db.Column(db.Float, default=0.0)
     total_emissions_saved = db.Column(db.Float, default=0.0)
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
@@ -149,11 +156,18 @@ class Ride(db.Model, SerializerMixin):
             lot_coordinates_str = f"{lot.latitude},{lot.longitude}"
             resort_coordinates_str = f"{resort.latitude},{resort.longitude}"
 
-            distance_miles = self.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
-            self.distance_traveled = round(distance_miles, 1)
+            # Calculate initial distance
+            initial_distance_miles = self.calculate_distance(api_key, lot_coordinates_str, resort_coordinates_str)
+
+            # Adjust distance based on roundtrip attribute
+            if self.roundtrip:
+                self.distance_traveled = round(initial_distance_miles * 2, 1)
+            else:
+                self.distance_traveled = round(initial_distance_miles, 1)
         
         except Exception as e:
-            return str(f"error: {e}")
+            return str(f"Error: {e}") 
+
             
     def set_emissions_saved(self):
         try:
