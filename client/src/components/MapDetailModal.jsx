@@ -112,7 +112,7 @@ function MapDetailModal(props) {
 								</p>
 								<p>Resort: {props.selectedMarker.resort.resort_name}</p>
 								<p>Distance: {props.selectedMarker.distance_traveled} miles</p>
-								<p>Duration To/From: {duration}</p>
+								<p>Duration: {duration}</p>
 								<div className='flex items-center'>
 									{props.selectedMarker.passengers.length > 0 ? (
 										[

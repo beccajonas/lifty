@@ -41,7 +41,7 @@ function GroupMessageDisplay({
 	}
 
 	return (
-		<div className='m-3 overflow-y-auto outline-dashed h-5/6'>
+		<div className='m-3 overflow-y-auto rounded-lg ring-2 ring-indigo-400 bg-indigo-50 h-5/6'>
 			{otherMembers.length === 0 ? (
 				<div className='text-center bg-indigo-50 rounded-t-lg shadow p-2 text-sm'>
 					No messages to show yet

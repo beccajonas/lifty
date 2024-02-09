@@ -152,16 +152,17 @@
 			"id": 1,
 			"email": "a@a.com",
 			"password_hash": "a",
-			"first_name": "Shawn",
+			"first_name": "Shaun",
 			"last_name": "White",
-			"profile_pic": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/545688_v9_be.jpg",
+			"profile_pic": "https://nbcsports.brightspotcdn.com/dims4/default/7eb52a6/2147483647/strip/true/crop/1024x576+0+0/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F39%2Fb5%2F67cd62119a80486d5e8149ef5c4d%2Fgettyimages-918388916-e1612262841827.jpg",
 			"total_distance_traveled": null,
 			"total_emissions_saved": null,
 			"profile_created": "2024-02-10T09:00:00",
-			"bio": "Let's rideeee",
+			"bio": "3 Time Olympic Gold medalist🥇 Snowboarder | Skateboarder | Musician",
 			"area": "Ballpark",
 			"skier": false,
-			"snowboarder": true
+			"snowboarder": true,
+			"cover_photo": "https://static1.squarespace.com/static/5e7a324590664f18b1bfea0c/5e7a3801284dcc611ee13e6d/5edac9299ea26150800c2aad/1660347952839/altapeak.jpg?format=1500w"
 		},
 		{
 			"id": 2,
@@ -173,10 +174,11 @@
 			"total_distance_traveled": null,
 			"total_emissions_saved": null,
 			"profile_created": "2024-02-10T09:00:00",
-			"bio": "Let's rideeee",
+			"bio": "Snowboarder 2x Olympic Gold Medalist",
 			"area": "Millcreek",
 			"skier": true,
-			"snowboarder": true
+			"snowboarder": true,
+			"cover_photo": "https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md/f_auto/primary/plnxosd0mqz1ldln1wps"
 		},
 		{
 			"id": 3,
@@ -188,10 +190,11 @@
 			"total_distance_traveled": null,
 			"total_emissions_saved": null,
 			"profile_created": "2024-02-10T09:00:00",
-			"bio": "Let's rideeee",
+			"bio": "Refuse to lose a half day of skiing.",
 			"area": "East Bench",
 			"skier": false,
-			"snowboarder": true
+			"snowboarder": true,
+			"cover_photo": "https://goop-img.com/wp-content/uploads/2015/10/screenshot.png"
 		},
 		{
 			"id": 4,
@@ -203,10 +206,11 @@
 			"total_distance_traveled": null,
 			"total_emissions_saved": null,
 			"profile_created": "2024-02-10T09:00:00",
-			"bio": "Let's rideeee",
+			"bio": "Can't wait for 2026.",
 			"area": "Marmalade",
 			"skier": true,
-			"snowboarder": true
+			"snowboarder": true,
+			"cover_photo": "https://media.cnn.com/api/v1/images/stellar/prod/180209155858-pyeongchang-2018-olympic-games-opening-ceremony-10.jpg?q=w_4056,h_2722,x_0,y_0,c_fill"
 		},
 		{
 			"id": 5,
@@ -218,10 +222,11 @@
 			"total_distance_traveled": null,
 			"total_emissions_saved": null,
 			"profile_created": "2024-02-10T09:00:00",
-			"bio": "Let's rideeee",
+			"bio": "Let's rideeee.",
 			"area": "Sugarhouse",
 			"skier": true,
-			"snowboarder": false
+			"snowboarder": false,
+			"cover_photo": "https://lifty.s3.us-east-2.amazonaws.com/IMG_5797.jpg"
 		}
 	],
 	"rides": [

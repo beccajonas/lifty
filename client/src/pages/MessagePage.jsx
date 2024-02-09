@@ -7,12 +7,20 @@ function MessagePage({ user, leftRide, bookRide }) {
 	const [groups, setGroups] = useState([]);
 	const [selectedGroup, setSelectedGroup] = useState(null);
 	const [messageContent, setMessageContent] = useState('');
+	const [isLoading, setIsLoading] = useState(true); // Loading state
 
 	useEffect(() => {
 		fetch(`/api/users/${user.id}/groups`)
 			.then((res) => res.json())
-			.then((data) => setGroups(data));
-	}, []);
+			.then((data) => {
+				setGroups(data);
+				setIsLoading(false); // Mark loading as complete once data is fetched
+			})
+			.catch((error) => {
+				console.error('Error fetching groups:', error);
+				setIsLoading(false); // In case of error, loading is still complete
+			});
+	}, [user.id]); // Dependency array to re-run effect when user id changes
 
 	function handleMessageSubmit(groupId, messageContent) {
 		fetch(`/api/groups/${groupId}/add_message_from/${user.id}`, {
@@ -28,12 +36,14 @@ function MessagePage({ user, leftRide, bookRide }) {
 
 	return (
 		<div>
-			<div className='flexjustify-center m-4'>
+			<div className='flex justify-center m-4'>
 				<h1>Messages</h1>
 			</div>
-			<div className='grid grid-cols-2 gap-4 h-screen overflow-x-hidden outline-dotted pl-4 pr-4'>
+			<div className='grid grid-cols-2 gap-4 h-screen overflow-x-hidden pl-4 pr-4'>
 				<div className='overflow-y-auto'>
-					{groups.length < 1 ? (
+					{isLoading ? (
+						<div>Loading...</div> // Display loading message while fetching data
+					) : groups.length < 1 ? (
 						<NoGroupDisplay />
 					) : (
 						<div className='h-screen overflow-y-auto'>

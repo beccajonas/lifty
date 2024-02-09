@@ -9,7 +9,6 @@ import CollectiveImpactPage from './pages/CollectiveImpactPage';
 import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
 import NavBar from './components/NavBar';
-import MyStatsPage from './pages/MyStatsPage';
 import Rides from './pages/Rides';
 import About from './pages/About';
 import RideFormModal from './components/RideFormModal';
@@ -174,10 +173,6 @@ function App() {
 				<Route
 					path='/about'
 					element={<About />}
-				/>
-				<Route
-					path='/mystats/:id'
-					element={<MyStatsPage />}
 				/>
 				<Route
 					path='/collectiveimpact'

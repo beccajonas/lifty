@@ -120,11 +120,6 @@ const Navbar = ({ user, handleLogout }) => {
 									Messages
 								</NavLink>
 								<NavLink
-									className='hover:text-blue-900'
-									to={`/mystats/${user.id}`}>
-									Stats
-								</NavLink>
-								<NavLink
 									to='/login'
 									className='hover:text-blue-900'
 									onClick={handleLogoutClick}>

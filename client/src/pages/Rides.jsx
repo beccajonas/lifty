@@ -52,19 +52,10 @@ function Rides({
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
 				res.json();
-<<<<<<< Updated upstream
-			})
-			.then((data) => {
-				console.log(data);
-				setLeftRide(true);
-				setBookRide(!bookRide);
-			})
-=======
 				setLeftRide(true);
 				setBookRide(!bookRide);
 			})
 			.then((data) => console.log(data))
->>>>>>> Stashed changes
 
 			.catch((error) => console.error('Error:', error));
 	}
@@ -77,17 +68,11 @@ function Rides({
 			},
 			body: JSON.stringify({ id: user.id }),
 		})
-<<<<<<< Updated upstream
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data);
-=======
 			.then((res) => {
 				if (!res.ok) {
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
 				res.json();
->>>>>>> Stashed changes
 				setBookRide(true);
 				setLeftRide(!leftRide);
 			})
@@ -102,7 +87,7 @@ function Rides({
 				<button
 					onClick={() => setShowModal(true)}
 					type='button'
-					className='mt-4 py-2 px-4 text-white bg-indigo-700 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
+					className=' py-2 px-4 text-white bg-indigo-700 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
 					Post A Ride
 				</button>
 				{showModal ? (

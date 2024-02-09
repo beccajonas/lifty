@@ -72,7 +72,7 @@ function RideFeedMap(props) {
 	};
 
 	return (
-		<div className='overflow-y-auto pl-10 pr-20'>
+		<div className='overflow-y-auto pl-10 pr-20 '>
 			{showMapDetailModal ? (
 				<MapDetailModal
 					setShowMapDetailModal={setShowMapDetailModal}
@@ -83,6 +83,7 @@ function RideFeedMap(props) {
 					rides={props.rides}
 				/>
 			) : null}
+
 			<Map
 				google={props.google}
 				zoom={10}

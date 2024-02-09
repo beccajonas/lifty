@@ -473,7 +473,23 @@ def delete_ride(driver_id, ride_id):
     except Exception as e:
         return {"error": str(e)}
     
-    
+
+@app.patch('/api/users/<int:id>')
+def patch_user_data(id):
+    try:
+        data = request.json
+        user = db.session.get(User, id)
+
+        for key in data:
+            setattr(user, key, data[key])
+
+        db.session.add(user)
+        db.session.commit()
+
+        return user.to_dict(rules=['-groups', '-rides_as_passenger', '-rides_as_driver']), 201 
+
+    except Exception as e:
+        return {"error": str(e)}, 500
     
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

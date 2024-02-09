@@ -102,7 +102,8 @@ if __name__ == "__main__":
                 bio=user.get("bio"),
                 area=user.get("area"),
                 skier=user.get("skier"),
-                snowboarder=user.get("snowboarder")
+                snowboarder=user.get("snowboarder"),
+                cover_photo=user.get("cover_photo")
             )
             user_list.append(u)
         db.session.add_all(user_list)
