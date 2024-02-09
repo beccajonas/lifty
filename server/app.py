@@ -73,7 +73,9 @@ def signup():
     
         new_user = User(
             email=data.get("email"),
-            password_hash=bcrypt.generate_password_hash(data.get("password"))
+            password_hash=bcrypt.generate_password_hash(data.get("password")),
+            first_name=data.get("first_name"),
+            last_name=data.get("last_name")
         )
 
         db.session.add(new_user)

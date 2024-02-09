@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import UserProfileCarousel from '../components/UserProfileCarousel';
+import header from '../../public/liftyheader.png';
+import profilePic from '../../public/liftyprofilepic.png';
 
 function UserProfilePage({ user }) {
 	const [userProfileData, setUserProfileData] = useState(null);
@@ -17,7 +19,7 @@ function UserProfilePage({ user }) {
 				console.error('Error fetching user profile data:', error);
 				setIsLoading(false); // In case of error, loading is still complete
 			});
-	}, []);
+	}, [editMode]);
 
 	if (isLoading) {
 		return <div>Loading...</div>; // Display loading message while fetching data
@@ -36,9 +38,13 @@ function UserProfilePage({ user }) {
 		}
 	);
 
+	function handleSaveSubmit() {
+		setEditMode(false);
+	}
+
 	function handleEditMode() {
 		console.log('editing!');
-		setEditMode(!editMode);
+		setEditMode(true);
 	}
 
 	return (
@@ -50,7 +56,7 @@ function UserProfilePage({ user }) {
 						{editMode ? (
 							<button
 								className='text-green-600 cursor-pointer text-sm font-medium py-1 px-2 rounded-md transition duration-200 hover:bg-green-200'
-								onClick={handleEditMode}>
+								onClick={handleSaveSubmit}>
 								Save
 							</button>
 						) : (
@@ -85,8 +91,7 @@ function UserProfilePage({ user }) {
 					) : (
 						<img
 							className='object-cover object-top h-60 w-full ring-2 ring-gray-200 rounded-lg'
-							src={userProfileData.profile_pic}
-							alt={userProfileData.first_name}
+							src={userProfileData.profile_pic || profilePic}
 						/>
 					)}
 					<div className='bg-indigo-200 text-xs p-1 m-3 rounded-lg shadow'>
@@ -213,7 +218,10 @@ function UserProfilePage({ user }) {
 								width: '100%', // Ensure the div stretches to the full width
 								height: '160px', // Set the height of the div to match the image height
 								overflow: 'hidden', // Hide any overflow content
-								backgroundImage: `url(${userProfileData.cover_photo})`,
+								backgroundImage: `url(${
+									userProfileData.cover_photo || header
+								})`, // Set the background image
+
 								backgroundPosition: `0px, 0px`,
 								backgroundSize: 'cover', // Ensure the image covers the entire area of the div
 								backgroundRepeat: 'no-repeat', // Prevent the image from repeating

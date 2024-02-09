@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import profilePic from '../../public/liftyprofilepic.png';
 
 function GroupList({ group, onClick }) {
 	const [showGroupMessage, setShowGroupMessage] = useState(false);
@@ -48,7 +49,7 @@ function GroupList({ group, onClick }) {
 							key={member.id}>
 							<img
 								className='object-cover bg-cyan-800 w-20 h-20 border-2 border-gray-100'
-								src={member.profile_pic}
+								src={member.profile_pic || profilePic}
 								alt={`${member.first_name}'s profile pic`}
 							/>
 							<div className='text-center mt-2'>

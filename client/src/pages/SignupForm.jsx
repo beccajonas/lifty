@@ -11,10 +11,12 @@ function SignupForm({
 	const [passwordOne, setPasswordOne] = useState('');
 	const [passwordTwo, setPasswordTwo] = useState('');
 	const [newEmail, setNewEmail] = useState('');
+	const [newFirstName, setNewFirstName] = useState('');
+	const [newLastName, setNewLastName] = useState('');
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		handleSignup(newEmail, passwordOne, passwordTwo);
+		handleSignup(newEmail, passwordOne, passwordTwo, newLastName, newFirstName);
 	}
 
 	useEffect(() => {
@@ -52,6 +54,28 @@ function SignupForm({
 					<div className='flex justify-center items-center'>
 						<form onSubmit={handleSubmit}>
 							<label
+								htmlFor='name'
+								className='block mb-2 text-m font-medium text-gray-900'>
+								First Name
+							</label>
+							<input
+								className='w-full p-2 text-sm bg-blue-100 rounded-md mb-3'
+								placeholder='First name'
+								value={newFirstName}
+								onChange={(e) => setNewFirstName(e.target.value)}
+							/>
+							<label
+								htmlFor='last name'
+								className='block mb-2 text-m font-medium text-gray-900'>
+								Last Name
+							</label>
+							<input
+								className='w-full p-2 text-sm bg-blue-100 rounded-md mb-3'
+								placeholder='Last name'
+								value={newLastName}
+								onChange={(e) => setNewLastName(e.target.value)}
+							/>
+							<label
 								htmlFor='email'
 								className='block mb-2 text-m font-medium text-gray-900'>
 								Your email
@@ -62,7 +86,6 @@ function SignupForm({
 								value={newEmail}
 								onChange={(e) => setNewEmail(e.target.value)}
 							/>
-
 							<label
 								htmlFor='password'
 								className='block mb-2 text-m font-medium text-gray-900'>
@@ -74,7 +97,6 @@ function SignupForm({
 								value={passwordOne}
 								onChange={(e) => setPasswordOne(e.target.value)}
 							/>
-
 							<label
 								htmlFor='repeat-password'
 								className='block mb-2 text-m font-medium text-gray-900'>

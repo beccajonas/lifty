@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import logo from '../../public/logo.png';
+import profilePic from '../../public/liftyprofilepic.png';
 
 const Navbar = ({ user, handleLogout }) => {
 	const [openAvatarDropdown, setOpenAvatarDropdown] = useState(false);
@@ -95,10 +96,7 @@ const Navbar = ({ user, handleLogout }) => {
 							<span className='sr-only'>Open user menu</span>
 							<img
 								className='object-cover h-14 w-14 rounded-full border-2 border-blue-200'
-								src={
-									user.profile_pic ||
-									'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
-								}
+								src={user.profile_pic || profilePic}
 								alt='user photo'
 							/>
 						</button>

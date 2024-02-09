@@ -75,7 +75,13 @@ function App() {
 		}
 	}
 
-	function handleSignup(newEmail, passwordOne, passwordTwo) {
+	function handleSignup(
+		newEmail,
+		passwordOne,
+		passwordTwo,
+		newLastName,
+		newFirstName
+	) {
 		console.log(
 			`New Email: ${newEmail} | Password1: ${passwordOne} | Password2: ${passwordTwo}`
 		);
@@ -86,6 +92,8 @@ function App() {
 			const newUser = {
 				email: newEmail,
 				password: passwordOne,
+				first_name: newFirstName,
+				last_name: newLastName,
 			};
 			try {
 				fetch(`/api/signup`, {

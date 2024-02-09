@@ -3,6 +3,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { DirectionsRenderer } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import profilePic from '../../public/liftyprofilepic.png';
 
 function ListDetailModal(props) {
 	const [route, setRoute] = useState(null);
@@ -57,7 +58,7 @@ function ListDetailModal(props) {
 						<div className='flex items-center gap-4 mt-1 mb-1'>
 							<img
 								className='object-cover w-20 h-20 rounded-full ring-2 ring-gray-300'
-								src={props.ride.driver.profile_pic}
+								src={props.ride.driver.profile_pic || profilePic}
 								alt=''
 							/>
 							<div className='font-medium'>

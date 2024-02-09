@@ -1,6 +1,8 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import ProfileCarousel from '../components/ProfileCarousel';
+import profilePic from '../../public/liftyprofilepic.png';
+import header from '../../public/liftyheader.png';
 
 function Profile() {
 	const [profile, setProfile] = useState({});
@@ -47,7 +49,7 @@ function Profile() {
 				<div className='basis-1/4 flex flex-col text-center h-full mr-3'>
 					<img
 						className='object-cover object-top h-60 w-full ring-2 ring-gray-200 rounded-lg'
-						src={profile.profile_pic}
+						src={profile.profile_pic || profilePic}
 						alt={profile.first_name}
 					/>
 					<div className='bg-indigo-200 text-xs p-1 m-3 rounded-lg shadow'>
@@ -81,7 +83,7 @@ function Profile() {
 							width: '100%', // Ensure the div stretches to the full width
 							height: '160px', // Set the height of the div to match the image height
 							overflow: 'hidden', // Hide any overflow content
-							backgroundImage: `url(${profile.cover_photo})`,
+							backgroundImage: `url(${profile.cover_photo || header})`,
 							backgroundPosition: `0px, 0px`,
 							backgroundSize: 'cover', // Ensure the image covers the entire area of the div
 							backgroundRepeat: 'no-repeat', // Prevent the image from repeating

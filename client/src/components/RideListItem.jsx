@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import ListDetailModal from './ListDetailModal';
+import profilePic from '../../public/liftyprofilepic.png';
 
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
@@ -41,7 +42,7 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 						<div className='m-8 flex items-center'>
 							<img
 								className='object-cover bg-cyan-800 w-40 h-40 border-2 border-gray-100'
-								src={ride.driver.profile_pic}
+								src={ride.driver.profile_pic || profilePic}
 								alt={ride.driver.name}
 							/>
 						</div>
