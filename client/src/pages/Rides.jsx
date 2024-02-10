@@ -59,7 +59,7 @@ function Rides({
 				}
 				res.json();
 				setLeftRide(true);
-				setBookRide(!bookRide);
+				setBookRide(false);
 			})
 			.then((data) => console.log(data))
 
@@ -80,7 +80,7 @@ function Rides({
 				}
 				res.json();
 				setBookRide(true);
-				setLeftRide(!leftRide);
+				setLeftRide(false);
 			})
 			.then((data) => console.log(data))
 

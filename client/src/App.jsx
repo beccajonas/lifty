@@ -25,7 +25,7 @@ function App() {
 	const [showModal, setShowModal] = useState(null);
 	const [bookRide, setBookRide] = useState(null);
 	const [leftRide, setLeftRide] = useState(null);
-	const [deletedRide, setDeletedRide] = useState(null);
+	const [deletedRide, setDeletedRide] = useState(true);
 	const [bio, setBio] = useState('');
 	const [area, setArea] = useState('');
 	const [isSnowboarder, setIsSnowboarder] = useState(false);
@@ -220,7 +220,7 @@ function App() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				setDeletedRide(true);
+				setDeletedRide(!deletedRide);
 				console.log(data);
 			});
 	}

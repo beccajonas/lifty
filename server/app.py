@@ -468,20 +468,23 @@ def delete_ride(driver_id, ride_id):
         if not ride:
             return {"error": "Ride not found."}, 404
         
-        driver = User.query.get(driver_id)
-        if not driver:
-            return {"error": "Driver not found."}, 404
-        
         if ride.driver_id != driver_id:
             return {"error": "User is not the driver of the ride."}, 403
+        
+        # Determine the group associated with the ride
+        group = Group.query.filter_by(id=ride_id).first()
+        if not group:
+            return {"error": "Group not found."}, 404 
 
         db.session.delete(ride)
+        db.session.delete(group)  # Delete the associated group
         db.session.commit()
 
-        return {"message": "Ride deleted successfully."}, 200
+        return {"message": "Ride and associated group deleted successfully."}, 200
 
     except Exception as e:
         return {"error": str(e)}
+
     
 
 @app.patch('/api/users/<int:id>')
