@@ -102,7 +102,7 @@ function App() {
 					setRidesAsDriver(data.rides_as_driver);
 					setRidesAsPassenger(data.rides_as_passenger);
 					setEmissionsSaved(data.total_emissions_saved);
-					console.log(data.groups);
+					setGroups(data.groups);
 				});
 		} catch (error) {
 			console.log(error);
