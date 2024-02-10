@@ -27,7 +27,6 @@ function UserProfilePage({
 
 	function handleUpdateProfile(e) {
 		e.preventDefault();
-
 		// Check if the form data has been modified
 		if (
 			newBio !== bio ||
@@ -45,7 +44,6 @@ function UserProfilePage({
 			handleEditProfile(updatedData);
 		} else {
 			// No changes detected, do not update the state
-			// You may add a notification or handle this scenario accordingly
 			console.log('No changes detected. Original values retained.');
 			setEditMode(false);
 		}

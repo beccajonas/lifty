@@ -25,6 +25,7 @@ function App() {
 	const [showModal, setShowModal] = useState(null);
 	const [bookRide, setBookRide] = useState(null);
 	const [leftRide, setLeftRide] = useState(null);
+	const [deletedRide, setDeletedRide] = useState(null);
 	const [bio, setBio] = useState('');
 	const [area, setArea] = useState('');
 	const [isSnowboarder, setIsSnowboarder] = useState(false);
@@ -63,7 +64,7 @@ function App() {
 				});
 			}
 		});
-	}, [setUser, editMode, bookRide, leftRide]);
+	}, [setUser, editMode, bookRide, leftRide, showModal, deletedRide]);
 
 	function handleLogin(email, password) {
 		const userInfo = {
@@ -208,6 +209,22 @@ function App() {
 			.then((data) => console.log(data));
 	}
 
+	function handleDeleteRide(rideId) {
+		console.log('deleting ride..');
+
+		fetch(`/api/users/${user.id}/rides/${rideId}`, {
+			method: 'DELETE',
+			headers: {
+				'Content-type': 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				setDeletedRide(true);
+				console.log(data);
+			});
+	}
+
 	useEffect(() => {
 		fetch(`/api/lots`).then((res) => {
 			if (res.ok) {
@@ -265,6 +282,9 @@ function App() {
 							bookRide={bookRide}
 							leftRide={leftRide}
 							setLeftRide={setLeftRide}
+							handleDeleteRide={handleDeleteRide}
+							setDeletedRide={setDeletedRide}
+							deletedRide={deletedRide}
 						/>
 					}
 				/>

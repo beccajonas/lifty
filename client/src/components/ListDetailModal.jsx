@@ -24,6 +24,12 @@ function ListDetailModal(props) {
 		calculateDistance();
 	}, []);
 
+	function handleDeleteClick() {
+		props.handleDeleteRide(props.ride.id);
+		props.setDeletedRide(true);
+		props.setShowListDetailModal(false);
+	}
+
 	function calculateDistance() {
 		const request = {
 			origin: origin,
@@ -117,9 +123,12 @@ function ListDetailModal(props) {
 								</div>
 
 								{props.isUserDriver ? (
-									<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
-										Your Ride!
-									</button>
+									<>
+										<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
+											Your Ride!
+										</button>
+										<button onClick={handleDeleteClick}>Delete</button>
+									</>
 								) : (
 									<>
 										{!props.isUserBooked ? (

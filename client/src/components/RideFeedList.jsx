@@ -8,6 +8,8 @@ function RideFeedList({
 	user,
 	handleLeaveRide,
 	isUserBooked,
+	handleDeleteRide,
+	setDeletedRide,
 }) {
 	return (
 		<>
@@ -21,6 +23,8 @@ function RideFeedList({
 					user={user}
 					handleLeaveRide={handleLeaveRide}
 					isUserBooked={isUserBooked}
+					handleDeleteRide={handleDeleteRide}
+					setDeletedRide={setDeletedRide}
 				/>
 			))}
 		</>

@@ -17,6 +17,9 @@ function Rides({
 	setBookRide,
 	leftRide,
 	setLeftRide,
+	handleDeleteRide,
+	setDeletedRide,
+	deletedRide,
 }) {
 	const [rides, setRides] = useState([]);
 	const [loading, setLoading] = useState(true); // Introducing loading state
@@ -40,7 +43,7 @@ function Rides({
 				setRides(sortedRides);
 				setLoading(false); // Set loading state to false after fetch
 			});
-	}, [bookRide, leftRide, showModal, message]);
+	}, [bookRide, leftRide, showModal, message, deletedRide]);
 
 	function handleLeaveRide(rideId) {
 		console.log(rideId);
@@ -124,6 +127,8 @@ function Rides({
 							handleBookRide={handleBookRide}
 							user={user}
 							handleLeaveRide={handleLeaveRide}
+							handleDeleteRide={handleDeleteRide}
+							setDeletedRide={setDeletedRide}
 						/>
 					)}
 				</div>

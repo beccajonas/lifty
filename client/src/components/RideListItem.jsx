@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react';
 import ListDetailModal from './ListDetailModal';
 import profilePic from '../../public/liftyprofilepic.png';
 
-function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
+function RideListItem({
+	ride,
+	handleBookRide,
+	user,
+	handleLeaveRide,
+	handleDeleteRide,
+	setDeletedRide,
+}) {
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
 
 	const isUserBooked =
@@ -21,6 +28,7 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 	function handleDetailClick() {
 		setShowListDetailModal(true);
 	}
+
 	return (
 		<>
 			{showListDetailModal && (
@@ -30,8 +38,10 @@ function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 					handleLeaveClick={handleLeaveClick}
 					handleJoinClick={handleJoinClick}
 					handleDetailClick={handleDetailClick}
+					handleDeleteRide={handleDeleteRide}
 					isUserBooked={isUserBooked}
 					isUserDriver={isUserDriver}
+					setDeletedRide={setDeletedRide}
 				/>
 			)}
 			<div className='m-2 w-full'>
