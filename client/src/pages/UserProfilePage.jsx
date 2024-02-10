@@ -27,14 +27,28 @@ function UserProfilePage({
 
 	function handleUpdateProfile(e) {
 		e.preventDefault();
-		// Prepare the data object to send to the server
-		const updatedData = {
-			bio: newBio,
-			area: newArea,
-			snowboarder: isUserSnowboarder,
-			skier: isUserSkier,
-		};
-		handleEditProfile(updatedData);
+
+		// Check if the form data has been modified
+		if (
+			newBio !== bio ||
+			newArea !== area ||
+			isUserSnowboarder !== isSnowboarder ||
+			isUserSkier !== isSkier
+		) {
+			// Prepare the data object to send to the server
+			const updatedData = {
+				bio: newBio,
+				area: newArea,
+				snowboarder: isUserSnowboarder,
+				skier: isUserSkier,
+			};
+			handleEditProfile(updatedData);
+		} else {
+			// No changes detected, do not update the state
+			// You may add a notification or handle this scenario accordingly
+			console.log('No changes detected. Original values retained.');
+			setEditMode(false);
+		}
 	}
 
 	function handleEditMode() {
