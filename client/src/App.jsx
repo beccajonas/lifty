@@ -11,7 +11,6 @@ import UserProfilePage from './pages/UserProfilePage';
 import NavBar from './components/NavBar';
 import Rides from './pages/Rides';
 import About from './pages/About';
-import RideFormModal from './components/RideFormModal';
 import Profile from './pages/Profile';
 import MessagePage from './pages/MessagePage';
 import SignupForm from './pages/SignupForm';
@@ -183,18 +182,13 @@ function App() {
 					throw new Error('Failed to update profile');
 				}
 				return response.json();
-				// Handle successful response
-				// You may update UI or perform any necessary actions
 			})
 			.then((data) => {
-				// Handle the parsed response data
 				console.log(data);
 				setEditMode(false);
-				// You may update UI or perform any necessary actions based on the response
 			})
 			.catch((error) => {
 				console.error('Error updating profile:', error);
-				// Handle error scenario
 			});
 	}
 

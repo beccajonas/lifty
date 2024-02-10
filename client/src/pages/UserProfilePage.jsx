@@ -38,7 +38,6 @@ function UserProfilePage({
 	}
 
 	function handleEditMode() {
-		console.log('editing!');
 		setEditMode(true);
 	}
 
@@ -232,7 +231,7 @@ function UserProfilePage({
 								</div>
 							</div>
 						</div>
-						<UserProfileCarousel user={user} />
+						<UserProfileCarousel firstName={firstName} />
 					</div>
 				</div>
 			</div>

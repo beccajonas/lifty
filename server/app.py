@@ -6,6 +6,8 @@ from models import db, User, Ride, Lot, Resort, Group, GroupMembership, Message
 from flask_cors import CORS
 from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
+import boto3
+from botocore.exceptions import NoCredentialsError
 config = dotenv_values(".env")
 
 app = Flask(__name__)
@@ -14,11 +16,17 @@ app.api_key = config['API_KEY']
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['FLASKS3_BUCKET_NAME'] = config['FLASKS3_BUCKET_NAME']
 app.json.compact = False
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 
 db.init_app(app)
+
+AWS_ACCESS_KEY = config['AWS_ACCESS_KEY_ID']
+AWS_REGION = config['AWS_REGION']
+AWS_SECRET_KEY = config['AWS_SECRET_KEY']
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 
 @app.get("/")
 def index():
@@ -492,6 +500,7 @@ def patch_user_data(id):
 
     except Exception as e:
         return {"error": str(e)}, 500
+    
     
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

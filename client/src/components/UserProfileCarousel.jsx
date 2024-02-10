@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function UserProfileCarousel({ userProfileData }) {
+function UserProfileCarousel({ firstName }) {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const totalSlides = 3;
 
@@ -8,17 +8,17 @@ function UserProfileCarousel({ userProfileData }) {
 		{
 			image:
 				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
-			caption: `has saved`,
+			caption: `${firstName} has saved`,
 		},
 		{
 			image:
 				'https://images.squarespace-cdn.com/content/v1/5c64e1562727be078751e511/1550117748319-WVVWF3R1E18CQDBFCP0G/snowmachines_stock',
-			caption: ` has saved`,
+			caption: `${firstName} has saved`,
 		},
 		{
 			image:
 				'https://www.news10.com/wp-content/uploads/sites/64/2022/05/BeersGettyImages-1221429432.jpg?w=1280',
-			caption: ` has saved`,
+			caption: `${firstName} has saved`,
 		},
 	];
 

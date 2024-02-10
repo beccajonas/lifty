@@ -20,7 +20,7 @@ function MessagePage({ user, leftRide, bookRide }) {
 				console.error('Error fetching groups:', error);
 				setIsLoading(false); // In case of error, loading is still complete
 			});
-	}, [user.id]); // Dependency array to re-run effect when user id changes
+	}, []);
 
 	function handleMessageSubmit(groupId, messageContent) {
 		fetch(`/api/groups/${groupId}/add_message_from/${user.id}`, {
