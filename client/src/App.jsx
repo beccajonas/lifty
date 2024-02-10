@@ -38,11 +38,13 @@ function App() {
 	const [ridesAsPassenger, setRidesAsPassenger] = useState([]);
 	const [emissionsSaved, setEmissionsSaved] = useState(null);
 	const [editMode, setEditMode] = useState(false);
+	const [groups, setGroups] = useState([]);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
+					console.log('fetching user data');
 					setUser(data);
 					setUser(data);
 					setBio(data.bio);
@@ -57,10 +59,11 @@ function App() {
 					setRidesAsDriver(data.rides_as_driver);
 					setRidesAsPassenger(data.rides_as_passenger);
 					setEmissionsSaved(data.total_emissions_saved);
+					setGroups(data.groups);
 				});
 			}
 		});
-	}, [setUser, editMode]);
+	}, [setUser, editMode, bookRide, leftRide]);
 
 	function handleLogin(email, password) {
 		const userInfo = {
@@ -98,6 +101,7 @@ function App() {
 					setRidesAsDriver(data.rides_as_driver);
 					setRidesAsPassenger(data.rides_as_passenger);
 					setEmissionsSaved(data.total_emissions_saved);
+					console.log(data.groups);
 				});
 		} catch (error) {
 			console.log(error);
@@ -192,6 +196,18 @@ function App() {
 			});
 	}
 
+	function handleMessageSubmit(groupId, messageContent) {
+		fetch(`/api/groups/${groupId}/add_message_from/${user.id}`, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify({ content: messageContent }),
+		})
+			.then((res) => res.json())
+			.then((data) => console.log(data));
+	}
+
 	useEffect(() => {
 		fetch(`/api/lots`).then((res) => {
 			if (res.ok) {
@@ -283,6 +299,8 @@ function App() {
 							bookRide={bookRide}
 							leftRide={leftRide}
 							onClick={() => setMessagePageOpen(true)}
+							groups={groups}
+							handleMessageSubmit={handleMessageSubmit}
 						/>
 					}
 				/>

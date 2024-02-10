@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Ride, Lot, Resort, Group, GroupMembership, Message
+from models import db, User, Ride, Lot, Resort, Group, GroupMembership, Message, passenger_ride_association
 import json
 from datetime import datetime 
 from flask_bcrypt import Bcrypt
@@ -25,6 +25,7 @@ if __name__ == "__main__":
         db.session.query(Group).delete()
         db.session.query(GroupMembership).delete()
         db.session.query(Message).delete()
+        db.session.query(passenger_ride_association).delete()
 
         for lots in data['lots']:
             db.session.add(Lot(**lots))
