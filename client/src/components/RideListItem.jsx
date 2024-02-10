@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import { format } from 'date-fns';
 import ListDetailModal from './ListDetailModal';
 import profilePic from '../../public/liftyprofilepic.png';
 
 function RideListItem({ ride, handleBookRide, user, handleLeaveRide }) {
 	const [showListDetailModal, setShowListDetailModal] = useState(false);
 
-	const isUserBooked = ride.passengers.some(
-		(passenger) => passenger.id === user.id
-	);
+	const isUserBooked =
+		user && ride.passengers.some((passenger) => passenger.id === user.id);
 
-	const isUserDriver = ride.driver_id === user.id;
+	const isUserDriver = user && ride.driver_id === user.id;
 
 	function handleLeaveClick() {
 		handleLeaveRide(ride.id);

@@ -7,18 +7,18 @@ function UserProfileCarousel({ userProfileData }) {
 	const slides = [
 		{
 			image:
-				'https://static1.squarespace.com/static/5e7a324590664f18b1bfea0c/5e7a3801284dcc611ee13e6d/5edac9299ea26150800c2aad/1660347952839/altapeak.jpg?format=1500w',
-			caption: `${userProfileData.first_name} has saved`,
+				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
+			caption: `has saved`,
 		},
 		{
 			image:
 				'https://images.squarespace-cdn.com/content/v1/5c64e1562727be078751e511/1550117748319-WVVWF3R1E18CQDBFCP0G/snowmachines_stock',
-			caption: `${userProfileData.first_name} has saved`,
+			caption: ` has saved`,
 		},
 		{
 			image:
 				'https://www.news10.com/wp-content/uploads/sites/64/2022/05/BeersGettyImages-1221429432.jpg?w=1280',
-			caption: `${userProfileData.first_name} has saved`,
+			caption: ` has saved`,
 		},
 	];
 

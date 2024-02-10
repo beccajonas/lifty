@@ -19,6 +19,7 @@ function Rides({
 	setLeftRide,
 }) {
 	const [rides, setRides] = useState([]);
+	const [loading, setLoading] = useState(true); // Introducing loading state
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -29,6 +30,7 @@ function Rides({
 	}, [message]);
 
 	useEffect(() => {
+		setLoading(true); // Set loading state to true before fetch
 		fetch(`/api/rides?sortBy=date_time`)
 			.then((res) => res.json())
 			.then((data) => {
@@ -36,6 +38,7 @@ function Rides({
 					(a, b) => new Date(a.date_time) - new Date(b.date_time)
 				);
 				setRides(sortedRides);
+				setLoading(false); // Set loading state to false after fetch
 			});
 	}, [bookRide, leftRide, showModal, message]);
 
@@ -112,13 +115,17 @@ function Rides({
 							{message}
 						</p>
 					</div>
-					<RideFeedList
-						rides={rides}
-						bookRide={bookRide}
-						handleBookRide={handleBookRide}
-						user={user}
-						handleLeaveRide={handleLeaveRide}
-					/>
+					{loading ? (
+						<div>Loading...</div> // Display loading indicator
+					) : (
+						<RideFeedList
+							rides={rides}
+							bookRide={bookRide}
+							handleBookRide={handleBookRide}
+							user={user}
+							handleLeaveRide={handleLeaveRide}
+						/>
+					)}
 				</div>
 				<RideFeedMap
 					user={user}

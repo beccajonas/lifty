@@ -1,45 +1,40 @@
-import { useEffect, useState } from 'react';
 import UserProfileCarousel from '../components/UserProfileCarousel';
 import header from '../../public/liftyheader.png';
-import profilePic from '../../public/liftyprofilepic.png';
+import defaultProfilePic from '../../public/liftyprofilepic.png';
+import { useState } from 'react';
+function UserProfilePage({
+	user,
+	bio,
+	area,
+	isSnowboarder,
+	isSkier,
+	formattedDate,
+	firstName,
+	profilePic,
+	coverPhoto,
+	distanceTraveled,
+	ridesAsDriver,
+	ridesAsPassenger,
+	emissionsSaved,
+	editMode,
+	setEditMode,
+	handleEditProfile,
+}) {
+	const [newBio, setNewBio] = useState(bio);
+	const [newArea, setNewArea] = useState(area);
+	const [isUserSnowboarder, setIsUserSnowboarder] = useState(isSnowboarder);
+	const [isUserSkier, setIsUserSkier] = useState(isSkier);
 
-function UserProfilePage({ user }) {
-	const [userProfileData, setUserProfileData] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [editMode, setEditMode] = useState(false);
-
-	useEffect(() => {
-		fetch(`/api/users/${user.id}`)
-			.then((res) => res.json())
-			.then((data) => {
-				setUserProfileData(data);
-				setIsLoading(false); // Once data is fetched, loading is complete
-			})
-			.catch((error) => {
-				console.error('Error fetching user profile data:', error);
-				setIsLoading(false); // In case of error, loading is still complete
-			});
-	}, [editMode]);
-
-	if (isLoading) {
-		return <div>Loading...</div>; // Display loading message while fetching data
-	}
-
-	if (!userProfileData) {
-		return <div>Error: Unable to fetch user profile data.</div>; // Display error if data is not available
-	}
-
-	const dateCreatedString = userProfileData.profile_created; // Formatting date
-	const formattedDate = new Date(dateCreatedString).toLocaleDateString(
-		'en-US',
-		{
-			year: 'numeric',
-			month: 'numeric',
-		}
-	);
-
-	function handleSaveSubmit() {
-		setEditMode(false);
+	function handleUpdateProfile(e) {
+		e.preventDefault();
+		// Prepare the data object to send to the server
+		const updatedData = {
+			bio: newBio,
+			area: newArea,
+			snowboarder: isUserSnowboarder,
+			skier: isUserSkier,
+		};
+		handleEditProfile(updatedData);
 	}
 
 	function handleEditMode() {
@@ -51,12 +46,13 @@ function UserProfilePage({ user }) {
 		<div className='bg-blue-200'>
 			<div className='flex justify-center bg-blue-200 pt-4'>
 				<div className='text-xl pl-2 pr-2 text-center'>
-					{userProfileData.first_name}'s Profile
+					{firstName}'s Profile
 					<div>
 						{editMode ? (
 							<button
+								type='submit'
 								className='text-green-600 cursor-pointer text-sm font-medium py-1 px-2 rounded-md transition duration-200 hover:bg-green-200'
-								onClick={handleSaveSubmit}>
+								onClick={handleUpdateProfile}>
 								Save
 							</button>
 						) : (
@@ -91,7 +87,7 @@ function UserProfilePage({ user }) {
 					) : (
 						<img
 							className='object-cover object-top h-60 w-full ring-2 ring-gray-200 rounded-lg'
-							src={userProfileData.profile_pic || profilePic}
+							src={profilePic || defaultProfilePic}
 						/>
 					)}
 					<div className='bg-indigo-200 text-xs p-1 m-3 rounded-lg shadow'>
@@ -108,11 +104,13 @@ function UserProfilePage({ user }) {
 								id='message'
 								rows='4'
 								class='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500'
-								placeholder='Write a bio'></textarea>
+								placeholder='Write a bio'
+								value={newBio}
+								onChange={(e) => setNewBio(e.target.value)}></textarea>
 						</div>
 					) : (
 						<div className='bg-yellow-100 text-xs ml-6 mr-6 rounded-lg shadow p-3'>
-							{userProfileData.bio}
+							{bio}
 						</div>
 					)}
 					{editMode ? (
@@ -126,11 +124,13 @@ function UserProfilePage({ user }) {
 								id='message'
 								rows='1'
 								class='block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500'
-								placeholder='📍'></textarea>
+								placeholder='📍'
+								value={newArea}
+								onChange={(e) => setNewArea(e.target.value)}></textarea>
 						</div>
 					) : (
 						<div className='bg-yellow-100 text-xs ml-6 mr-6 mt-3 rounded-lg shadow p-2'>
-							📍 {userProfileData.area}
+							📍 {area}
 						</div>
 					)}
 					<div className='flex justify-center mb-2'>
@@ -140,8 +140,9 @@ function UserProfilePage({ user }) {
 									<input
 										id='inline-checkbox'
 										type='checkbox'
-										value=''
-										class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 '
+										checked={isUserSnowboarder}
+										onChange={(e) => setIsUserSnowboarder(e.target.checked)}
+										class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
 									/>
 									<label
 										for='inline-checkbox'
@@ -153,40 +154,27 @@ function UserProfilePage({ user }) {
 									<input
 										id='inline-2-checkbox'
 										type='checkbox'
-										value=''
+										checked={isUserSkier}
+										onChange={(e) => setIsUserSkier(e.target.checked)}
 										class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
 									/>
 									<label
 										for='inline-2-checkbox'
 										class='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-										🎿
-									</label>
-								</div>
-								<div class='flex items-center me-4'>
-									<input
-										checked
-										id='inline-checked-checkbox'
-										type='checkbox'
-										value=''
-										class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
-									/>
-									<label
-										for='inline-checked-checkbox'
-										class='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-										Both
+										⛷
 									</label>
 								</div>
 							</div>
 						) : (
 							<div className='flex'>
-								{userProfileData.snowboarder ? (
+								{isSnowboarder ? (
 									<div className='bg-yellow-100 text-5xl mt-3 mr-3 rounded-lg shadow p-4'>
 										🏂
 									</div>
 								) : null}
-								{userProfileData.skier ? (
-									<div className='bg-yellow-100 text-4xl mt-3 mr-3 rounded-lg shadow p-4'>
-										🎿
+								{isSkier ? (
+									<div className='bg-yellow-100 text-5xl mt-3 mr-3 rounded-lg shadow p-4'>
+										⛷
 									</div>
 								) : null}
 							</div>
@@ -199,7 +187,7 @@ function UserProfilePage({ user }) {
 							<label
 								class='block mb-2 text-white bg-red-400 rounded-lg border-2 p-1 text-sm border-red-800'
 								for='file_input'>
-								Upload New Profile Picture
+								Upload New Cover Photo
 							</label>
 							<input
 								class='block w-full text-sm text-white border-2 p-1 border-red-800 rounded-lg cursor-pointer bg-red-400 focus:outline-none'
@@ -218,9 +206,7 @@ function UserProfilePage({ user }) {
 								width: '100%', // Ensure the div stretches to the full width
 								height: '160px', // Set the height of the div to match the image height
 								overflow: 'hidden', // Hide any overflow content
-								backgroundImage: `url(${
-									userProfileData.cover_photo || header
-								})`, // Set the background image
+								backgroundImage: `url(${coverPhoto || header})`, // Set the background image
 
 								backgroundPosition: `0px, 0px`,
 								backgroundSize: 'cover', // Ensure the image covers the entire area of the div
@@ -231,25 +217,22 @@ function UserProfilePage({ user }) {
 						<div class='grid grid-cols-3 gap-20 pl-4 pr-4 mt-4 '>
 							<div class='bg-gradient-to-r from-yellow-100 to-blue-200 ring-1 ring-gray-200 rounded-lg text-xs p-1 shadow'>
 								Miles traveled with Lifty:
-								<div className='text-xl'>
-									{Math.round(userProfileData.total_distance_traveled)}
-								</div>
+								<div className='text-xl'>{Math.round(distanceTraveled)}</div>
 							</div>
 							<div class='bg-gradient-to-t from-yellow-100 to-blue-200 ring-1 ring-gray-200  text-xs p-1 rounded-lg shadow'>
 								Rides with Lifty:
 								<div className='text-xl'>
-									{userProfileData.rides_as_driver.length +
-										userProfileData.rides_as_passenger.length}
+									{ridesAsDriver.length + ridesAsPassenger.length}
 								</div>
 							</div>
 							<div class='bg-gradient-to-l from-yellow-100 to-blue-200 ring-1 ring-gray-200  text-xs p-1 rounded-lg shadow'>
 								Emissions Saved By Using Lifty:
 								<div className='text-xl'>
-									{Math.round(userProfileData.total_emissions_saved)} lbs/Co2
+									{Math.round(emissionsSaved)} lbs/Co2
 								</div>
 							</div>
 						</div>
-						<UserProfileCarousel userProfileData={userProfileData} />
+						<UserProfileCarousel user={user} />
 					</div>
 				</div>
 			</div>

@@ -109,12 +109,12 @@ const Navbar = ({ user, handleLogout }) => {
 							<div className='p-3 flex flex-col justify-center items-center'>
 								<NavLink
 									className='hover:text-blue-900'
-									to={`/myprofile/${user.id}`}>
+									to={`/myprofile`}>
 									Profile
 								</NavLink>
 								<NavLink
 									className='hover:text-blue-900'
-									to={`/myprofile/${user.id}/messages`}>
+									to={`/messages`}>
 									Messages
 								</NavLink>
 								<NavLink

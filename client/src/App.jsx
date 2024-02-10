@@ -26,14 +26,42 @@ function App() {
 	const [showModal, setShowModal] = useState(null);
 	const [bookRide, setBookRide] = useState(null);
 	const [leftRide, setLeftRide] = useState(null);
+	const [bio, setBio] = useState('');
+	const [area, setArea] = useState('');
+	const [isSnowboarder, setIsSnowboarder] = useState(false);
+	const [isSkier, setIsSkier] = useState(false);
+	const [profileCreatedDate, setProfileCreatedDate] = useState(null);
+	const [firstName, setFirstName] = useState('');
+	const [profilePic, setProfilePic] = useState('');
+	const [coverPhoto, setCoverPhoto] = useState('');
+	const [distanceTraveled, setDistanceTraveled] = useState(null);
+	const [ridesAsDriver, setRidesAsDriver] = useState([]);
+	const [ridesAsPassenger, setRidesAsPassenger] = useState([]);
+	const [emissionsSaved, setEmissionsSaved] = useState(null);
+	const [editMode, setEditMode] = useState(false);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
 			if (res.ok) {
-				res.json().then((data) => setUser(data));
+				res.json().then((data) => {
+					setUser(data);
+					setUser(data);
+					setBio(data.bio);
+					setArea(data.area);
+					setIsSnowboarder(data.snowboarder);
+					setIsSkier(data.skier);
+					setProfileCreatedDate(data.profile_created);
+					setFirstName(data.first_name);
+					setProfilePic(data.profile_pic);
+					setCoverPhoto(data.cover_photo);
+					setDistanceTraveled(data.total_distance_traveled);
+					setRidesAsDriver(data.rides_as_driver);
+					setRidesAsPassenger(data.rides_as_passenger);
+					setEmissionsSaved(data.total_emissions_saved);
+				});
 			}
 		});
-	}, [setUser]);
+	}, [setUser, editMode]);
 
 	function handleLogin(email, password) {
 		const userInfo = {
@@ -57,7 +85,21 @@ function App() {
 					}
 					return res.json();
 				})
-				.then((data) => setUser(data));
+				.then((data) => {
+					setUser(data);
+					setBio(data.bio);
+					setArea(data.area);
+					setIsSnowboarder(data.snowboarder);
+					setIsSkier(data.skier);
+					setProfileCreatedDate(data.profile_created);
+					setFirstName(data.first_name);
+					setProfilePic(data.profile_pic);
+					setCoverPhoto(data.cover_photo);
+					setDistanceTraveled(data.total_distance_traveled);
+					setRidesAsDriver(data.rides_as_driver);
+					setRidesAsPassenger(data.rides_as_passenger);
+					setEmissionsSaved(data.total_emissions_saved);
+				});
 		} catch (error) {
 			console.log(error);
 		}
@@ -127,6 +169,35 @@ function App() {
 		}
 	}
 
+	function handleEditProfile(updatedData) {
+		// Send a patch request to update the user data
+		fetch(`/api/users/${user.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(updatedData),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error('Failed to update profile');
+				}
+				return response.json();
+				// Handle successful response
+				// You may update UI or perform any necessary actions
+			})
+			.then((data) => {
+				// Handle the parsed response data
+				console.log(data);
+				setEditMode(false);
+				// You may update UI or perform any necessary actions based on the response
+			})
+			.catch((error) => {
+				console.error('Error updating profile:', error);
+				// Handle error scenario
+			});
+	}
+
 	useEffect(() => {
 		fetch(`/api/lots`).then((res) => {
 			if (res.ok) {
@@ -142,6 +213,15 @@ function App() {
 			}
 		});
 	}, []);
+
+	const dateCreatedString = profileCreatedDate; // Formatting date
+	const formattedDate = new Date(dateCreatedString).toLocaleDateString(
+		'en-US',
+		{
+			year: 'numeric',
+			month: 'numeric',
+		}
+	);
 
 	return (
 		<Router>
@@ -202,7 +282,7 @@ function App() {
 					}
 				/>
 				<Route
-					path='/myprofile/:id/messages'
+					path='/messages'
 					element={
 						<MessagePage
 							user={user}
@@ -213,8 +293,27 @@ function App() {
 					}
 				/>
 				<Route
-					path='/myprofile/:id'
-					element={<UserProfilePage user={user} />}
+					path='/myprofile'
+					element={
+						<UserProfilePage
+							user={user}
+							bio={bio}
+							area={area}
+							isSnowboarder={isSnowboarder}
+							isSkier={isSkier}
+							formattedDate={formattedDate}
+							firstName={firstName}
+							profilePic={profilePic}
+							coverPhoto={coverPhoto}
+							distanceTraveled={distanceTraveled}
+							ridesAsDriver={ridesAsDriver}
+							ridesAsPassenger={ridesAsPassenger}
+							emissionsSaved={emissionsSaved}
+							handleEditProfile={handleEditProfile}
+							editMode={editMode}
+							setEditMode={setEditMode}
+						/>
+					}
 				/>
 				<Route
 					path='/profile/:id'

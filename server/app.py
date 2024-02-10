@@ -488,7 +488,7 @@ def patch_user_data(id):
         db.session.add(user)
         db.session.commit()
 
-        return user.to_dict(rules=['-groups', '-rides_as_passenger', '-rides_as_driver']), 201 
+        return user.to_dict(rules=['-groups', '-rides_as_passenger', '-rides_as_driver', '-password_hash']), 201 
 
     except Exception as e:
         return {"error": str(e)}, 500

@@ -69,8 +69,8 @@ function Profile() {
 								</div>
 							) : null}
 							{profile.skier ? (
-								<div className='bg-yellow-100 text-4xl mt-3 mr-3 rounded-lg shadow p-4'>
-									🎿
+								<div className='bg-yellow-100 text-5xl mt-3 mr-3 rounded-lg shadow p-4'>
+									⛷
 								</div>
 							) : null}
 						</div>
