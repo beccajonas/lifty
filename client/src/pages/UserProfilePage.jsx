@@ -78,29 +78,11 @@ function UserProfilePage({
 			</div>
 			<div className='flex flex-row ml-20 mr-20 mt-5 p-10 bg-gradient-to-r from-indigo-500 to-blue-300'>
 				<div className='basis-1/4 flex flex-col text-center h-full mr-3'>
-					{editMode ? (
-						<form>
-							<label
-								class='block mb-2 text-white bg-red-400 rounded-lg border-2 p-1 text-sm border-red-800'
-								for='file_input'>
-								Upload New Profile Picture
-							</label>
-							<input
-								class='block w-full text-sm text-white border-2 p-1 border-red-800 rounded-lg cursor-pointer bg-red-400 focus:outline-none'
-								aria-describedby='file_input_help'
-								id='file_input'
-								type='file'
-							/>
-							<p
-								class='mt-1 text-sm text-gray-500 dark:text-gray-300'
-								id='file_input_help'></p>
-						</form>
-					) : (
-						<img
-							className='object-cover object-top h-60 w-full ring-2 ring-gray-200 rounded-lg'
-							src={profilePic || defaultProfilePic}
-						/>
-					)}
+					<img
+						className='object-cover object-top h-60 w-full ring-2 ring-gray-200 rounded-lg'
+						src={profilePic || defaultProfilePic}
+					/>
+
 					<div className='bg-indigo-200 text-xs p-1 m-3 rounded-lg shadow'>
 						Lifty Member Since: {formattedDate}
 					</div>
@@ -193,37 +175,18 @@ function UserProfilePage({
 					</div>
 				</div>
 				<div className='basis-3/4 flex flex-col items-center h-100 justify-start text-center'>
-					{editMode ? (
-						<form>
-							<label
-								class='block mb-2 text-white bg-red-400 rounded-lg border-2 p-1 text-sm border-red-800'
-								for='file_input'>
-								Upload New Cover Photo
-							</label>
-							<input
-								class='block w-full text-sm text-white border-2 p-1 border-red-800 rounded-lg cursor-pointer bg-red-400 focus:outline-none'
-								aria-describedby='file_input_help'
-								id='file_input'
-								type='file'
-							/>
-							<p
-								class='mt-1 text-sm text-gray-500 dark:text-gray-300'
-								id='file_input_help'></p>
-						</form>
-					) : (
-						<div
-							className=' w-full relative ring-2 ring-gray-200 rounded-lg'
-							style={{
-								width: '100%', // Ensure the div stretches to the full width
-								height: '160px', // Set the height of the div to match the image height
-								overflow: 'hidden', // Hide any overflow content
-								backgroundImage: `url(${coverPhoto || header})`, // Set the background image
+					<div
+						className=' w-full relative ring-2 ring-gray-200 rounded-lg'
+						style={{
+							width: '100%', // Ensure the div stretches to the full width
+							height: '160px', // Set the height of the div to match the image height
+							overflow: 'hidden', // Hide any overflow content
+							backgroundImage: `url(${coverPhoto || header})`, // Set the background image
 
-								backgroundPosition: `0px, 0px`,
-								backgroundSize: 'cover', // Ensure the image covers the entire area of the div
-								backgroundRepeat: 'no-repeat', // Prevent the image from repeating
-							}}></div>
-					)}
+							backgroundPosition: `0px, 0px`,
+							backgroundSize: 'cover', // Ensure the image covers the entire area of the div
+							backgroundRepeat: 'no-repeat', // Prevent the image from repeating
+						}}></div>
 					<div class='flex flex-col justify-center items-center w-full '>
 						<div class='grid grid-cols-3 gap-20 pl-4 pr-4 mt-4 '>
 							<div class='bg-gradient-to-r from-yellow-100 to-blue-200 ring-1 ring-gray-200 rounded-lg text-xs p-1 shadow'>

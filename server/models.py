@@ -82,13 +82,12 @@ class User(db.Model, SerializerMixin):
     profile_pic = db.Column(db.String)
 
     profile_created = db.Column(db.DateTime)
-    area = db.Column(db.String)
+    area = db.Column(db.String, default="Share what neighborhood you're in!")
     bio = db.Column(db.String, default="Welcome to lifty!")
     skier = db.Column(db.Boolean, default=True)
     snowboarder = db.Column(db.Boolean, default=True)
     cover_photo = db.Column(db.String)
 
-    
     total_distance_traveled = db.Column(db.Float, default=0.0)
     total_emissions_saved = db.Column(db.Float, default=0.0)
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
