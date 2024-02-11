@@ -40,6 +40,11 @@ function App() {
 	const [emissionsSaved, setEmissionsSaved] = useState(null);
 	const [editMode, setEditMode] = useState(false);
 	const [groups, setGroups] = useState([]);
+	const [passwordOne, setPasswordOne] = useState('');
+	const [passwordTwo, setPasswordTwo] = useState('');
+	const [newEmail, setNewEmail] = useState('');
+	const [newFirstName, setNewFirstName] = useState('');
+	const [newLastName, setNewLastName] = useState('');
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
@@ -160,15 +165,30 @@ function App() {
 					})
 					.then((data) => {
 						console.log(data);
+						setPasswordOne('');
+						setPasswordTwo('');
+						setNewEmail('');
+						setNewFirstName('');
+						setNewLastName('');
 						setMessage('Sign up successful! Please Login.');
 					})
 					.catch((error) => {
 						console.log(error);
 						setErrorMessage(error.message);
+						setPasswordOne('');
+						setPasswordTwo('');
+						setNewEmail('');
+						setNewFirstName('');
+						setNewLastName('');
 					});
 			} catch (error) {
 				console.log(error);
 				setErrorMessage(error);
+				setPasswordOne('');
+				setPasswordTwo('');
+				setNewEmail('');
+				setNewFirstName('');
+				setNewLastName('');
 			}
 		}
 	}
@@ -360,6 +380,16 @@ function App() {
 							setErrorMessage={setErrorMessage}
 							setMessage={setMessage}
 							message={message}
+							passwordOne={passwordOne}
+							setPasswordOne={setPasswordOne}
+							passwordTwo={passwordTwo}
+							setPasswordTwo={setPasswordTwo}
+							newEmail={newEmail}
+							setNewEmail={setNewEmail}
+							newFirstName={newFirstName}
+							setNewFirstName={setNewFirstName}
+							newLastName={newLastName}
+							setNewLastName={setNewLastName}
 						/>
 					}
 				/>

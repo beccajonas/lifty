@@ -7,13 +7,17 @@ function SignupForm({
 	setErrorMessage,
 	setMessage,
 	message,
+	passwordOne,
+	setPasswordOne,
+	passwordTwo,
+	setPasswordTwo,
+	newEmail,
+	setNewEmail,
+	newFirstName,
+	setNewFirstName,
+	newLastName,
+	setNewLastName,
 }) {
-	const [passwordOne, setPasswordOne] = useState('');
-	const [passwordTwo, setPasswordTwo] = useState('');
-	const [newEmail, setNewEmail] = useState('');
-	const [newFirstName, setNewFirstName] = useState('');
-	const [newLastName, setNewLastName] = useState('');
-
 	function handleSubmit(e) {
 		e.preventDefault();
 		handleSignup(newEmail, passwordOne, passwordTwo, newLastName, newFirstName);
@@ -50,6 +54,11 @@ function SignupForm({
 							</button>
 						</NavLink>
 					</div>
+					{message && (
+						<div className='text-black text-center bg-green-400 ring-2 ring-green-600 py-2 px-4 rounded-md'>
+							{message}
+						</div>
+					)}
 					<h1 className='text-center text-lg font-semibold mb-4'>Signup</h1>
 					<div className='flex justify-center items-center'>
 						<form onSubmit={handleSubmit}>
@@ -116,7 +125,6 @@ function SignupForm({
 							</button>
 							<div className='flex justify-center mt-4'>
 								{errorMessage && <p className='text-red-500'>{errorMessage}</p>}
-								{message && <p className='text-green-500'>{message}</p>}
 							</div>
 						</form>
 					</div>
