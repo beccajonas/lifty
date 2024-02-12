@@ -4,21 +4,27 @@ function ProfileCarousel({ profile }) {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const totalSlides = 3;
 
+	console.log(profile.total_snow_machine_hours);
+
+	// Calculate hours and minutes
+	const hours = Math.floor(profile.total_snow_machine_hours / 60);
+	const minutes = profile.total_snow_machine_hours % 60;
+
 	const slides = [
 		{
 			image:
-				'https://static1.squarespace.com/static/5e7a324590664f18b1bfea0c/5e7a3801284dcc611ee13e6d/5edac9299ea26150800c2aad/1660347952839/altapeak.jpg?format=1500w',
-			caption: `${profile.first_name} has saved`,
+				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
+			caption: `By carpooling with Lifty, you have mitigated carbon emissions equivalent to the absorption capacity of ${profile.total_trees_planted} trees`,
 		},
 		{
 			image:
 				'https://images.squarespace-cdn.com/content/v1/5c64e1562727be078751e511/1550117748319-WVVWF3R1E18CQDBFCP0G/snowmachines_stock',
-			caption: `${profile.first_name} has saved`,
+			caption: `By carpooling with Lifty, you have saved enough energy to run a snow machine for ${hours} hours and ${minutes} minutes.`,
 		},
 		{
 			image:
 				'https://www.news10.com/wp-content/uploads/sites/64/2022/05/BeersGettyImages-1221429432.jpg?w=1280',
-			caption: `${profile.first_name} has saved`,
+			caption: `By carpooling with Lifty, you have saved enough energy to brew ${profile.total_beers_brewed} beers.`,
 		},
 	];
 
@@ -51,7 +57,7 @@ function ProfileCarousel({ profile }) {
 								alt={`Slide ${index + 1}`}
 							/>
 							<div
-								className='absolute inset-20 flex items-center justify-center rounded-lg bg-indigo-600 text-white mt-6 p-4 opacity-75'
+								className='absolute inset-20 flex items-center justify-center rounded-lg bg-indigo-600 text-white mt-4 p-8'
 								style={{ pointerEvents: 'none' }}>
 								{slide.caption}
 							</div>
