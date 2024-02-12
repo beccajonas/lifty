@@ -46,7 +46,6 @@ function Rides({
 	}, [bookRide, leftRide, showModal, message, deletedRide]);
 
 	function handleLeaveRide(rideId) {
-		console.log(rideId);
 		fetch(`/api/rides/${rideId}/remove_passenger/${user.id}`, {
 			method: 'DELETE',
 			headers: {
@@ -57,8 +56,8 @@ function Rides({
 				if (!res.ok) {
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
-				setLeftRide(true);
-				setBookRide(false);
+				setLeftRide(!leftRide);
+				setBookRide(!bookRide);
 				return res.json();
 			})
 			.then((data) => console.log(data))
@@ -79,8 +78,8 @@ function Rides({
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
 				res.json();
-				setBookRide(true);
-				setLeftRide(false);
+				setBookRide(!bookRide);
+				setLeftRide(!leftRide);
 			})
 			.then((data) => console.log(data))
 

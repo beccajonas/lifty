@@ -21,7 +21,8 @@
 		"react-dom": "^18.2.0",
 		"react-responsive-carousel": "^3.2.23",
 		"react-router-dom": "^6.21.3",
-		"react-scripts": "^5.0.1"
+		"react-scripts": "^5.0.1",
+		"socket.io-client": "^4.7.4"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.43",

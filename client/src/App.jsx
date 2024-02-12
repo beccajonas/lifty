@@ -5,6 +5,7 @@ import {
 	Route,
 	Navigate,
 } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import CollectiveImpactPage from './pages/CollectiveImpactPage';
 import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';

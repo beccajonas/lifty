@@ -52,7 +52,7 @@ function LoginPage({
 						<button
 							onClick={openModal}
 							className='mt-4 py-2 px-4 text-white bg-indigo-700 rounded-md cursor-pointer transition duration-200 hover:bg-gray-700'>
-							Open Login
+							Open Login / Signup
 						</button>
 					</div>
 					{showModal && (
