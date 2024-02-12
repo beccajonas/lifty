@@ -365,7 +365,7 @@ def add_passengers_to_ride(id):
         if len(ride.passengers) >= ride.capacity:
             return jsonify({"error": "Ride is already at full capacity."}), 400
         
-        passenger = User.query.get(data['id'])
+        passenger = User.query.get(data.get('id'))  # Using .get() to handle the absence of 'id'
         if not passenger:
             return jsonify({"error": "Passenger not found."}), 404
 
@@ -375,28 +375,36 @@ def add_passengers_to_ride(id):
     
         ride.update_emissions_after_join()
 
+        # Update total distance traveled and calculate total emissions saved for the driver
         try:
             driver_user = User.query.get(ride.driver_id)
             driver_user.calculate_total_distance_traveled()
-        except Exception as e:
-            return {"error": f"Error updating total distance traveled for driver: {e}"}, 500
-        
-        try:
-            driver_user = driver_user = User.query.get(ride.driver_id)
             driver_user.calculate_total_emissions_saved()
         except Exception as e:
-            return {"error": f"Error updating total emissions traveled for driver: {e}"}, 500
+            return {"error": f"Error updating total distance traveled and emissions for driver: {e}"}, 500
 
-        # Update total distance traveled for the passenger
+        # Update total distance traveled and calculate total emissions saved for the passenger
         try:
             passenger.calculate_total_distance_traveled()
-        except Exception as e:
-            return {"error": f"Error updating total distance traveled for passenger: {e}"}, 500
-        
-        try:
             passenger.calculate_total_emissions_saved()
         except Exception as e:
-            return {"error": f"Error updating total emissions traveled for driver: {e}"}, 500
+            return {"error": f"Error updating total distance traveled and emissions for passenger: {e}"}, 500
+
+        # Convert total emissions saved for the driver
+        try:
+            driver_user.total_trees_planted = driver_user.trees_planted(driver_user.total_emissions_saved) # Example conversion factor
+            driver_user.total_snow_machine_hours = driver_user.snow_machine_hours(driver_user.total_emissions_saved)
+            driver_user.total_beers_brewed = driver_user.beers_brewed(driver_user.total_emissions_saved)
+        except Exception as e:
+            return {"error": f"Error converting emissions for driver: {e}"}, 500
+
+        # Convert total emissions saved for the passenger
+        try:
+            passenger.total_trees_planted = passenger.trees_planted(passenger.total_emissions_saved) # Example conversion factor
+            passenger.total_snow_machine_hours = passenger.snow_machine_hours(passenger.total_emissions_saved)
+            passenger.total_beers_brewed = passenger.beers_brewed(passenger.total_emissions_saved)
+        except Exception as e:
+            return {"error": f"Error converting emissions for passenger: {e}"}, 500
 
         db.session.commit()
 
@@ -404,7 +412,6 @@ def add_passengers_to_ride(id):
 
     except Exception as e:
         return {"error": str(e)}
-    
 
 # Remove passenger from ride (DELETE)
 @app.delete('/api/rides/<int:ride_id>/remove_passenger/<int:passenger_id>')
@@ -431,30 +438,33 @@ def remove_passenger_from_ride(ride_id, passenger_id):
             try:
                 driver_user = User.query.get(ride.driver_id)
                 driver_user.calculate_total_distance_traveled()
-            except Exception as e:
-                return {"error": f"Error updating total distance traveled for driver: {e}"}, 500
-            
-            try:
-                driver_user = driver_user = User.query.get(ride.driver_id)
                 driver_user.calculate_total_emissions_saved()
             except Exception as e:
-                return {"error": f"Error updating total emissions traveled for driver: {e}"}, 500
+                return {"error": f"Error updating total distance traveled and emissions for driver: {e}"}, 500
 
             # Update total distance traveled for the removed passenger
             try:
                 passenger.calculate_total_distance_traveled()
-            except Exception as e:
-                return {"error": f"Error updating total distance traveled for passenger: {e}"}, 500
-            
-            try:
                 passenger.calculate_total_emissions_saved()
             except Exception as e:
-                return {"error": f"Error updating total emissions traveled for driver: {e}"}, 500
+                return {"error": f"Error updating total distance traveled and emissions for passenger: {e}"}, 500
+
+            # Apply conversions for total emissions saved for both the driver and the removed passenger
+            try:
+                driver_user.total_trees_planted = driver_user.trees_planted(driver_user.total_emissions_saved) 
+                driver_user.total_snow_machine_hours = driver_user.snow_machine_hours(driver_user.total_emissions_saved)
+                driver_user.total_beers_brewed = driver_user.beers_brewed(driver_user.total_emissions_saved)
+
+                passenger.total_trees_planted = passenger.trees_planted(passenger.total_emissions_saved) 
+                passenger.total_snow_machine_hours = passenger.snow_machine_hours(passenger.total_emissions_saved)
+                passenger.total_beers_brewed = passenger.beers_brewed(passenger.total_emissions_saved)
+            except Exception as e:
+                return {"error": f"Error converting emissions for driver and passenger: {e}"}, 500
 
             db.session.commit()
             return ride.to_dict(), 200
         else: 
-            return {"error": "Passenger is not in the ride."}, 400
+            return {"error": "Passenger is not in the ride."}, 404
         
     except Exception as e:
         return {"error": str(e)}

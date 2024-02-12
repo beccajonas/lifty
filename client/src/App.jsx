@@ -38,6 +38,9 @@ function App() {
 	const [ridesAsDriver, setRidesAsDriver] = useState([]);
 	const [ridesAsPassenger, setRidesAsPassenger] = useState([]);
 	const [emissionsSaved, setEmissionsSaved] = useState(null);
+	const [treeData, setTreeData] = useState(null);
+	const [beerData, setBeerData] = useState(null);
+	const [snowData, setSnowData] = useState(null);
 	const [editMode, setEditMode] = useState(false);
 	const [groups, setGroups] = useState([]);
 	const [passwordOne, setPasswordOne] = useState('');
@@ -66,6 +69,9 @@ function App() {
 					setRidesAsPassenger(data.rides_as_passenger);
 					setEmissionsSaved(data.total_emissions_saved);
 					setGroups(data.groups);
+					setSnowData(data.total_snow_machine_hours);
+					setBeerData(data.total_beers_brewed);
+					setTreeData(data.total_trees_planted);
 				});
 			}
 		});
@@ -108,6 +114,9 @@ function App() {
 					setRidesAsPassenger(data.rides_as_passenger);
 					setEmissionsSaved(data.total_emissions_saved);
 					setGroups(data.groups);
+					setSnowData(data.total_snow_machine_hours);
+					setBeerData(data.total_beers_brewed);
+					setTreeData(data.total_trees_planted);
 				});
 		} catch (error) {
 			console.log(error);
@@ -364,6 +373,9 @@ function App() {
 							handleEditProfile={handleEditProfile}
 							editMode={editMode}
 							setEditMode={setEditMode}
+							snowData={snowData}
+							beerData={beerData}
+							treeData={treeData}
 						/>
 					}
 				/>

@@ -19,6 +19,9 @@ function UserProfilePage({
 	editMode,
 	setEditMode,
 	handleEditProfile,
+	snowData,
+	beerData,
+	treeData,
 }) {
 	const [newBio, setNewBio] = useState(bio);
 	const [newArea, setNewArea] = useState(area);
@@ -206,7 +209,12 @@ function UserProfilePage({
 								</div>
 							</div>
 						</div>
-						<UserProfileCarousel firstName={firstName} />
+						<UserProfileCarousel
+							firstName={firstName}
+							snowData={snowData}
+							beerData={beerData}
+							treeData={treeData}
+						/>
 					</div>
 				</div>
 			</div>

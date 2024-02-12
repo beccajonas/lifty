@@ -65,10 +65,51 @@ class User(db.Model, SerializerMixin):
         # Calculate the total emissions saved by summing the values in the list
         total_emissions_saved = sum(emissions_saved_list)
 
+        # Convert total emissions saved to trees planted
+        self.total_trees_planted = self.trees_planted(total_emissions_saved)  # Example conversion factor (lbs/CO2 to trees planted)
+
+        # Convert total emissions saved to snow machine hours
+        self.total_snow_machine_hours = self.snow_machine_hours(total_emissions_saved)
+
+        # Convert total emissions saved to beers brewed hours
+        self.total_beers_brewed = self.beers_brewed(total_emissions_saved)
+
         # Update the user's total_emissions_saved attribute
         self.total_emissions_saved = total_emissions_saved
 
+    def trees_planted(self, emissions):
+        # Average amount of CO2 absorbed per tree per year in pounds
+        co2_per_tree_per_year = 48
         
+        # Calculate the number of trees needed
+        trees_planted = emissions / co2_per_tree_per_year
+        
+        # Round up to the nearest whole number of trees
+        trees_planted = round(trees_planted)
+        
+        return trees_planted
+        
+    def beers_brewed(self, emissions):
+        carbon_emission_metric_tons = emissions * 0.000453592
+        emission_factor = 4.33e-4
+        kwh = carbon_emission_metric_tons / emission_factor
+        brewery_runtime = kwh / 50
+        # Assuming a 12oz pour and a 31-gallon barrel
+        ounces_per_beer = 12
+        gallons_per_barrel = 31
+        beers_in_barrel = (gallons_per_barrel * 128) / ounces_per_beer
+        # Calculate the number of beers brewed
+        beers_brewed_result = round(brewery_runtime * beers_in_barrel)
+        return beers_brewed_result
+    
+    def snow_machine_hours(self, emissions):
+        carbon_emission_metric_tons = emissions * 0.000453592
+        emission_factor = 4.33e-4
+        kwh = carbon_emission_metric_tons / emission_factor
+        snow_machine_runtime = kwh / 50 
+        total_minutes = int(snow_machine_runtime * 60)
+        return total_minutes
+
     serialize_rules = ['-rides_as_passenger.passenger', 
                        '-rides_as_passenger.passenger_id',
                        '-rides_as_passenger.driver',
@@ -90,6 +131,10 @@ class User(db.Model, SerializerMixin):
 
     total_distance_traveled = db.Column(db.Float, default=0.0)
     total_emissions_saved = db.Column(db.Float, default=0.0)
+    total_beers_brewed = db.Column(db.Float, default=0.0)  
+    total_snow_machine_hours = db.Column(db.Float, default=0.0) 
+    total_trees_planted = db.Column(db.Float, default=0.0)  
+
     rides_as_passenger = db.relationship('Ride', secondary=passenger_ride_association, back_populates='passengers')
     rides_as_driver = db.relationship('Ride', back_populates='driver')
     sent_messages = db.relationship('Message', back_populates='sender')

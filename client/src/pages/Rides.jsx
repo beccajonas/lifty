@@ -57,9 +57,9 @@ function Rides({
 				if (!res.ok) {
 					throw new Error(`Failed to leave ride: ${res.status}`);
 				}
-				res.json();
 				setLeftRide(true);
 				setBookRide(false);
+				return res.json();
 			})
 			.then((data) => console.log(data))
 

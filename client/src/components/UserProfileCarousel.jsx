@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 
-function UserProfileCarousel({ firstName }) {
+function UserProfileCarousel({ firstName, snowData, beerData, treeData }) {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const totalSlides = 3;
+
+	// Calculate hours and minutes
+	const hours = Math.floor(snowData / 60);
+	const minutes = snowData % 60;
 
 	const slides = [
 		{
 			image:
 				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
-			caption: `${firstName} has saved`,
+			caption: `By carpooling with Lifty, you have mitigated carbon emissions equivalent to the absorption capacity of ${treeData} trees`,
 		},
 		{
 			image:
 				'https://images.squarespace-cdn.com/content/v1/5c64e1562727be078751e511/1550117748319-WVVWF3R1E18CQDBFCP0G/snowmachines_stock',
-			caption: `${firstName} has saved`,
+			caption: `By carpooling with Lifty, you have saved enough energy to run a snow machine for ${hours} hours and ${minutes} minutes.`,
 		},
 		{
 			image:
 				'https://www.news10.com/wp-content/uploads/sites/64/2022/05/BeersGettyImages-1221429432.jpg?w=1280',
-			caption: `${firstName} has saved`,
+			caption: `By carpooling with Lifty, you have saved enough energy to brew ${beerData} beers.`,
 		},
 	];
 
@@ -51,7 +55,7 @@ function UserProfileCarousel({ firstName }) {
 								alt={`Slide ${index + 1}`}
 							/>
 							<div
-								className='absolute inset-20 flex items-center justify-center rounded-lg bg-indigo-600 text-white mt-6 p-4 opacity-75'
+								className='absolute inset-20 flex items-center justify-center rounded-lg bg-indigo-600 text-white mt-4 p-8'
 								style={{ pointerEvents: 'none' }}>
 								{slide.caption}
 							</div>
