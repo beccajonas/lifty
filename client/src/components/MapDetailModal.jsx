@@ -11,8 +11,6 @@ function MapDetailModal(props) {
 	const [isUserBooked, setIsUserBooked] = useState(false);
 	const [isUserDriver, setIsUserDriver] = useState(false);
 
-	console.log(props.rides);
-
 	useEffect(() => {
 		// Search for the corresponding ride in props.rides array
 		const correspondingRide = props.rides.find(
@@ -33,7 +31,14 @@ function MapDetailModal(props) {
 		// Update state based on the findings
 		setIsUserBooked(userBooked);
 		setIsUserDriver(userDriver);
-	}, [props.rides, props.selectedMarker, props.user]);
+		console.log('use effect running');
+	}, [
+		props.rides,
+		props.selectedMarker,
+		props.user,
+		props.bookRide,
+		buttonClicked,
+	]);
 
 	const origin = {
 		lat: props.selectedMarker.lot.latitude,

@@ -33,7 +33,6 @@ function Rides({
 	}, [message]);
 
 	useEffect(() => {
-		setLoading(true); // Set loading state to true before fetch
 		fetch(`/api/rides?sortBy=date_time`)
 			.then((res) => res.json())
 			.then((data) => {

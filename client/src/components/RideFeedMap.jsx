@@ -79,6 +79,7 @@ function RideFeedMap(props) {
 					handleJoinClick={handleJoinClick}
 					user={props.user}
 					rides={props.rides}
+					bookRide={props.bookRide}
 				/>
 			) : null}
 
