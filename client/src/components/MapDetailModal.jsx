@@ -32,13 +32,7 @@ function MapDetailModal(props) {
 		setIsUserBooked(userBooked);
 		setIsUserDriver(userDriver);
 		console.log('use effect running');
-	}, [
-		props.rides,
-		props.selectedMarker,
-		props.user,
-		props.bookRide,
-		buttonClicked,
-	]);
+	}, [props.rides, props.selectedMarker, props.user, props.bookRide]);
 
 	const origin = {
 		lat: props.selectedMarker.lot.latitude,

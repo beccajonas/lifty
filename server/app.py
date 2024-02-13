@@ -8,7 +8,6 @@ from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt
 import boto3
 from botocore.exceptions import NoCredentialsError
-from flask_socketio import SocketIO,emit
 config = dotenv_values(".env")
 
 app = Flask(__name__)
@@ -21,7 +20,6 @@ app.config['FLASKS3_BUCKET_NAME'] = config['FLASKS3_BUCKET_NAME']
 app.json.compact = False
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
-socketio = SocketIO(app, cors_allowed_origins="*")
 
 db.init_app(app)
 
@@ -43,25 +41,6 @@ def check_session():
         return user.to_dict(rules=['-password']), 200
     else:
         return {"message": "No user logged in."}, 401
-    
-@socketio.on("connect")
-def connected():
-    """event listener when client connects to the server"""
-    print(request.sid)
-    print("client has connected")
-    emit("connect",{"data":f"id: {request.sid} is connected"})
-
-@socketio.on('data')
-def handle_message(data):
-    """event listener when client types a message"""
-    print("data from the front end: ",str(data))
-    emit("data",{'data':data,'id':request.sid},broadcast=True)
-
-@socketio.on("disconnect")
-def disconnected():
-    """event listener when client disconnects to the server"""
-    print("user disconnected")
-    emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
     
 # Login
 @app.post("/api/login")
@@ -537,4 +516,4 @@ def patch_user_data(id):
     
     
 if __name__ == "__main__":
-    socketio.run(app, port=5555, debug=True)
+    app.run(port=5555, debug=True)
