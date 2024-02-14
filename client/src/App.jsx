@@ -49,13 +49,12 @@ function App() {
 	const [newEmail, setNewEmail] = useState('');
 	const [newFirstName, setNewFirstName] = useState('');
 	const [newLastName, setNewLastName] = useState('');
+	const [allRides, setAllRides] = useState([]);
 
 	useEffect(() => {
 		fetch(`/api/check_session`).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => {
-					console.log('fetching user data');
-					setUser(data);
 					setUser(data);
 					setBio(data.bio);
 					setArea(data.area);
@@ -271,6 +270,14 @@ function App() {
 		});
 	}, []);
 
+	useEffect(() => {
+		fetch(`/api/rides`)
+			.then((res) => res.json())
+			.then((data) => {
+				setAllRides(data);
+			});
+	}, [bookRide, leftRide, deletedRide]);
+
 	const dateCreatedString = profileCreatedDate; // Formatting date
 	const formattedDate = new Date(dateCreatedString).toLocaleDateString(
 		'en-US',
@@ -324,7 +331,7 @@ function App() {
 				/>
 				<Route
 					path='/collectiveimpact'
-					element={<CollectiveImpactPage />}
+					element={<CollectiveImpactPage allRides={allRides} />}
 				/>
 				<Route
 					path='/login'

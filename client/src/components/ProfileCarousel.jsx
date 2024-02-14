@@ -54,7 +54,7 @@ function ProfileCarousel({ profile }) {
 							style={{ position: 'relative' }}>
 							<img
 								src={slide.image}
-								className='absolute block w-full h-60 object-cover'
+								className='absolute block w-full h-60 object-cover filter brightness-75'
 								alt={slide.alt}
 							/>
 							<div

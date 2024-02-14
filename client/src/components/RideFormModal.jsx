@@ -76,7 +76,6 @@ function RideFormModal({
 			}
 
 			const data = await response.json();
-			console.log('Success Response:', data);
 			setBookRide(true);
 			setShowModal(!showModal);
 			setMessage('Ride posted successfully!');
