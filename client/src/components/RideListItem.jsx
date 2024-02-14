@@ -66,7 +66,7 @@ function RideListItem({
 										Round Trip
 									</button>
 								) : (
-									<button className='text-white bg-yellow-500 p-2 mt-3 text-xs rounded-full'>
+									<button className='text-white bg-blue-800 p-2 mt-3 text-xs rounded-full'>
 										One Way
 									</button>
 								)}
@@ -95,7 +95,7 @@ function RideListItem({
 								</button>
 							) : null}
 							{isUserBooked ? (
-								<button className='text-white bg-green-500 p-2 text-xs rounded-full'>
+								<button className='text-white bg-cyan-700 p-2 text-xs rounded-full'>
 									You're riding!
 								</button>
 							) : null}

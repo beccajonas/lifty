@@ -57,8 +57,8 @@ function UserProfilePage({
 	}
 
 	return (
-		<div className='bg-blue-200'>
-			<div className='flex justify-center bg-blue-200 pt-4'>
+		<div className='bg-blue-100 pb-5'>
+			<div className='flex justify-center bg-blue-100 pt-4'>
 				<div className='text-xl pl-2 pr-2 text-center'>
 					{firstName}'s Profile
 					<div>

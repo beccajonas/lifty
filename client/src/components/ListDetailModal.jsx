@@ -46,6 +46,10 @@ function ListDetailModal(props) {
 			}
 		});
 	}
+
+	// Assuming props.ride.driver.profile_created is a Date object
+	const memberSinceDate = new Date(props.ride.driver.profile_created);
+
 	return (
 		<>
 			<div className='fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center backdrop-blur-sm backdrop-brightness-50 '>
@@ -77,7 +81,8 @@ function ListDetailModal(props) {
 									</NavLink>
 								</div>
 								<div className='text-sm text-gray-400'>
-									Total Miles Traveled With Lifty:{' '}
+									Lifty Member Since: {memberSinceDate.getMonth() + 1}/
+									{memberSinceDate.getFullYear()}
 								</div>
 							</div>
 						</div>
@@ -127,7 +132,11 @@ function ListDetailModal(props) {
 										<button className='text-white bg-green-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'>
 											Your Ride!
 										</button>
-										<button onClick={handleDeleteClick}>Delete</button>
+										<button
+											className='text-white bg-red-700 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2'
+											onClick={handleDeleteClick}>
+											Delete
+										</button>
 									</>
 								) : (
 									<>

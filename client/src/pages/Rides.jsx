@@ -86,8 +86,8 @@ function Rides({
 	}
 
 	return (
-		<div className='h-80vh'>
-			<div className='flex justify-center m-4'>
+		<div className='h-80vh bg-blue-50'>
+			<div className='flex justify-center mb-4 pt-3 bg-blue-50'>
 				<button
 					onClick={() => setShowModal(true)}
 					type='button'

@@ -4,8 +4,6 @@ function ProfileCarousel({ profile }) {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const totalSlides = 3;
 
-	console.log(profile.total_snow_machine_hours);
-
 	// Calculate hours and minutes
 	const hours = Math.floor(profile.total_snow_machine_hours / 60);
 	const minutes = profile.total_snow_machine_hours % 60;
@@ -14,7 +12,7 @@ function ProfileCarousel({ profile }) {
 		{
 			image:
 				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
-			caption: `By carpooling with Lifty, you've saved the equivalent to the CO2 absorption capacity of ${profile.total_trees_planted} trees`,
+			caption: `By carpooling with Lifty, you've removed the same amount of C02 as ${profile.total_trees_planted} trees do in a year.`,
 			alt: 'Snowy trees',
 		},
 		{

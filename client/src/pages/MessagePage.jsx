@@ -14,9 +14,9 @@ function MessagePage({
 	const [messageContent, setMessageContent] = useState('');
 
 	return (
-		<div>
-			<div className='flex justify-center m-4'>
-				<h1>Messages</h1>
+		<div className='bg-blue-50'>
+			<div className='flex justify-center bg-blue-50 pt-4'>
+				<div className='text-xl pl-2 pr-2 text-center'>Messages</div>
 			</div>
 			<div className='grid grid-cols-2 gap-4 h-screen overflow-x-hidden pl-4 pr-4'>
 				<div className='overflow-y-auto'>
@@ -37,7 +37,7 @@ function MessagePage({
 						</div>
 					)}
 				</div>
-				<div className='h-screen overflow-y-auto'>
+				<div className='h-2/3 overflow-y-auto'>
 					{selectedGroup ? (
 						<GroupMessageDisplay
 							group={selectedGroup}

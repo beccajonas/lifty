@@ -15,14 +15,14 @@ function About() {
 		{
 			image:
 				'https://images.squarespace-cdn.com/content/v1/5c64e1562727be078751e511/1550117748319-WVVWF3R1E18CQDBFCP0G/snowmachines_stock',
-			caption: `Snow Machine: This conversion calculates the emissions to kilowatt-hours (kWh) by dividing by pounds of CO2 a carbon emission factor of 4.33e-4, then calculates the runtime based on the energy consumption of a snow machine.`,
+			caption: `Snow Machine: We convert the carbon emissions saved from a rideto kilowatt-hours by dividing the pounds of C02 by 4.33e-4. We then calculate the runtime based on the energy consumption of a snow machine.`,
 			alt: 'Snow machine blowing snow at night',
 		},
 		{
 			image:
 				'https://www.news10.com/wp-content/uploads/sites/64/2022/05/BeersGettyImages-1221429432.jpg?w=1280',
 
-			caption: `Beers Brewed: This conversion calculates the emissions to kilowatt-hours (kWh) by dividing by pounds of CO2 a carbon emission factor of 4.33e-4, then calculates the runtime of a brewery based on the energy consumption of brewing equipment. Assuming a standard beer barrel size and pour size, it determines the total number of beers brewed.`,
+			caption: `Beers Brewed: We convert the carbon emissions saved from a ride to kilowatt-hours by dividing the pounds of C02 by 4.33e-4. We then calculate the runtime of a brewery based on the energy consumption of brewing equipment. Assuming a standard beer barrel size and pour size, it determines the total number of beers brewed.`,
 			alt: 'Top down view of various glasses of beer',
 		},
 	];
@@ -35,7 +35,7 @@ function About() {
 		setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
 	};
 	return (
-		<div className='bg-blue-200'>
+		<div className='bg-blue-200 pb-5 pr-10 pl-10'>
 			<div className='flex justify-center bg-blue-200 pt-4'>
 				<div className='text-xl pl-2 pr-2 text-center'>About Lifty</div>
 			</div>

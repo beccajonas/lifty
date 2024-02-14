@@ -8,6 +8,7 @@ from googlemaps import Client
 from dotenv import load_dotenv
 import os
 import re
+from datetime import datetime
 
 load_dotenv()
 api_key = os.getenv('API_KEY')
@@ -122,9 +123,9 @@ class User(db.Model, SerializerMixin):
     last_name = db.Column(db.String)
     profile_pic = db.Column(db.String)
 
-    profile_created = db.Column(db.DateTime)
+    profile_created = db.Column(db.DateTime, default=datetime.now)
     area = db.Column(db.String, default="Share what neighborhood you're in!")
-    bio = db.Column(db.String, default="Welcome to lifty!")
+    bio = db.Column(db.String, default="Welcome to Lifty!")
     skier = db.Column(db.Boolean, default=True)
     snowboarder = db.Column(db.Boolean, default=True)
     cover_photo = db.Column(db.String)

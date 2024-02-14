@@ -12,7 +12,7 @@ function UserProfileCarousel({ firstName, snowData, beerData, treeData }) {
 		{
 			image:
 				'https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/snow-covered-pine-trees-thinkstock-images.jpg',
-			caption: `By carpooling with Lifty, you've removed the same amount of C02 as ${treeData} trees`,
+			caption: `By carpooling with Lifty, you've removed the same amount of C02 as ${treeData} trees do in a year.`,
 			alt: 'Snowy trees',
 		},
 		{
