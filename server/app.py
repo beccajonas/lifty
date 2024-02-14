@@ -16,17 +16,12 @@ app.api_key = config['API_KEY']
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['FLASKS3_BUCKET_NAME'] = config['FLASKS3_BUCKET_NAME']
 app.json.compact = False
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 
 db.init_app(app)
 
-AWS_ACCESS_KEY = config['AWS_ACCESS_KEY_ID']
-AWS_REGION = config['AWS_REGION']
-AWS_SECRET_KEY = config['AWS_SECRET_KEY']
-ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 
 @app.get("/")
 def index():

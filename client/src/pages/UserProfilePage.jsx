@@ -193,8 +193,10 @@ function UserProfilePage({
 					<div class='flex flex-col justify-center items-center w-full '>
 						<div class='grid grid-cols-3 gap-20 pl-4 pr-4 mt-4 '>
 							<div class='bg-gradient-to-r from-yellow-100 to-blue-200 ring-1 ring-gray-200 rounded-lg text-xs p-1 shadow'>
-								Miles traveled with Lifty:
-								<div className='text-xl'>{Math.round(distanceTraveled)}</div>
+								Distance traveled using Lifty:
+								<div className='text-xl'>
+									{Math.round(distanceTraveled)} miles
+								</div>
 							</div>
 							<div class='bg-gradient-to-t from-yellow-100 to-blue-200 ring-1 ring-gray-200  text-xs p-1 rounded-lg shadow'>
 								Rides with Lifty:
@@ -202,10 +204,20 @@ function UserProfilePage({
 									{ridesAsDriver.length + ridesAsPassenger.length}
 								</div>
 							</div>
-							<div class='bg-gradient-to-l from-yellow-100 to-blue-200 ring-1 ring-gray-200  text-xs p-1 rounded-lg shadow'>
+							<div class='bg-gradient-to-l from-yellow-100 to-blue-200 ring-1 ring-gray-200 text-xs p-1 rounded-lg shadow'>
 								Emissions Saved By Using Lifty:
-								<div className='text-xl'>
-									{Math.round(emissionsSaved)} lbs/Co2
+								<div
+									className={
+										emissionsSaved !== 0 ? 'text-xl' : 'text-xs italic'
+									}>
+									{emissionsSaved !== 0 ? (
+										`${Math.round(emissionsSaved)} lbs/CO2`
+									) : (
+										<span>
+											No emissions saved yet! Join a ride or wait for passengers
+											to join a ride you posted.
+										</span>
+									)}
 								</div>
 							</div>
 						</div>
