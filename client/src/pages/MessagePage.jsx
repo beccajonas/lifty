@@ -54,7 +54,11 @@ function MessagePage({
 							</div>
 						</div>
 					) : (
-						<p>Select a message</p>
+						<div className='flex justify-center h-2/3 m-4 flex-col items-center text-center'>
+							<div className='p-5 bg-indigo-200 rounded-sm'>
+								Select a Message
+							</div>
+						</div>
 					)}
 				</div>
 			</div>

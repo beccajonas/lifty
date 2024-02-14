@@ -31,8 +31,8 @@ function CollectiveImpactPage({ allRides }) {
 			<div className='h-screen'>
 				<div className='flex justify-center items-center m-4'></div>
 				<div class='flex flex-col justify-center items-center w-full h-2/3 '>
-					<div className='p-5 m-8 text-white bg-indigo-700 rounded-md text-5xl'>
-						Togther we are making a difference.
+					<div className='pt-5 pb-5 pr-7 pl-7 m-8 text-white bg-indigo-700 rounded-md text-5xl font-bold'>
+						Together we are making a difference.
 					</div>
 					<div class='grid grid-cols-2 gap-20 pl-4 pr-4 mt-4'>
 						<div class='bg-gradient-to-r from-blue-50 to-indigo-300 ring-4 ring-gray-200 rounded-lg text-xl p-10 shadow text-center'>

@@ -41,7 +41,7 @@ function Profile() {
 	);
 
 	return (
-		<div className='bg-blue-200'>
+		<div className='bg-blue-200 h-screen'>
 			<div className='flex justify-center bg-blue-200 pt-4'>
 				<div className='text-xl pl-2 pr-2'>{profile.first_name}'s Profile</div>
 			</div>
