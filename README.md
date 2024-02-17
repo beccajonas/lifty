@@ -13,9 +13,6 @@ Additionally, each user's profile showcases fun details such as their bio, local
 ## See all rides
 <img width="1432" alt="Lifty ride page" src="https://github.com/beccajonas/lifty/assets/87732074/7f636bb8-48dc-40c6-b897-b423cbc82ffe">
 
-https://github.com/beccajonas/lifty/assets/87732074/4503ee08-770b-485f-ace8-aec1b6a7f817
-
-
 ## Post a ride
 <img width="1436" alt="Lifty post a ride page" src="https://github.com/beccajonas/lifty/assets/87732074/225d1b85-b185-4959-ad0f-9e8dcbe53bf5">
 
