@@ -58,3 +58,15 @@ npm install
 npm run dev
 ```
 
+You will need an API key from Google. You can get that at the link below. Do not share this key with anyone or post to Github.
+https://developers.google.com/maps/documentation/javascript/get-api-key
+
+To implement the key, run the following:
+```bash
+cd server
+touch .env
+```
+In the .env file, type:
+```bash
+API_KEY=*copy your API key*
+```
